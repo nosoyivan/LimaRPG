@@ -5,7 +5,7 @@ let character = {
     class: "Warrior",
     experience: 0,
     hp: 20, // Health points
-    potions: 2 // Number of potions per level
+    potions: 3 // Number of potions per level
 };
 
 // Define multiple creatures with names and reward drop rates
@@ -227,7 +227,7 @@ document.getElementById('create-character-form').addEventListener('submit', func
         class: characterClass,
         experience: 0,
         hp: 20,
-        potions: 2
+        potions: 3
     };
     saveCharacter();
     displayCharacter();
