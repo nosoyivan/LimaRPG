@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text-Based RPG</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <h1>Text-Based RPG</h1>
+
+    <!-- Tabs navigation -->
+    <ul>
+        <li><a href="#" onclick="showTab('info')">Character Info</a></li>
+        <li><a href="#" onclick="showTab('edit')">Edit Character</a></li>
+    </ul>
+
+    <!-- Character Info Section -->
+    <div id="info-tab" class="tab-content">
+        <div id="character-info"></div>
+        <div id="battle-controls">
+            <button id="start-battle-btn" onclick="startBattle()">Start Battle</button>
+            <button id="sword-btn" style="display:none;" onclick="useSword()">Sword (ATK1)</button>
+            <button id="dagger-btn" style="display:none;" onclick="useDagger()">Dagger (ATK2)</button>
+            <button id="potion-btn" style="display:none;" onclick="usePotion()">Potion (POT)</button>
+        </div>
+        <div id="battle-log"></div>
+    </div>
+
+    <!-- Edit Character Section -->
+    <div id="edit-tab" class="tab-content">
+        <h2>Create New Character</h2>
+        <form id="create-character-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+
+            <label for="class">Class:</label>
+            <input type="text" id="class" required>
+
+            <button type="submit">Create Character</button>
+        </form>
+
+        <h2>Change Character Name</h2>
+        <form id="change-name-form">
+            <label for="new-name">New Name:</label>
+            <input type="text" id="new-name" required>
+            <button type="submit">Change Name</button>
+        </form>
+    </div>
+
+    <!-- Link to external JavaScript file -->
+    <script src="code.js"></script>
+
+</body>
+
+</html>
