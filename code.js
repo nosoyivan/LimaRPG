@@ -1,6 +1,6 @@
 // Default character object with HP
 let character = {
-    name: "Hero",
+    name: "Lima",
     level: 1,
     class: "Warrior",
     experience: 0,
@@ -52,7 +52,7 @@ let currentCreature = null;
 // Display character info and HP
 function displayCharacter() {
     document.getElementById("character-info").innerHTML = `
-        <h2>Character Info</h2>
+        <em>~BATTLE://</em>
         <p>Name: ${character.name}</p>
         <p>Level: ${character.level}</p>
         <p>Class: ${character.class}</p>
@@ -117,19 +117,19 @@ function startBattle() {
     currentCreature.hp = 20; // Reset creature's HP for each battle
     inBattle = true; // Set battle status to true
     document.getElementById("start-battle-btn").style.display = "none";
-    document.getElementById("sword-btn").style.display = "inline";
-    document.getElementById("dagger-btn").style.display = "inline";
+    document.getElementById("Bite-btn").style.display = "inline";
+    document.getElementById("Scratch-btn").style.display = "inline";
     document.getElementById("potion-btn").style.display = "inline";
-    document.getElementById("battle-log").innerHTML = `<b>Battle begins against</b><br>${currentCreature.name}: ${currentCreature.hp}HP<br>`;
+    document.getElementById("battle-log").innerHTML = `Battle begins against <em>${currentCreature.name}</em>: ${currentCreature.hp}HP<br>`;
 }
 
-// Use Sword
-function useSword() {
+// Use Bite
+function useBite() {
     if (!inBattle) return;
 
-    let characterAtk = getRandom(3, 6); // Sword attack damage
+    let characterAtk = getRandom(3, 6); // Bite attack damage
     currentCreature.hp -= characterAtk;
-    document.getElementById("battle-log").innerHTML += `<span class="Hero-NM">${character.name}</span> dealt 1D6 (${characterAtk}) damage to ${currentCreature.name} with your sword. ${currentCreature.name}'s HP: ${currentCreature.hp}<br>`;
+    document.getElementById("battle-log").innerHTML += `<span class="Hero-NM">${character.name}</span> dealt 1D6 (${characterAtk}) damage to ${currentCreature.name} with your Bite. ${currentCreature.name}'s HP: ${currentCreature.hp}<br>`;
 
     if (currentCreature.hp <= 0) {
         let experienceGain = currentCreature.baseExp + getRandom(...currentCreature.expRange);
@@ -145,14 +145,14 @@ function useSword() {
     creatureAttack();
 }
 
-// Use Dagger
-function useDagger() {
+// Use Scratch
+function useScratch() {
     if (!inBattle) return;
 
     let damage1 = getRandom(1, 4);
     let damage2 = getRandom(1, 4);
     currentCreature.hp -= (damage1 + damage2);
-    document.getElementById("battle-log").innerHTML += `<span class="Hero-NM">${character.name}</span> dealt 2D4 (${damage1} + ${damage2}) Dagger damage to ${currentCreature.name}. ${currentCreature.name}'s HP: ${currentCreature.hp}<br>`;
+    document.getElementById("battle-log").innerHTML += `<span class="Hero-NM">${character.name}</span> dealt 2D4 (${damage1} + ${damage2}) Scratch damage to ${currentCreature.name}. ${currentCreature.name}'s HP: ${currentCreature.hp}<br>`;
 
     if (currentCreature.hp <= 0) {
         let experienceGain = currentCreature.baseExp + getRandom(...currentCreature.expRange);
@@ -210,8 +210,8 @@ function endBattle() {
 
     inBattle = false; // Set battle status to false
     document.getElementById("start-battle-btn").style.display = "inline";
-    document.getElementById("sword-btn").style.display = "none";
-    document.getElementById("dagger-btn").style.display = "none";
+    document.getElementById("Bite-btn").style.display = "none";
+    document.getElementById("Scratch-btn").style.display = "none";
     document.getElementById("potion-btn").style.display = "none";
 }
 
@@ -254,3 +254,32 @@ window.onload = function() {
     loadCharacter();
     showTab('info'); // Show the character info tab by default
 };
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // Get all "navbar-burger" elements
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+    // Check if there are any navbar burgers
+    if ($navbarBurgers.length > 0) {
+
+      // Add a click event on each of them
+      $navbarBurgers.forEach(el => {
+        el.addEventListener('click', () => {
+
+          // Get the target from the "data-target" attribute
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+
+          // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+
+        });
+      });
+    }
+
+  });

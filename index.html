@@ -4,29 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text-Based RPG</title>
+    <title>LimaRPG</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+    <!-- START NAV -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+            <span class="is-size-2">LimaRPG</span>
+          <span class="navbar-burger burger" data-target="navbarMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+        <div id="navbarMenu" class="navbar-menu">
+          <div class="navbar-end">
 
-    <h1>Text-Based RPG</h1>
+            <span class="tags are-medium">
+                <a href="#" class="button tag" onclick="showTab('info')">Battle Info</a>
+                <a href="#" class="button tag" onclick="showTab('edit')">Edit Character</a>
+            </span>
+        
 
-    <!-- Tabs navigation -->
-    <ul>
-        <li><a href="#" onclick="showTab('info')">Character Info</a></li>
-        <li><a href="#" onclick="showTab('edit')">Edit Character</a></li>
-    </ul>
+            </div>
+        </div>
+      </div>
+    </nav>
+    <!-- END NAV -->
+  
+    <!-- Image -->
+    <section class="hero ">
+      <div class="hero-body">
+        <div class="container">
+          <div class="columns">
+            <div class="column is-8 is-offset-2">
 
+                
+
+
+                
     <!-- Character Info Section -->
     <div id="info-tab" class="tab-content">
         <div id="character-info"></div>
         <div id="battle-controls">
-            <button id="start-battle-btn" onclick="startBattle()">Start Battle</button>
-            <button id="sword-btn" style="display:none;" onclick="useSword()">Sword (ATK1)</button>
-            <button id="dagger-btn" style="display:none;" onclick="useDagger()">Dagger (ATK2)</button>
-            <button id="potion-btn" style="display:none;" onclick="usePotion()">Potion (POT)</button>
+            <button class="button" id="start-battle-btn" onclick="startBattle()">Start Battle</button>
+            <button class="button" id="Bite-btn" style="display:none;" onclick="useBite()">Bite (ATK1)</button>
+            <button class="button" id="Scratch-btn" style="display:none;" onclick="useScratch()">Scratch (ATK2)</button>
+            <button class="button" id="potion-btn" style="display:none;" onclick="usePotion()">Potion (POT)</button>
         </div>
         <div id="battle-log"></div>
     </div>
@@ -51,7 +79,23 @@
             <button type="submit">Change Name</button>
         </form>
     </div>
+          </div>
+        </div>
 
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <strong>LimaRPG</strong> by Ivan. Using Bulma CSS
+      </p>
+    </div>
+  </footer>
+
+    
     <!-- Link to external JavaScript file -->
     <script src="code.js"></script>
 
