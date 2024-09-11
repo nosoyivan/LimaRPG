@@ -1,6 +1,6 @@
 // Default character object with HP
 let character = {
-    name: "Cat",
+    name: "Lima",
     level: 1,
     class: "Warrior",
     experience: 0,
@@ -189,7 +189,7 @@ function creatureAttack() {
     } else {
         let creatureAtk = getRandom(currentCreature.minAtk, currentCreature.maxAtk); // Creature's random attack
         character.hp -= creatureAtk;
-        document.getElementById("battle-log").innerHTML += `<em class="enemyMark">${currentCreature.name}</em>'s ${currentCreature.nameAtk} dealt ${creatureAtk} damage to you. <em class="heroMark">${character.name}'s</em><em class="hpMark">${character.hp}HP</em>: ${character.hp}<br><hr />`;
+        document.getElementById("battle-log").innerHTML += `<em class="enemyMark">${currentCreature.name}</em>'s ${currentCreature.nameAtk} dealt ${creatureAtk} damage to you. <em class="heroMark">${character.name}'s</em><em class="hpMark">${character.hp}HP</em><hr />`;
 
         if (character.hp <= 0) {
             document.getElementById("battle-log").innerHTML += "You were defeated! Game over.<br>";
