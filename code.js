@@ -61,7 +61,7 @@ function displayCharacter() {
         <p>Class: ${character.class}</p>
         <p>Experience: ${character.experience}</p>
         <p>HP: <em class="hpMark">${character.hp}HP</em></p>
-        <p>Potions: ${character.potions}</p>
+        <p>Potions: ${character.potions}</p><><hr>
     `;
 }
 
@@ -132,11 +132,11 @@ function useBite() {
 
     let characterAtk = getRandom(3, 6); // Bite attack damage
     currentCreature.hp -= characterAtk;
-    document.getElementById("battle-log").innerHTML += `<em class="heroMark">${character.name}</em> dealt 1D6 (<em class="atkMark">${characterAtk}</em>) damage to <em class="enemyMark">${currentCreature.name}</em> with your Bite: <em class="hpMark">${currentCreature.hp}HP</em><br>`;
+    document.getElementById("battle-log").innerHTML = `<em class="heroMark">${character.name}</em> dealt 1D6 (<em class="atkMark">${characterAtk}</em>) damage to <em class="enemyMark">${currentCreature.name}</em> with your Bite: <em class="hpMark">${currentCreature.hp}HP</em><br><hr>` + document.getElementById("battle-log").innerHTML;
 
     if (currentCreature.hp <= 0) {
         let experienceGain = currentCreature.baseExp + getRandom(...currentCreature.expRange);
-        document.getElementById("battle-log").innerHTML += `You defeated <em class="enemyMark">${currentCreature.name}</em> and gained ${experienceGain} XP!<br>`;
+        document.getElementById("battle-log").innerHTML = `You defeated <em class="enemyMark">${currentCreature.name}</em> and gained ${experienceGain} XP!<br>` + document.getElementById("battle-log").innerHTML;
         character.experience += experienceGain; // Award XP for winning
         levelUp(); // Check for level up
         saveCharacter();
@@ -153,11 +153,11 @@ function useScratch() {
     let damage1 = getRandom(1, 4);
     let damage2 = getRandom(1, 4);
     currentCreature.hp -= (damage1 + damage2);
-    document.getElementById("battle-log").innerHTML += `<em class="heroMark">${character.name}</em> dealt 2D4 (<em class="atkMark">${damage1} + ${damage2}</em>) Scratch damage to <em class="enemyMark"> ${currentCreature.name}</em>: <em class="hpMark">${currentCreature.hp}HP</em><br>`;
+    document.getElementById("battle-log").innerHTML = `<em class="heroMark">${character.name}</em> dealt 2D4 (<em class="atkMark">${damage1} + ${damage2}</em>) Scratch damage to <em class="enemyMark"> ${currentCreature.name}</em>: <em class="hpMark">${currentCreature.hp}HP</em><br><hr>` + document.getElementById("battle-log").innerHTML;
 
     if (currentCreature.hp <= 0) {
         let experienceGain = currentCreature.baseExp + getRandom(...currentCreature.expRange);
-        document.getElementById("battle-log").innerHTML += `You defeated <em class="enemyMark">${currentCreature.name}</em>and gained ${experienceGain} XP!<br>`;
+        document.getElementById("battle-log").innerHTML = `You defeated <em class="enemyMark">${currentCreature.name}</em>and gained ${experienceGain} XP!<br>` + document.getElementById("battle-log").innerHTML;
         character.experience += experienceGain; // Award XP for winning
         levelUp(); // Check for level up
         saveCharacter();
@@ -176,7 +176,7 @@ function usePotion() {
     character.hp += 10;
     if (character.hp > 20) character.hp = 20; // Cap HP at 20
     character.potions -= 1;
-    document.getElementById("battle-log").innerHTML += `You used a potion and regained 10 HP. <em class="heroMark">${character.name}'s</em><em class="hpMark">${character.hp}HP</em>: ${character.hp}. Potions left: ${character.potions}<br>`;
+    document.getElementById("battle-log").innerHTML = `You used a potion and regained 10 HP. <em class="heroMark">${character.name}'s</em><em class="hpMark">${character.hp}HP</em>: ${character.hp}. Potions left: ${character.potions}<br>` + document.getElementById("battle-log").innerHTML;
 
     creatureAttack();
 }
@@ -185,14 +185,14 @@ function usePotion() {
 function creatureAttack() {
     let creatureMiss = getRandom(1, 10); // Creature has a 1-in-10 chance to miss
     if (creatureMiss <= (currentCreature.missChance / 10)) {
-        document.getElementById("battle-log").innerHTML += `<em class="enemyMark">${currentCreature.name}</em> missed!<br>`;
+        document.getElementById("battle-log").innerHTML = `<em class="enemyMark">${currentCreature.name}</em> missed!<br>` + document.getElementById("battle-log").innerHTML;
     } else {
         let creatureAtk = getRandom(currentCreature.minAtk, currentCreature.maxAtk); // Creature's random attack
         character.hp -= creatureAtk;
-        document.getElementById("battle-log").innerHTML += `<em class="enemyMark">${currentCreature.name}</em>'s ${currentCreature.nameAtk} dealt ${creatureAtk} damage to you. <em class="heroMark">${character.name}'s</em><em class="hpMark">${character.hp}HP</em><hr />`;
+        document.getElementById("battle-log").innerHTML = `<em class="enemyMark">${currentCreature.name}</em>'s ${currentCreature.nameAtk} dealt ${creatureAtk} damage to you. <em class="heroMark">${character.name}'s</em><em class="hpMark">${character.hp}HP</em><br>` + document.getElementById("battle-log").innerHTML;
 
         if (character.hp <= 0) {
-            document.getElementById("battle-log").innerHTML += "You were defeated! Game over.<br>";
+            document.getElementById("battle-log").innerHTML = "You were defeated! Game over.<br>" + document.getElementById("battle-log").innerHTML;
             character.hp = 0; // Ensure HP doesn't go below 0
             saveCharacter();
             displayCharacter();
@@ -206,7 +206,7 @@ function endBattle() {
     // Chance to drop an additional potion based on rewardDrop rate
     if (getRandom(1, 100) <= currentCreature.rewardDrop) {
         character.potions += 1;
-        document.getElementById("battle-log").innerHTML += `You found an extra potion! Total potions: ${character.potions}<br>`;
+        document.getElementById("battle-log").innerHTML = `You found an extra potion! Total potions: ${character.potions}<br>` + document.getElementById("battle-log").innerHTML;
     }
 
     inBattle = false; // Set battle status to false
