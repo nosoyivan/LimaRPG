@@ -1,6 +1,6 @@
 // Default character object with HP
 let character = {
-    name: "Lima",
+    name: "Cat",
     level: 1,
     class: "Warrior",
     experience: 0,
@@ -11,7 +11,8 @@ let character = {
 // Define multiple creatures with names and reward drop rates
 const creatures = [
     {
-        name: "Creat1",
+        name: "Crow",
+        nameAtk: "Peck",
         hp: 20,
         minAtk: 1,
         maxAtk: 4,
@@ -22,7 +23,8 @@ const creatures = [
         rewardDrop: 20 // 20% chance to get an extra potion
     },
     {
-        name: "Creat2",
+        name: "Spider",
+        nameAtk: "Bite",
         hp: 10,
         minAtk: 1,
         maxAtk: 2,
@@ -33,7 +35,8 @@ const creatures = [
         rewardDrop: 10 // 10% chance to get an extra potion
     },
     {
-        name: "Creat3",
+        name: "Possum",
+        nameAtk: "Bite",
         hp: 20,
         minAtk: 2,
         maxAtk: 4,
@@ -53,11 +56,11 @@ let currentCreature = null;
 function displayCharacter() {
     document.getElementById("character-info").innerHTML = `
         <em>~BATTLE://</em>
-        <p>Name: ${character.name}</p>
+        <p>Name: <em class="heroMark">${character.name}</em></p>
         <p>Level: ${character.level}</p>
         <p>Class: ${character.class}</p>
         <p>Experience: ${character.experience}</p>
-        <p>HP: ${character.hp}</p>
+        <p>HP: <em class="hpMark">${character.hp}HP</em></p>
         <p>Potions: ${character.potions}</p>
     `;
 }
@@ -120,7 +123,7 @@ function startBattle() {
     document.getElementById("Bite-btn").style.display = "inline";
     document.getElementById("Scratch-btn").style.display = "inline";
     document.getElementById("potion-btn").style.display = "inline";
-    document.getElementById("battle-log").innerHTML = `Battle begins against <em>${currentCreature.name}</em>: ${currentCreature.hp}HP<br>`;
+    document.getElementById("battle-log").innerHTML = `Battle begins against <span class="tags are-medium has-addons"><span class="tag is-danger">${currentCreature.name}</span><span class="tag is-danger is-light">${currentCreature.hp}HP</span></span>`;
 }
 
 // Use Bite
@@ -129,11 +132,11 @@ function useBite() {
 
     let characterAtk = getRandom(3, 6); // Bite attack damage
     currentCreature.hp -= characterAtk;
-    document.getElementById("battle-log").innerHTML += `<span class="Hero-NM">${character.name}</span> dealt 1D6 (${characterAtk}) damage to ${currentCreature.name} with your Bite. ${currentCreature.name}'s HP: ${currentCreature.hp}<br>`;
+    document.getElementById("battle-log").innerHTML += `<em class="heroMark">${character.name}</em> dealt 1D6 (<em class="atkMark">${characterAtk}</em>) damage to <em class="enemyMark">${currentCreature.name}</em> with your Bite: <em class="hpMark">${currentCreature.hp}HP</em><br>`;
 
     if (currentCreature.hp <= 0) {
         let experienceGain = currentCreature.baseExp + getRandom(...currentCreature.expRange);
-        document.getElementById("battle-log").innerHTML += `You defeated ${currentCreature.name} and gained ${experienceGain} XP!<br>`;
+        document.getElementById("battle-log").innerHTML += `You defeated <em class="enemyMark">${currentCreature.name}</em> and gained ${experienceGain} XP!<br>`;
         character.experience += experienceGain; // Award XP for winning
         levelUp(); // Check for level up
         saveCharacter();
@@ -141,10 +144,8 @@ function useBite() {
         endBattle();
         return;
     }
-
     creatureAttack();
 }
-
 // Use Scratch
 function useScratch() {
     if (!inBattle) return;
@@ -152,11 +153,11 @@ function useScratch() {
     let damage1 = getRandom(1, 4);
     let damage2 = getRandom(1, 4);
     currentCreature.hp -= (damage1 + damage2);
-    document.getElementById("battle-log").innerHTML += `<span class="Hero-NM">${character.name}</span> dealt 2D4 (${damage1} + ${damage2}) Scratch damage to ${currentCreature.name}. ${currentCreature.name}'s HP: ${currentCreature.hp}<br>`;
+    document.getElementById("battle-log").innerHTML += `<em class="heroMark">${character.name}</em> dealt 2D4 (<em class="atkMark">${damage1} + ${damage2}</em>) Scratch damage to <em class="enemyMark"> ${currentCreature.name}</em>: <em class="hpMark">${currentCreature.hp}HP</em><br>`;
 
     if (currentCreature.hp <= 0) {
         let experienceGain = currentCreature.baseExp + getRandom(...currentCreature.expRange);
-        document.getElementById("battle-log").innerHTML += `You defeated ${currentCreature.name} and gained ${experienceGain} XP!<br>`;
+        document.getElementById("battle-log").innerHTML += `You defeated <em class="enemyMark">${currentCreature.name}</em>and gained ${experienceGain} XP!<br>`;
         character.experience += experienceGain; // Award XP for winning
         levelUp(); // Check for level up
         saveCharacter();
@@ -175,7 +176,7 @@ function usePotion() {
     character.hp += 10;
     if (character.hp > 20) character.hp = 20; // Cap HP at 20
     character.potions -= 1;
-    document.getElementById("battle-log").innerHTML += `You used a potion and regained 10 HP. Your HP: ${character.hp}. Potions left: ${character.potions}<br>`;
+    document.getElementById("battle-log").innerHTML += `You used a potion and regained 10 HP. <em class="heroMark">${character.name}'s</em><em class="hpMark">${character.hp}HP</em>: ${character.hp}. Potions left: ${character.potions}<br>`;
 
     creatureAttack();
 }
@@ -184,11 +185,11 @@ function usePotion() {
 function creatureAttack() {
     let creatureMiss = getRandom(1, 10); // Creature has a 1-in-10 chance to miss
     if (creatureMiss <= (currentCreature.missChance / 10)) {
-        document.getElementById("battle-log").innerHTML += `${currentCreature.name} missed!<br>`;
+        document.getElementById("battle-log").innerHTML += `<em class="enemyMark">${currentCreature.name}</em> missed!<br>`;
     } else {
         let creatureAtk = getRandom(currentCreature.minAtk, currentCreature.maxAtk); // Creature's random attack
         character.hp -= creatureAtk;
-        document.getElementById("battle-log").innerHTML += `${currentCreature.name} dealt ${creatureAtk} damage to you. Your HP: ${character.hp}<br>`;
+        document.getElementById("battle-log").innerHTML += `<em class="enemyMark">${currentCreature.name}</em>'s ${currentCreature.nameAtk} dealt ${creatureAtk} damage to you. <em class="heroMark">${character.name}'s</em><em class="hpMark">${character.hp}HP</em>: ${character.hp}<br><hr />`;
 
         if (character.hp <= 0) {
             document.getElementById("battle-log").innerHTML += "You were defeated! Game over.<br>";
