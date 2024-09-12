@@ -4,98 +4,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LimaRPG</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <link rel="stylesheet" href="style.css" />
+    <title>-</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <!-- START NAV -->
     <nav class="navbar">
-      <div class="container">
-        <div class="navbar-brand">
-            <span class="is-size-2">LimaRPG</span>
-          <span class="navbar-burger burger" data-target="navbarMenu">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
-        </div>
-        <div id="navbarMenu" class="navbar-menu">
-          <div class="navbar-end">
+        <div class="container">
+            <div class="navbar-brand">
+                <span class="navbar-item is-size-2">
 
-            <span class="tags are-medium">
-                <a href="#" class="button tag" onclick="showTab('info')">Battle Info</a>
-                <a href="#" class="button tag" onclick="showTab('edit')">Edit Character</a>
-            </span>
-        
+
+                    LRP
+                </span>
+                <span class="navbar-burger burger" data-target="navbarMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            </div>
+            <div id="navbarMenu" class="navbar-menu">
+                <div class="p-2 navbar-end">
+                    <span class="button navbar-item m-1 is-primary is-dark" onclick="showTab('info')">Battle Info</span>
+                    <span class="button navbar-item m-1 is-info is-dark" onclick="showTab('edit')">Edit Character</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- END NAV -->
+
+    <!-- Image -->
+    <section class="hero ">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-6 is-offset-3">
+
+                        <!-- Character Info Section -->
+                        <div id="info-tab" class="tab-content" style="display: block;">
+                            <div id="character-info">
+
+                                <div class="field is-grouped is-grouped-multiline">
+                                    <div class="control">
+                                        <div class="tags has-addons">
+                                            <span class="tag is-dark">Name</span>
+                                            <span class="tag is-primary">Lima</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="control">
+                                        <div class="tags has-addons">
+                                            <span class="tag is-dark">Class</span>
+                                            <span class="tag is-link">Class1</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="control">
+                                        <div class="tags has-addons">
+                                            <span class="tag is-dark">Lvl</span>
+                                            <span class="tag is-warning">1</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="control">
+                                        <div class="tags has-addons">
+                                            <span class="tag is-dark">Health</span>
+                                            <span class="tag is-danger is-light">20HP</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="control">
+                                        <div class="tags has-addons">
+                                            <span class="tag is-dark">EXP</span>
+                                            <span class="tag is-success is-light">0XP</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="control">
+                                        <div class="tags has-addons">
+                                            <span class="tag is-dark">Potions</span>
+                                            <span class="tag is-info">2</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <hr>
+
+                            </div><br>
+
+                            <div class="buttons" id="battle-controls">
+                                <button class="button is-medium is-primary" id="start-battle-btn"
+                                    onclick="startBattle()">Start
+                                    Battle</button>
+                                <button class="button is-success is-dark" id="Bite-btn" style="display:none;"
+                                    onclick="useBite()">Bite
+                                    (1D6)</button>
+                                <button class="button is-success is-dark" id="Scratch-btn" style="display:none;"
+                                    onclick="useScratch()">Scratch (2D4)</button>
+                                <button class="button is-danger is-dark" id="potion-btn" style="display:none;"
+                                    onclick="usePotion()">Potion (+10HP)</button>
+                            </div>
+                            <hr>
+                            <ol reversed class="p-3 custom-ol" id="battle-log">
+
+                                Welcome! Click "Start Battle" to begin
+
+                            </ol>
+                        </div>
+
+                        <!-- Edit Character Section -->
+                        <div id="edit-tab" class="tab-content" style="display: none;">
+                            <p class="is-size-4">Create New Character</p>
+                            <form id="create-character-form">
+
+                                <div class="field"></div>
+                                <label class="label is-size-5">Name:</label>
+                                <div class="control">
+                                    <input class="input is-success" id="name" required="" type="text"
+                                        placeholder="New Name">
+                                </div><br>
+
+                                <div class="field">
+                                    <table class="table is-striped is-bordered is-hoverable chart-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Class</th>
+                                                <th>HP</th>
+                                                <th>Potions</th>
+                                                <th>Special Traits</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Cat</td>
+                                                <td>20</td>
+                                                <td>2</td>
+                                                <td>
+                                                    Standard abilities with both Bite and Scratch attacks available.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Fat Cat</td>
+                                                <td>30</td>
+                                                <td>3</td>
+                                                <td>
+                                                    Scratch attack is disabled; relies solely on Bite. The extra health and
+                                                    potion supply reflect its rotund
+                                                    nature, making it too thick for Scratch attacks.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Sneaky Cat</td>
+                                                <td>20</td>
+                                                <td>1</td>
+                                                <td>
+                                                    Scratch attack performs an extra hit, dealing additional damage (damage1
+                                                    + damage2 + damage3). Its
+                                                    agility allows for an extra Scratch attack due to superior speed.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+    
+                                    <label class="label is-size-5">Class:</label>
+
+
+                                    
+                                    <div class="control">
+                                        <div class="select">
+                                            <select class="is-size-5" name="" id="class" required="">
+
+                                                <option value="Cat">Cat</option>
+                                                <option value="FatCat">Fat Cat</option>
+                                                <option value="SneakyCat">Sneaky Cat</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div><br>
+
+                                <button class="is-medium button" type="submit">Create Character</button>
+                            </form>
+                            <hr>
+
+                            <p class="is-size-4">Change Character Name</p>
+                            <form id="change-name-form">
+
+                                <div class="field"></div>
+                                <label class="label is-size-5">New Name:</label>
+                                <div class="control">
+                                    <input class="input is-success" id="new-name" required="" type="text"
+                                        placeholder="New Name">
+                                </div><br>
+
+                                <button class="is-medium button" type="submit">Change Name</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
-      </div>
-    </nav>
-    <!-- END NAV -->
-  
-    <!-- Image -->
-    <section class="hero ">
-      <div class="hero-body">
-        <div class="container">
-          <div class="columns">
-            <div class="column is-6 is-offset-3">
+    </section>
 
-                
-
-
-                
-    <!-- Character Info Section -->
-    <div id="info-tab" class="tab-content">
-        <div id="character-info"></div>
-        <div id="battle-controls">
-            <button class="button" id="start-battle-btn" onclick="startBattle()">Start Battle</button>
-            <button class="button" id="Bite-btn" style="display:none;" onclick="useBite()">Bite (ATK1)</button>
-            <button class="button" id="Scratch-btn" style="display:none;" onclick="useScratch()">Scratch (ATK2)</button>
-            <button class="button" id="potion-btn" style="display:none;" onclick="usePotion()">Potion (+10HP)</button>
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>LimaRPG</strong> by Ivan. Using Bulma CSS
+            </p>
         </div>
-      </div>
-      <div id="battle-log"></div>
+    </footer>
 
-    <!-- Edit Character Section -->
-    <div id="edit-tab" class="tab-content">
-        <h2>Create New Character</h2>
-        <form id="create-character-form">
-            <label for="name">Name:</label><br>
-            <input type="text" id="name" required><br>
-
-            <label for="class">Class:</label><br>
-            <input type="text" id="class" required><br>
-
-            <button class="is-medium button tag" type="submit">Create Character</button>
-        </form><br>
-
-        <h2>Change Character Name</h2>
-        <form id="change-name-form">
-            <label for="new-name">New Name:</label><br>
-            <input type="text" id="new-name" required><br>
-            <button class="is-medium button tag" type="submit">Change Name</button>
-        </form>
-    </div>
-          </div>
-        </div>
-
-
-      </div>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="content has-text-centered">
-      <p>
-        <strong>LimaRPG</strong> by Ivan. Using Bulma CSS
-      </p>
-    </div>
-  </footer>
-
-    
     <!-- Link to external JavaScript file -->
     <script src="code.js"></script>
 
