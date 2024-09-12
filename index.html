@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>-</title>
+    <title>LimaRPG 0.1.2</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -13,11 +13,7 @@
     <nav class="navbar">
         <div class="container">
             <div class="navbar-brand">
-                <span class="navbar-item is-size-2">
-
-
-                    LRP
-                </span>
+                <span class="navbar-item is-size-2">LimaRPG</span>
                 <span class="navbar-burger burger" data-target="navbarMenu">
                     <span></span>
                     <span></span>
@@ -26,8 +22,8 @@
             </div>
             <div id="navbarMenu" class="navbar-menu">
                 <div class="p-2 navbar-end">
-                    <span class="button navbar-item m-1 is-primary is-dark" onclick="showTab('info')">Battle Info</span>
-                    <span class="button navbar-item m-1 is-info is-dark" onclick="showTab('edit')">Edit Character</span>
+                    <span class="button navbar-item m-1 is-primary is-dark" onclick="showTab('forest')">Forest</span>
+                    <span class="button navbar-item m-1 is-info is-dark" onclick="showTab('edit')">Edit Cat</span>
                 </div>
             </div>
         </div>
@@ -42,7 +38,7 @@
                     <div class="column is-6 is-offset-3">
 
                         <!-- Character Info Section -->
-                        <div id="info-tab" class="tab-content" style="display: block;">
+                        <div id="forest-tab" class="tab-content" style="display: block;">
                             <div id="character-info">
 
                                 <div class="field is-grouped is-grouped-multiline">
@@ -92,24 +88,70 @@
 
                                 <hr>
 
-                            </div><br>
+                            </div>
 
                             <div class="buttons" id="battle-controls">
-                                <button class="button is-medium is-primary" id="start-battle-btn"
-                                    onclick="startBattle()">Start
-                                    Battle</button>
-                                <button class="button is-success is-dark" id="Bite-btn" style="display:none;"
-                                    onclick="useBite()">Bite
-                                    (1D6)</button>
-                                <button class="button is-success is-dark" id="Scratch-btn" style="display:none;"
-                                    onclick="useScratch()">Scratch (2D4)</button>
-                                <button class="button is-danger is-dark" id="potion-btn" style="display:none;"
-                                    onclick="usePotion()">Potion (+10HP)</button>
+                                <button class="button is-medium is-primary" id="start-battle-btn" onclick="startBattle()">Explore the forest</button>
+                                <button class="button is-success is-dark" id="Bite-btn" style="display:none;" onclick="useBite()">Bite (1D6)</button>
+                                <button class="button is-success is-dark" id="Scratch-btn" style="display:none;" onclick="useScratch()">Scratch (2D4)</button>
+                                <button class="button is-danger is-dark" id="smokebomb-btn" style="display:none;" onclick="useSmokebomb()">Smokebomb</button>
+                                <button class="button is-danger is-dark" id="potion-btn" style="display:none;" onclick="usePotion()">Potion (+10HP)</button>
                             </div>
                             <hr>
-                            <ol reversed class="p-3 custom-ol" id="battle-log">
+                            <ol style="margin: 0 3px 0 15px;" reversed id="battle-log">
 
-                                Welcome! Click "Start Battle" to begin
+                                <article style="padding-right: 5%;" class="message is-dark">
+                                    <div class="message-header">
+                                      <p>Welcome to LimaRPG</p>
+                                    </div>
+                                    <div class="message-body">
+                                        Click "Explore the forest" to begin or select "Edit Cat" from the top menu to change Character.<br>
+                                        <em style="font-size: medium; color: rgb(253, 216, 8);"> Please refresh page if the base HP is negative on the Creature Badge during an initial encounter </em>
+                                    </div>
+                                </article>
+                                <article style="padding-right: 5%;" class="message is-dark">
+                                    <div class="message-header">
+                                      <p>How to play:
+                                      </p>
+                                    </div>
+                                    <div class="message-body style">
+                                        The battle will progress with the newest moves at the top.
+                                        <hr>
+
+                                        <ol style="font-size: small; margin-left: 3px" reversed="" id="battle-log"><li class="is-tight">
+                                            <em class="enemyMark">Enemy's</em> <em class="atkMark">Attack</em> dealt (3) DMG to <em class="heroMark">You</em> : <em class="hpMark">17HP</em><br>
+                                        </li><li class="is-tight">
+                                            <em class="heroMark">You</em><em class="hpMark">20HP</em> regained 10HP from potion. 1 Potions left<br>
+                                        </li><li class="is-tight">
+                                                <em class="enemyMark">Enemy's</em> attack missed!<br>
+                                            </li><li class="is-tight">
+                                        <em class="heroMark">Your</em> <em class="atkMark">attack</em> dealt (<span class="heroMark">4 + 3 </span>) DMG to 
+                                        <em class="enemyMark">Enemy</em> : <em class="hpMark">8HP</em><br>
+                                        </li><li class="is-tight">
+                                            <em class="enemyMark">Enemy's</em> <em class="atkMark">Attack</em> dealt (4) DMG to <em class="heroMark">You</em> : <em class="hpMark">16HP</em><br>
+                                        </li><li class="is-tight">
+                                        <em class="heroMark">Your</em> <em class="atkMark">attack</em> dealt (<span class="heroMark">5</span>) DMG to 
+                                        <em class="enemyMark">Enemy</em> : <em class="hpMark">15HP</em><br>
+                                        </li><li class="is-tight">You've encountered a creature! Battle begins against:<br>
+                                        </li></ol>
+                                        <em>This is the <b>Creature Badge</b>
+
+                                        <span class="tags are-medium has-addons">
+                                            <span class="tag is-danger">Enemy</span>
+                                            <span class="tag is-danger is-light">20HP</span>
+                                            <span class="tag is-warning">1</span>
+                                        </span>
+                                        It shows the current creature's base stats.
+        
+                                    </em>
+                                    </div>
+                                </article>
+
+
+
+
+
+
 
                             </ol>
                         </div>
@@ -130,10 +172,10 @@
                                     <table class="table is-striped is-bordered is-hoverable chart-table">
                                         <thead>
                                             <tr>
-                                                <th>Class</th>
-                                                <th>HP</th>
-                                                <th>Potions</th>
-                                                <th>Special Traits</th>
+                                                <th style="font-size: small; align-items: center;"><img style="max-height: 30px; max-width: 30px;" src="assets/class.svg"><br>Class</th>
+                                                <th style="font-size: small; align-items: center;"><img style="max-height: 30px; max-width: 30px;" src="assets/heart.svg"><br>HP</th>
+                                                <th style="font-size: small; align-items: center;"><img style="max-height: 30px; max-width: 30px;" src="assets/potion.svg"><br>Potion </th>
+                                                <th style="font-size: small; align-items: center;">Special Traits</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -174,8 +216,8 @@
                                             <select class="is-size-5" name="" id="class" required="">
 
                                                 <option value="Cat">Cat</option>
-                                                <option value="FatCat">Fat Cat</option>
-                                                <option value="SneakyCat">Sneaky Cat</option>
+                                                <option value="Fat Cat">Fat Cat</option>
+                                                <option value="Sneaky Cat">Sneaky Cat</option>
 
                                             </select>
                                         </div>

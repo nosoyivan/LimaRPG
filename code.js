@@ -11,19 +11,6 @@ let character = {
 // Array of creatures with attributes including name, health, attack stats, and encounter rates
 const creatures = [
     {
-        name: "Crow",
-        nameAtk: "Peck",   // Attack type
-        hp: 20,            // Creature's health points
-        lvl: 1,            // Creature's level
-        minAtk: 1,         // Minimum attack damage
-        maxAtk: 4,         // Maximum attack damage
-        missChance: 20,    // 20% chance to miss
-        baseExp: 15,       // Base experience rewarded
-        expRange: [2, 5],  // Random additional experience range
-        encounterRate: 3,  // 3 in 10 chance to encounter
-        rewardDrop: 20     // 20% chance to drop an extra potion
-    },
-    {
         name: "Spider",
         nameAtk: "Bite",   // Attack type
         hp: 10,            // Creature's health points
@@ -37,15 +24,53 @@ const creatures = [
         rewardDrop: 10     // 10% chance to drop an extra potion
     },
     {
+        name: "Pigeon",
+        nameAtk: "Peck",   // Attack type
+        hp: 15,            // Creature's health points
+        lvl: 2,            // Creature's level
+        minAtk: 1,         // Minimum attack damage
+        maxAtk: 4,         // Maximum attack damage
+        missChance: 20,    // 20% chance to miss
+        baseExp: 15,       // Base experience rewarded
+        expRange: [2, 5],  // Random additional experience range
+        encounterRate: 3,  // 3 in 10 chance to encounter
+        rewardDrop: 20     // 20% chance to drop an extra potion
+    },
+    {
         name: "Possum",
-
         nameAtk: "Bite",   // Attack type
         hp: 20,            // Creature's health points
-        lvl: 2,            // Creature's level
+        lvl: 3,            // Creature's level
         minAtk: 2,         // Minimum attack damage
         maxAtk: 4,         // Maximum attack damage
         missChance: 10,    // 10% chance to miss
         baseExp: 20,       // Base experience rewarded
+        expRange: [2, 5],  // Random additional experience range
+        encounterRate: 1,  // 1 in 10 chance to encounter
+        rewardDrop: 40     // 40% chance to drop an extra potion
+    },
+    {
+        name: "Raccoon",
+        nameAtk: "Scratch",   // Attack type
+        hp: 25,            // Creature's health points
+        lvl: 4,            // Creature's level
+        minAtk: 3,         // Minimum attack damage
+        maxAtk: 6,         // Maximum attack damage
+        missChance: 10,    // 10% chance to miss
+        baseExp: 25,       // Base experience rewarded
+        expRange: [2, 5],  // Random additional experience range
+        encounterRate: 1,  // 1 in 10 chance to encounter
+        rewardDrop: 40     // 40% chance to drop an extra potion
+    },
+    {
+        name: "Snake",
+        nameAtk: "Bite",   // Attack type
+        hp: 30,            // Creature's health points
+        lvl: 5,            // Creature's level
+        minAtk: 3,         // Minimum attack damage
+        maxAtk: 6,         // Maximum attack damage
+        missChance: 10,    // 10% chance to miss
+        baseExp: 25,       // Base experience rewarded
         expRange: [2, 5],  // Random additional experience range
         encounterRate: 1,  // 1 in 10 chance to encounter
         rewardDrop: 40     // 40% chance to drop an extra potion
@@ -127,12 +152,12 @@ function setClassAttributes(characterClass) {
     if (characterClass === "Cat") {
         character.hp = 20;
         character.potions = 2;
-    } else if (characterClass === "FatCat") {
+    } else if (characterClass === "Fat Cat") {
         character.hp = 30;
         character.potions = 3;
         document.getElementById("Scratch-btn").style.display = "none"; // Disable Scratch for Class2
-    } else if (characterClass === "SneakyCat") {
-        character.hp = 20;
+    } else if (characterClass === "Sneaky Cat") {
+        character.hp = 15;
         character.potions = 1;
     }
 }
@@ -142,10 +167,38 @@ function setClassAttributes(characterClass) {
 function levelUp() {
     const xpToLevel = [35, 80, 135, 200, 275, 360, 455, 560, 675, 800]; // XP thresholds for levels
     let level = character.level - 1;
+    
     while (level < xpToLevel.length && character.experience >= xpToLevel[level]) {
         level++;
     }
-    character.level = level + 1;
+
+    if (level + 1 > character.level) {  // If the character has leveled up
+        character.level = level + 1;
+
+        // Restock potions based on class
+        if (character.class === "Cat") {
+            character.potions = 2;  // Restock 2 potions for Cat
+        } else if (character.class === "Fat Cat") {
+            character.potions = 3;  // Restock 3 potions for Fat Cat
+        } else if (character.class === "Sneaky Cat") {
+            character.potions = 1;  // Restock 1 potion for Sneaky Cat
+        }
+
+        // Increase max HP by 2 points for each level
+        character.hp += 2;
+
+        // Increase damage of attacks by 1 per level
+        character.minAtk += 1;
+        character.maxAtk += 1;
+
+        document.getElementById("battle-log").innerHTML = `<li class="is-tight">
+            Leveled up! Now level ${character.level}. HP +2, attack damage +1, and potions restocked.<br>
+        </li>` + document.getElementById("battle-log").innerHTML;
+
+        // Save the updated character
+        saveCharacter();
+        displayCharacter();
+    }
 }
 
 // Random number generator within a specified range
@@ -153,16 +206,18 @@ function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// Randomly select a creature based on encounter rates
+// Randomly select a creature based on encounter rates and level difference
 function selectCreature() {
-    const availableCreatures = creatures.filter(creature => getRandom(1, 10) <= creature.encounterRate);
+    const availableCreatures = creatures.filter(creature => {
+        return getRandom(1, 10) <= creature.encounterRate && creature.lvl <= character.level + 2;
+    });
+    
     if (availableCreatures.length > 0) {
         const creatureIndex = getRandom(0, availableCreatures.length - 1);
         return availableCreatures[creatureIndex];
     }
     return null; // No creature encountered
 }
-
 
 
 
@@ -179,18 +234,17 @@ function startBattle() {
         return;
     }
 
-    currentCreature.hp = 20; // Reset creature's HP for each battle
     inBattle = true;
     document.getElementById("start-battle-btn").style.display = "none";
     document.getElementById("Bite-btn").style.display = "inline";
     document.getElementById("Scratch-btn").style.display = "inline";
     document.getElementById("potion-btn").style.display = "inline";
     document.getElementById("battle-log").innerHTML = `<li class="is-tight">You've encountered a creature! Battle begins against: 
-        <span class="tags are-large has-addons">
+        <span class="tags p-3 are-large has-addons">
             <span class="tag is-danger">${currentCreature.name}</span>
             <span class="tag is-danger is-light">${currentCreature.hp}HP</span>
             <span class="tag is-warning">${currentCreature.lvl}</span>
-        </span>
+        </span><em style="font-size: small; color: rgb(253, 216, 8);"> Please refresh page if the base HP is negative on the Creature Badge during an initial encounter </em>
     `;
 }
 
@@ -220,11 +274,11 @@ function useBite() {
 
 // Attack using Scratch ability (two hits)
 function useScratch() {
-    if (!inBattle || character.class === "Class2") return; // Skip Scratch if class is Class2
+    if (!inBattle || character.class === "Fat Cat") return; // Skip Scratch if class is Class2
 
     let damage1 = getRandom(1, 4);
     let damage2 = getRandom(1, 4);
-    let damage3 = character.class === "Class3" ? getRandom(1, 4) : 0; // Class3 extra hit
+    let damage3 = character.class === "Sneaky Cat" ? getRandom(1, 4) : 0; // Class3 extra hit
 
     currentCreature.hp -= (damage1 + damage2 + damage3);
     document.getElementById("battle-log").innerHTML = `<li class="is-tight">
@@ -306,7 +360,7 @@ document.getElementById('create-character-form').addEventListener('submit', func
     setClassAttributes(characterClass); // Set HP and potions based on class
     saveCharacter();
     displayCharacter();
-    showTab('info'); // Go back to character info tab
+    showTab('forest'); // Go back to character forest tab
 });
 
 // Handle name change
@@ -320,7 +374,7 @@ document.getElementById('change-name-form').addEventListener('submit', function(
 
 // Show the appropriate tab
 function showTab(tabId) {
-    document.getElementById('info-tab').style.display = 'none';
+    document.getElementById('forest-tab').style.display = 'none';
     document.getElementById('edit-tab').style.display = 'none';
     document.getElementById(tabId + '-tab').style.display = 'block';
 }
@@ -328,7 +382,7 @@ function showTab(tabId) {
 // Initial setup
 window.onload = function() {
     loadCharacter();
-    showTab('info'); // Show the character info tab by default
+    showTab('forest'); // Show the character forest tab by default
 };
 
 document.addEventListener('DOMContentLoaded', () => {
