@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LimaRPG 0.1.1</title>
+    <title>LimaRPG 0.1.2</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -21,9 +21,10 @@
                 </span>
             </div>
             <div id="navbarMenu" class="navbar-menu">
-                <div class="p-2 navbar-end">
-                    <span class="button navbar-item m-1 is-primary is-dark" onclick="showTab('forest')">Forest</span>
+                <div class="p-2 navbar-end" >
+                    <span class="button navbar-item m-1 is-primary is-dark" onclick="showTab('woods')">Woods</span>
                     <span class="button navbar-item m-1 is-info is-dark" onclick="showTab('edit')">Edit Cat</span>
+                    <span class="button navbar-item m-1 is-link is-dark"><a style="color: white; opacity: 0.5;" href="info.html">Game Info</span></a>
                 </div>
             </div>
         </div>
@@ -35,12 +36,10 @@
         <div class="hero-body">
             <div class="container">
                 <div class="columns">
-                    <div class="column is-6 is-offset-3">
-
+                    <div class="column is-8 is-offset-2">
                         <!-- Character Info Section -->
-                        <div id="forest-tab" class="tab-content" style="display: block;">
+                        <div id="woods-tab" class="tab-content" style="display: block;">
                             <div id="character-info">
-
                                 <div class="field is-grouped is-grouped-multiline">
                                     <div class="control">
                                         <div class="tags has-addons">
@@ -58,15 +57,15 @@
 
                                     <div class="control">
                                         <div class="tags has-addons">
-                                            <span class="tag is-dark">Lvl</span>
-                                            <span class="tag is-warning">1</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="control">
-                                        <div class="tags has-addons">
                                             <span class="tag is-dark">Health</span>
                                             <span class="tag is-danger is-light">20HP</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="control">
+                                        <div class="tags has-addons">
+                                            <span class="tag is-dark">Lvl</span>
+                                            <span class="tag is-warning">1</span>
                                         </div>
                                     </div>
 
@@ -83,19 +82,27 @@
                                             <span class="tag is-info">2</span>
                                         </div>
                                     </div>
-
                                 </div>
-
                                 <hr>
-
                             </div>
-
                             <div class="buttons" id="battle-controls">
-                                <button class="button is-medium is-primary" id="start-battle-btn" onclick="startBattle()">Explore the forest</button>
-                                <button class="button is-success is-dark" id="Bite-btn" style="display:none;" onclick="useBite()">Bite (1D6)</button>
-                                <button class="button is-success is-dark" id="Scratch-btn" style="display:none;" onclick="useScratch()">Scratch (2D4)</button>
-                                <button class="button is-danger is-dark" id="smokebomb-btn" style="display:none;" onclick="useSmokebomb()">Smokebomb</button>
-                                <button class="button is-danger is-dark" id="potion-btn" style="display:none;" onclick="usePotion()">Potion (+10HP)</button>
+                                <button class="button is-primary is-dark" id="start-battle-btn" onclick="exploreWoods()">Explore the woods</button>
+                                <button class="button is-success is-dark" id="Bite-btn" style="display:none; width:45%;" onclick="useBite()">Bite (1D6)</button>
+                                <button class="button is-success is-dark" id="Scratch-btn" style="display:none; width:45%;" onclick="useScratch()">Scratch (2D4)</button>
+                                <button class="button is-danger is-dark" id="smokebomb-btn" style="display:none; width:45%;" onclick="useSmokebomb()">Smokebomb</button>
+                                <button class="button is-success is-dark" id="eventYes-btn" style="display:none; width:45%;" onclick="useEventYes()">Yes</button>
+                                <button class="button is-danger is-light" id="eventNo-btn" style="display:none; width:45%;" onclick="useEventNo()">No</button>
+                                <button class="button is-danger is-dark" id="potion-btn" style="width:45%;" onclick="usePotion()">Potion (+10HP)</button>
+                            </div>
+                            <div style="display:none;" class="is-centered has-text-centered" id="battle-status">
+                                New Battle
+                                <span class="tags has-addons is-centered">
+                                    <span style="width: 100px" class="tag is-dark is-primary"></span>
+                                    <span style="width: 40px" class="tag is-danger is-light"></span>
+                                    <span class="tag is-dark">Vs</span>
+                                    <span style="width: 40px" class="tag is-danger is-light"></span>
+                                    <span style="width: 100px" class="tag is-dark is-danger"></span>
+                                </span>
                             </div>
                             <hr>
                             <ol style="margin: 0 3px 0 15px;" reversed id="battle-log">
@@ -105,67 +112,84 @@
                                       <p>Welcome to LimaRPG</p>
                                     </div>
                                     <div class="message-body">
-                                        Click "Explore the forest" to begin or select "Edit Cat" from the top menu to change Character.<br>
-                                        <em style="font-size: medium; color: rgb(253, 216, 8);"> Please refresh page if the base HP is negative on the Creature Badge during an initial encounter </em>
+                                        Click "Explore the woods" to begin or select "Edit Cat" from the top menu to change Character.<br>
+                                        <em style="font-size: medium; color: rgb(253, 216, 8);">
+                                            Please refresh page if you are unable to click  any issues are encountered.
+                                        </em>
                                     </div>
                                 </article>
+
                                 <article style="padding-right: 5%;" class="message is-dark">
                                     <div class="message-header">
-                                      <p>How to play:
-                                      </p>
+                                        <p>How to Play:</p>
                                     </div>
                                     <div class="message-body style">
-                                        You have 3 options in combat:
-                                        <ul >
-                                            <li>- Bite: does (1D6) damage</li>
-                                            <li>- Scratch: does two 1D4 attacks (2D4)</li>
-                                            <li>- PotionH help you regain HP (+10HP)</li>
+                                        <strong>Combat Overview:</strong>
+                                        <p>During combat, you have three main options to choose from:</p>
+                                        <ul>
+                                            <li>- <strong>Bite</strong>: A basic attack that deals damage ranging from 3 to 6 (1D6).</li>
+                                            <li>- <strong>Scratch</strong>: A quick double attack that deals two hits, each dealing 1 to 4 damage (2D4).
+                                            </li>
+                                            <li>- <strong>Potion</strong>: Use a potion to restore 10 HP (+10HP). You start each level with a limited
+                                                number of potions.</li>
                                         </ul><br>
-                                        
-                                        The battle will progress with the newest moves at the top.
-                                        <br><br>
+                                        <p>
+                                            The combat log will show the latest moves at the top, helping you track the flow of battle.
+                                        </p>
 
-
-                                        
-
-                                        <ol style="font-size: small; margin-left: 3px"><li class="is-tight">
-                                            <em class="enemyMark">Enemy's</em> <em class="atkMark">Attack</em> dealt (3) DMG to <em class="heroMark">You</em> : <em class="hpMark">17HP</em><br>
-                                        </li><li class="is-tight">
-                                            <em class="heroMark">You</em><em class="hpMark">20HP</em> regained 10HP from potion. 1 Potions left<br>
-                                        </li><li class="is-tight">
+                                        <p class="is-centered has-text-centered"><oblique>Battle Example:</oblique></p>
+                                        <ol style="font-size: small; margin-left: 3px" class="is-family-code">
+                                            <li class="is-tight">
+                                                <em class="enemyMark">Enemy's</em> <em class="atkMark">Attack</em> dealt 3 DMG to <em
+                                                    class="heroMark">You</em> : <em class="hpMark">17HP</em><br>
+                                            </li>
+                                            <li class="is-tight">
+                                                <em class="heroMark">You</em> regained 10HP from a potion. 1 Potion left<br>
+                                            </li>
+                                            <li class="is-tight">
                                                 <em class="enemyMark">Enemy's</em> attack missed!<br>
-                                            </li><li class="is-tight">
-                                        <em class="heroMark">Your</em> <em class="atkMark">attack</em> dealt (<span class="heroMark">4 + 3 </span>) DMG to 
-                                        <em class="enemyMark">Enemy</em> : <em class="hpMark">8HP</em><br>
-                                        </li><li class="is-tight">
-                                            <em class="enemyMark">Enemy's</em> <em class="atkMark">Attack</em> dealt (4) DMG to <em class="heroMark">You</em> : <em class="hpMark">16HP</em><br>
-                                        </li><li class="is-tight">
-                                        <em class="heroMark">Your</em> <em class="atkMark">attack</em> dealt (<span class="heroMark">5</span>) DMG to 
-                                        <em class="enemyMark">Enemy</em> : <em class="hpMark">15HP</em><br>
-                                        </li><li class="is-tight">You've encountered a creature! Battle begins against:<br>
-                                        </li></ol>
-                                        <em>This is the <b>Creature Badge</b>
-
-                                        <span class="tags are-medium has-addons">
-                                            <span class="tag is-danger">Enemy</span>
-                                            <span class="tag is-danger is-light">20HP</span>
-                                            <span class="tag is-warning">1</span>
+                                            </li>
+                                            <li class="is-tight">
+                                                <em class="heroMark">Your</em> <em class="atkMark">Scratch</em> dealt 4 + 3 DMG to <em
+                                                    class="enemyMark">Enemy</em> : <em class="hpMark">8HP</em><br>
+                                            </li>
+                                            <li class="is-tight">
+                                                <em class="enemyMark">Enemy's</em> <em class="atkMark">Attack</em> dealt 4 DMG to <em
+                                                    class="heroMark">You</em> : <em class="hpMark">16HP</em><br>
+                                            </li>
+                                            <li class="is-tight">
+                                                <em class="heroMark">Your</em> <em class="atkMark">Bite</em> dealt 5 DMG to <em
+                                                    class="enemyMark">Enemy</em> : <em class="hpMark">15HP</em><br>
+                                            </li>
+                                            <li class="is-tight">
+                                                You've encountered a creature! The battle begins:<br>
+                                            </li>
+                                        </ol>
+                                        <span class="is-centered has-text-centered">
+                                            <em>This is the <b>Creature Badge</b>:</em><br>
+                                            <span class="tags is-centered has-text-centered are-medium has-addons">
+                                                <span class="tag is-danger">Enemy</span>
+                                                <span class="tag is-danger is-light">20HP</span>
+                                                <span class="tag is-warning">Level 1</span>
+                                            </span>
+                                            <p>It displays the current creature's base stats, including health and level.</p>
                                         </span>
-                                        It shows the current creature's base stats.
-        
-                                    </em>
+                                        <br>
+                                        <strong>Leveling:</strong>
+                                        <p>Leveling up resets your potions and grants +2HP +1 DMG per level.</p>
+
+                                        <strong>Events:</strong>
+                                        <p>While exploring, you may find sidequests and rescue missions. Some offer rewards, others present challenges.</p>
                                     </div>
                                 </article>
-
-
-
-
-
-
-
                             </ol>
-                        </div>
 
+
+                            <article style="padding-right: 5%; display:none;" id="event-log" class="message is-success is-dark">
+
+                            </article>
+
+                        </div>
                         <!-- Edit Character Section -->
                         <div id="edit-tab" class="tab-content" style="display: none;">
                             <p class="is-size-4">Create New Character</p>
@@ -268,7 +292,7 @@
     </footer>
 
     <!-- Link to external JavaScript file -->
-    <script src="code.js"></script>
+    <script src="./data/code.js"></script>
 
 </body>
 

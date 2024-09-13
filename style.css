@@ -6,7 +6,10 @@ button {
     margin: 5px;
 }
 
-
+button:disabled,
+button[disabled] {
+    color: #666666;
+}
 
 @charset "UTF-8";
 

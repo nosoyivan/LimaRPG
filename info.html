@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LimaRPG 0.1.2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- START NAV -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <span class="navbar-item is-size-2">LimaRPG</span>
+                <span class="navbar-burger burger" data-target="navbarMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            </div>
+            <div id="navbarMenu" class="navbar-menu">
+                <div class="p-2 navbar-end">
+                    <span class="button navbar-item m-1 is-primary is-dark" onclick="showTab('woods')"><a style="color: white; opacity: 0.5;" href="index.html">Woods</span></a>
+                    <span class="button navbar-item m-1 is-info is-dark" onclick="showTab('edit')"><a style="color: white; opacity: 0.5;" href="index.html">Edit Cat</span></a>
+                    <span class="button navbar-item m-1 is-link is-dark">Game Info</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- END NAV -->
+
+    <!-- Image -->
+    <section class="hero ">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-8 is-offset-2">
+
+
+                        <article style="padding-right: 5%;" class="message is-dark">
+                            <div class="message-header">
+                              <p>Welcome to LimaRPG 0.1.2</p>
+                            </div>
+                            <div class="message-body content">
+
+                                <h3>Character Creation</h3>
+                                <ul>
+                                    <li><strong>Name</strong>: The player can name their character. By default, the name is "Lima".</li>
+                                    <li><strong>Class</strong>: Players can choose between different cat classes:
+                                        <ul>
+                                            <li><strong>Cat</strong>: A balanced class with 20 HP and 2 potions.</li>
+                                            <li><strong>Fat Cat</strong>: Higher HP (30) but can't use the "Scratch" attack. Comes with 3 potions.</li>
+                                            <li><strong>Sneaky Cat</strong>: Lower HP (15) but gets an additional hit in combat. Comes with 1 potion.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                
+                                <h3>Combat</h3>
+                                <p>Combat occurs when you encounter a creature while exploring the woods.</p>
+                                
+                                <h4>Attacks:</h4>
+                                <ol>
+                                    <li><strong>Bite</strong>:
+                                        <ul>
+                                            <li>Deals damage between 3 and 6, plus a bonus of +1 damage per character level.</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Scratch</strong>:
+                                        <ul>
+                                            <li>Deals two hits, each doing 1-4 damage, plus a bonus of +1 damage per character level.</li>
+                                            <li>Sneaky Cat class can perform a third hit.</li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                                
+                                <h4>Creatures:</h4>
+                                <p>Each creature has the following attributes:</p>
+                                <ul>
+                                    <li><strong>Health (HP)</strong>: How much damage it can take.</li>
+                                    <li><strong>Attack</strong>: The type of attack the creature uses.</li>
+                                    <li><strong>Miss Chance</strong>: The percentage chance a creature will miss an attack.</li>
+                                    <li><strong>Reward</strong>: Creatures drop potions or give experience points upon defeat.</li>
+                                </ul>
+                                
+                                <p>Example creatures:</p>
+                                <ul>
+                                    <li><strong>Spider</strong>: 10 HP, attacks with Bite, 40% miss chance, drops potions 10% of the time.</li>
+                                    <li><strong>Raccoon</strong>: 25 HP, attacks with Scratch, 10% miss chance, more challenging.</li>
+                                </ul>
+                                
+                                <h3>Potions</h3>
+                                <ul>
+                                    <li><strong>Healing</strong>: Each potion restores 10 HP. You start with a certain number of potions depending on your class:
+                                        <ul>
+                                            <li><strong>Cat</strong>: 2 potions</li>
+                                            <li><strong>Fat Cat</strong>: 3 potions</li>
+                                            <li><strong>Sneaky Cat</strong>: 1 potion</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Potion Limit</strong>: Potions are capped at a set amount depending on your class, and they reset to the default upon leveling up.</li>
+                                </ul>
+
+                                <h3>Leveling Up</h3>
+                                <ul>
+                                    <li><strong>Experience</strong>: Defeating creatures and completing events grants experience points (XP). Each level requires a certain amount of XP.</li>
+                                    <li><strong>Level Bonuses</strong>:
+                                        <ul>
+                                            <li>+1 attack damage per level.</li>
+                                            <li>Potions are reset to class default on each level-up.</li>
+                                            <li>HP increases by 2 points per level.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                                                
+                                <h3>Events</h3>
+                                <p>During exploration, you may encounter random events. These can include:</p>
+                                <ul>
+                                    <li><strong>Sidequests</strong>: Offer rewards or challenges.</li>
+                                    <li><strong>Rescue missions</strong>: For example, helping a wounded cat in exchange for experience points.</li>
+                                </ul>
+                                
+                                <h4>Event Types:</h4>
+                                <ol>
+                                    <li><strong>Choice Events</strong>: Require you to decide whether to help or leave, sometimes using potions.</li>
+                                    <li><strong>Stash Events</strong>: Allow you to collect items like potions.</li>
+                                    <li><strong>Investigation Events</strong>: Present you with the opportunity to investigate and receive a reward or suffer a consequence.</li>
+                                </ol>
+                                
+                                <h3>Exploration</h3>
+                                <p>As you explore the woods, you'll encounter creatures and events. Every move could lead to:</p>
+                                <ul>
+                                    <li>A creature battle.</li>
+                                    <li>An event offering rewards or risks.</li>
+                                    <li>Finding potions to aid your journey.</li>
+                                </ul>
+                                
+
+                            </div>
+                        </article>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>LimaRPG 0.1.1</strong> by Ivan. Using <a href="https://bulma.io/" target="_blank" rel="noopener noreferrer">Bulma CSS</a>, <a href="https://www.svgrepo.com/collection/valentines-day-10/" target="_blank" rel="noopener noreferrer">SVGRepo icons</a>, & <a href="https://vercel.com/" target="_blank" rel="noopener noreferrer">Vercel hosting</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Link to external JavaScript file -->
+    <script src="./data/code.js"></script>
+
+</body>
+
+</html>
