@@ -24543,6 +24543,17 @@ print {
     color: #433D09;
     padding: 0 3px;
 }
+.heroAtkMark {
+    background-color: #01D2B2;
+    color: black;
+    padding: 0 2px 0 3px;
+}
+
+.bnsMark {
+    background-color: #FFCC00;
+    color: #433D09;
+    padding-right: 5px;
+}
 
 .chart-table td,
 .chart-table th {

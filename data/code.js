@@ -124,7 +124,7 @@ const encounters = [
         type: 'choice',   
         item: character.potions,
         effect: character.potions - 1, // Using a potion to help the cat
-        yes: 'Help out ( -1 Potion )',
+        yes: 'Help out ( -1 <img style="max-height: 18px; max-width: 18px;" src="assets/potion.svg"> )',
         yes01: 'The cat is thankful for the potion.',
         yes02: 'The cat slowly sips the potion and feels better.',
         yes03: 'The cat takes the potion and leaves.',
@@ -142,10 +142,10 @@ const encounters = [
         type: 'stash',   
         item: character.potions,
         effect: character.potions + 1, // Gain a potion
-        yes: 'Take the potion ( +1 Potion )',
-        yes01: 'This potion will come in handy! ( +1 Potion )',
+        yes: 'Take the potion ( +1 <img style="max-height: 18px; max-width: 18px;" src="assets/potion.svg"> )',
+        yes01: 'This potion will come in handy! ( +1 <img style="max-height: 18px; max-width: 18px;" src="assets/potion.svg"> )',
         yesEnd: 'You continue through the woods with an extra potion.',
-        encounterRate: 0.2  // 0.5 in 10 chance to encounter
+        encounterRate: 2  // 0.5 in 10 chance to encounter
     },
     {
         name: 'What\'s that strange noise?',
@@ -157,14 +157,14 @@ const encounters = [
         effectA: character.potions + 1, // Find a potion
         itemB: character.hp,
         effectB: character.hp - 2, // Lose HP from a creature attack
-        yesA: 'You found a Potion! (+1 Potion)',
+        yesA: 'You found a Potion! (+1 <img style="max-height: 18px; max-width: 18px;" src="assets/potion.svg">)',
         yesB: 'A small lizard bites you! (-2HP)',
         yesAEnd: 'You take the potion and continue through the woods.',
         yesBEnd: 'You leave, unhappy about the bite.',
         no: 'Ignore',
         no01: 'You choose to ignore the noise.',
         noEnd: 'You leave and continue your journey.',
-        encounterRate: 0.3  // 0.5 in 10 chance to encounter
+        encounterRate: 3  // 0.5 in 10 chance to encounter
     }
 ];
 
@@ -307,7 +307,7 @@ function exploreWoods() {
         return;
     }
 
-    const eventChance = getRandom(1, 10) <= 1; // 20% chance for event
+    const eventChance = getRandom(1, 10) <= 1; // 10% chance for event
     if (eventChance) {
         handleEvent(); // Handle event
     } else {
@@ -325,7 +325,10 @@ function exploreWoods() {
             "Pigeon": 15,
             "Possum": 20,
             "Raccoon": 25,
-            "Snake": 30
+            "Snake": 30,
+            "Cat": 30,
+            "Fat Cat": 40,
+            "Sneaky Cat": 22
         };
 
         currentCreature.hp = creatureHPs[currentCreature.name] || 10; // Set default HP of 10 if not specified
@@ -364,9 +367,9 @@ function updateBattleStatus() {
                 <span style="width: 0px" class="tag is-dark">Vs</span>
                 <span style="width: 0px" class="tag is-warning">${currentCreature.lvl}</span>
                 <span style="width: 40px" class="tag is-danger is-light">${currentCreature.hp}HP</span>
-                <span style="width: 70px" class="tag is-dark is-danger">${currentCreature.name}</span>
+                <span style="min-width: 70px" class="tag is-dark is-danger">${currentCreature.name}</span>
             </span>
-            ${character.level > 0 ? `Level ${character.level} Bonus +${character.level} DMG` : ''}
+            ${character.level > 0 ? `<p class="has-text-warning p-1">Level ${character.level} Bonus +${character.level} DMG</p>` : ''}
         </p>
     `;
 }
@@ -376,10 +379,11 @@ function useBite() {
     if (!inBattle) return;  // Ensure you're in battle
 
     let characterAtk = getRandom(3, 6) + character.level; // Bite attack damage
+    let characterBase = characterAtk - character.level; // Bite attack damage
     currentCreature.hp -= characterAtk;
     
     document.getElementById("battle-log").innerHTML = `<li class="is-tight">
-        <em class="heroMark">${character.name}'s</em> <em class="atkMark">Bite</em> dealt (<span class="heroMark">${characterAtk}</span>) DMG to 
+        <em class="heroMark">${character.name}'s</em> <em class="atkMark">Bite</em> dealt (<span class="heroAtkMark">${characterBase}</span>${character.level > 0 ? `<span class="bnsMark">+${character.level}</span>` : ''}) DMG to 
         <em class="enemyMark">${currentCreature.name}</em>: <em class="hpMark">${currentCreature.hp} HP</em><br>
     </li>` + document.getElementById("battle-log").innerHTML;
 
@@ -414,7 +418,7 @@ function useScratch() {
 
     currentCreature.hp -= (damage1 + damage2 + damage3 + character.level);
     document.getElementById("battle-log").innerHTML = `<li class="is-tight">
-        <em class="heroMark">${character.name}'s</em> <em class="atkMark">Scratches</em> dealt (<span class="heroMark">${damage1} + ${damage2} ${damage3 ? `+ ${damage3}` : ''}</span>) DMG to 
+        <em class="heroMark">${character.name}'s</em> <em class="atkMark">Scratches</em> dealt (<span class="heroAtkMark">${damage1}+${damage2}${damage3 ? `+${damage3}` : ''}</span>${character.level > 0 ? `<span class="bnsMark">+${character.level}</span>` : ''}) DMG to 
         <em class="enemyMark">${currentCreature.name}</em>: <em class="hpMark">${currentCreature.hp} HP</em><br>
     </li>` + document.getElementById("battle-log").innerHTML;
 
@@ -554,12 +558,16 @@ function useEventYes() {
         const yesResponses = [currentEvent.yes01, currentEvent.yes02, currentEvent.yes03, currentEvent.yes04];
         const response = yesResponses[getRandom(0, yesResponses.length - 1)];
 
+        // Build the message content and append yesEnd
         messageContent = `<div class="message-header"><p>${currentEvent.name}</p></div><div class="message-body">${response}</div>`;
+        messageContent += `<div class="text-has-success">${currentEvent.yesEnd}</div>`; // Append yesEnd message
+
         character.experience += currentEvent.baseExp;  // Gain experience
         levelUp();
     } else if (currentEvent.type === 'stash') {
         character.potions += 1;  // Gain a potion from the stash
         messageContent = `<div class="message-header"><p>${currentEvent.name}</p></div><div class="message-body">${currentEvent.yes01}</div>`;
+        messageContent += `<div class="text-has-success">${currentEvent.yesEnd}</div>`; // Append yesEnd message
     } else if (currentEvent.type === 'investigate') {
         const totalRatio = currentEvent.ratioAB[0] + currentEvent.ratioAB[1];
         const randomNumber = getRandom(1, totalRatio);
@@ -567,9 +575,12 @@ function useEventYes() {
         if (randomNumber <= currentEvent.ratioAB[0]) {
             character.potions += 1;  // Find a potion
             messageContent = `<div class="message-header"><p>${currentEvent.name}</p></div><div class="message-body">${currentEvent.yesA}</div>`;
+            messageContent += `<div class="text-has-success">${currentEvent.yesAEnd}</div>`; // Append yesAEnd message
         } else {
             character.hp -= 2;  // Lose HP from a creature attack
             messageContent = `<div class="message-header"><p>${currentEvent.name}</p></div><div class="message-body">${currentEvent.yesB}</div>`;
+            messageContent += `<div class="text-has-success">${currentEvent.yesBEnd}</div>`; // Append yesBEnd message
+
             if (character.hp <= 0) {
                 messageContent += `<div class="message-body">Curiosity killed the cat.</div>`;
             }
