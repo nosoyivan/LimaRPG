@@ -6,6 +6,7 @@ let character = {
     experience: 0,         // Starting experience
     maxHp: 20,                // Health points (based on class)
     potions: 2             // Potions available per level (based on class)
+//    smokebomb: 2             // Smoke Bomb available per level
 };
 
 // Array of creatures with attributes including name, health, attack stats, and encounter rates
@@ -118,8 +119,7 @@ const creatures = [
 
 // Array of events with encounter rates and possible outcomes
 const encounters = [
-   
-   {
+    {
         name: 'A Wounded Cat',
         desc: 'A poor wounded cat needs help',
         type: 'choice',   
@@ -147,15 +147,17 @@ const encounters = [
         yes01: 'This potion will come in handy! ( +1<img style="max-height: 18px; max-width: 18px;" src="assets/potion.svg">)',
         yesEnd: 'You continue through the woods with an extra potion.',
         encounterRate: 2  // 0.5 in 10 chance to encounter
-    } ,
+    },
     {
         name: 'What\'s that strange noise?',
         desc: 'You hear rustling near a tree!',
         type: 'investigate',   
         yes: 'Investigate?',
-        ratioABC: [3, 3, 4], // Likelihood of finding potion (7 in 10) vs getting hurt (3 in 10)
+        ratioABC: [3, 2, 4], // Likelihood of finding potion (3 in 10) vs getting hurt (2 in 10) vs nothing (4 in 10)
         itemA: character.potions,
         effectA: character.potions + 1, // Find a potion
+        itemB: character.hp,
+        effectB: character.hp - 2, // Find a potion
         yesA: 'You found (+1<img style="max-height: 16px; max-width: 16px;" src="assets/potion.svg">)!',
         yesB: 'A small lizard bites you! (-2HP)',
         yesC: 'Nothing... Must have been the wind',
@@ -166,7 +168,26 @@ const encounters = [
         no01: 'You choose to ignore the noise.',
         noEnd: 'You leave and continue your journey.',
         encounterRate: 3  // 0.5 in 10 chance to encounter
-    } 
+    }/*,
+    {
+        name: '"Pssst... Hey, wanna smoke...bomb..."',
+        desc: 'A sketchy cat approaches you offering to trade a Potion for two Smoke Bombs',
+        type: 'investigate',   
+        yes: 'Sure! (-1<img style="max-height: 16px; max-width: 16px;" src="assets/potion.svg">) for (+2<img style="max-height: 16px; max-width: 16px;" src="assets/potion.svg">)',
+        ratioABC: [8, 2], // Likelihood of finding potion (7 in 10) vs getting hurt (3 in 10)
+        itemA: character.smokebomb ,
+        effectA: [character.smokebomb + 2, character.potions - 1 ], // Find a potion
+        itemB: character.smokebomb ,
+        effectB: [character.potions - 1 ], // Find a potion
+        yesA: 'You traded and now have (+2<img style="max-height: 16px; max-width: 16px;" src="assets/potion.svg">)',
+        yesB: 'You traded with the cat and he proceeds to run deep into the woods... wait a minute this bag is full of rock! (-1<img style="max-height: 16px; max-width: 16px;" src="assets/potion.svg">)',
+        yesAEnd: 'I love bartering goods!',
+        yesBEnd: 'You\'ve been bamboozeled by that dang cat!',
+        no: 'No Thank you',
+        no01: 'You continue along your path.',
+        noEnd: 'You leave and continue your journey.',
+        encounterRate: 3  // 0.5 in 10 chance to encounter
+    }  */
 ];
 
 
@@ -248,7 +269,6 @@ function setClassAttributes(characterClass) {
     }
 }
 
-// Level-up logic based on experience points
 // Level-up logic based on experience points
 function levelUp() {
     const xpToLevel = [35, 80, 135, 200, 275, 360, 455, 560, 675, 800]; // XP thresholds for leveling up
@@ -350,7 +370,7 @@ function exploreWoods() {
         } else {
             document.getElementById("Scratch-btn").style.display = "none";
         }
-
+        document.getElementById("smokeBomb-btn").style.display = "inline";
         document.getElementById("potion-btn").style.display = "inline";
         document.getElementById("battle-status").style.display = "inline";
         document.getElementById("battle-log").innerHTML = `<p class="is-family-code has-text-centered">You've encountered a creature! Battle begins against:
@@ -458,13 +478,14 @@ function usePotion() {
         return;
     }
 
-    if (character.hp >= character.maxHp + character.level) {  // Assuming 20 is the max HP
+
+    if (character.hp >= character.maxHp) {  // Assuming 20 is the max HP
         document.getElementById("battle-log").innerHTML = `<div class="notification battle is-info"><li>HP is already full, potion not needed.</li></div>` + document.getElementById("battle-log").innerHTML;
         return;
     }
 
     character.hp += 10;  // Restore 10 HP
-    if (character.hp > character.maxHp + character.level) character.hp = character.maxHp + character.level;  // Cap HP at 20
+    if (character.hp > [                    ]) character.hp = 20;  // Cap HP at 20
     character.potions -= 1;  // Deduct a potion
 
     document.getElementById("battle-log").innerHTML = `<div class="notification battle is-dark"><li> 
@@ -472,7 +493,29 @@ function usePotion() {
     </li></div>` + document.getElementById("battle-log").innerHTML;
 
     displayCharacter();  // Update character info
-    updateBattleStatus();
+}
+
+// Use a potion to regain health
+function useSmokeBomb() {
+    if (character.smokebomb <= 0) {
+        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-info"><li>No Smoke Bombs left to use.</li></div>` + document.getElementById("battle-log").innerHTML;
+        return;
+    }
+
+    if (character.hp >= 20) {  // Assuming 20 is the max HP
+        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-info"><li>HP is already full, potion not needed.</li></div>` + document.getElementById("battle-log").innerHTML;
+        return;
+    }
+
+    character.hp += 10;  // Restore 10 HP
+    if (character.hp > 20) character.hp = 20;  // Cap HP at 20
+    character.potions -= 1;  // Deduct a potion
+
+    document.getElementById("battle-log").innerHTML = `<div class="notification battle is-dark"><li> 
+        <em class="heroMark">${character.name}</em> regained 10 HP from potion. ${character.potions} Potions left<br>
+    </li></div>` + document.getElementById("battle-log").innerHTML;
+
+    displayCharacter();  // Update character info
 }
 
 // Update visibility of the potion button based on potion availability
@@ -485,6 +528,14 @@ function updatePotionButtonVisibility() {
     }
 }
 
+function updateSmokeBombButtonVisibility() {
+    const potionButton = document.getElementById("smokeBomb-btn");
+    if (character.potions > 0 && character.hp < character.maxHp) {
+        potionButton.disabled = false;
+    } else {
+        potionButton.disabled = true;
+    }
+}
 
 
 // Handle creature attack phase
@@ -508,7 +559,6 @@ function creatureAttack() {
         document.getElementById("battle-log").innerHTML = `<div class="notification battle battle is-danger"><li> You have been defeated. RIP <em class="heroMark">${character.name}</em>.</li></div>` + document.getElementById("battle-log").innerHTML;
         endBattle();  // End the battle if the player dies
     }
-    updateBattleStatus();
 }
 
 // End the battle and reset UI elements

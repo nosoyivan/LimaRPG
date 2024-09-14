@@ -1,4 +1,4 @@
-# LimaRPG 0.1.2
+# LimaRPG 0.1.3
 
 ## Character Creation
 

@@ -11,7 +11,6 @@ button[disabled] {
     color: #666666;
 }
 
-@charset "UTF-8";
 
 /*! bulma.io v1.0.2 | MIT License | github.com/jgthms/bulma */
 /* Bulma Utilities */
@@ -4898,7 +4897,7 @@ div.icon-text {
     --bulma-notification-color-l: var(--bulma-text-strong-l);
     --bulma-notification-code-background-color: var(--bulma-scheme-main);
     --bulma-notification-radius: var(--bulma-radius);
-    --bulma-notification-padding: 1.375em 1.5em;
+    --bulma-notification-padding: .5em .75em;
 }
 
 .notification {
@@ -24563,3 +24562,16 @@ print {
 .chart-table th {
     background-color: #4e4d4d;
 }
+.events{
+    max-width:400px;
+}
+
+
+div.notification.battle {
+    margin-bottom: 10px;
+}
+
+.notification.battle > li {
+    margin-left: 15px;
+}
+

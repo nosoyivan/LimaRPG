@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LimaRPG 0.1.2</title>
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- START NAVIGATION -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <span class="navbar-item is-size-2">LimaRPG</span>
+                <span class="navbar-burger burger" data-target="navbarMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            </div>
+            <div id="navbarMenu" class="navbar-menu">
+                <div class="p-2 navbar-end">
+                    <button class="button navbar-item m-1 is-primary is-dark" onclick="showTab('woods')">Woods</button>
+                    <button class="button navbar-item m-1 is-info is-dark" onclick="showTab('edit')">Edit Cat</button>
+                    <a class="button navbar-item m-1 is-link is-dark" href="info.html" style="color: white; opacity: 0.8;">Game Info</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- END NAVIGATION -->
+
+    <!-- MAIN CONTENT -->
+    <main class="hero">
+        <div class="hero-body">
+            <div class="container">
+                <!-- WOODS TAB -->
+                <div id="woods-tab" class="tab-content" style="display: block;">
+                    <!-- Character Info Section -->
+                    <div id="character-info">
+                        <!-- Character info will be dynamically populated by JavaScript -->
+                    </div>
+                    <hr>
+
+                    <!-- Battle Controls -->
+                    <div class="buttons is-flex is-flex-wrap-wrap is-justify-content-center" id="battle-controls">
+                        <button class="button is-primary is-dark" id="start-battle-btn" onclick="exploreWoods()">Explore the woods</button>
+                        <button class="button is-success is-dark" id="Bite-btn" style="display:none;" onclick="useBite()">Bite</button>
+                        <button class="button is-success is-dark" id="Scratch-btn" style="display:none;" onclick="useScratch()">Scratch</button>
+                        <button class="button is-success is-dark" id="eventYes-btn" style="display:none;" onclick="useEventYes()">Yes</button>
+                        <button class="button is-danger is-light" id="eventNo-btn" style="display:none;" onclick="useEventNo()">No</button>
+                        <button class="button is-danger is-dark" id="potion-btn" style="display:none;" onclick="usePotion()">Potion (+10HP)</button>
+                    </div>
+
+                    <!-- Battle Status -->
+                    <div class="is-centered has-text-centered" id="battle-status" style="display:none;">
+                        <!-- Battle status will be dynamically updated by JavaScript -->
+                    </div>
+                    <hr>
+
+                    <!-- Battle Log -->
+                    <div class="columns">
+                        <div class="column is-8 is-offset-2">
+                            <ol class="is-centered" reversed id="battle-log">
+                                <!-- Initial messages -->
+                                <article class="message is-dark">
+                                    <div class="message-header">
+                                        <p>Welcome to LimaRPG</p>
+                                    </div>
+                                    <div class="message-body">
+                                        Click "Explore the woods" to begin or select "Edit Cat" from the top menu to change your character.<br>
+                                        <em style="font-size: medium; color: rgb(253, 216, 8);">
+                                            Please refresh the page if you encounter any issues.
+                                        </em>
+                                    </div>
+                                </article>
+                                <!-- Additional instructions or messages can be added here -->
+                            </ol>
+                        </div>
+                    </div>
+
+                    <!-- Event Log -->
+                    <div class="columns">
+                        <div class="column is-8 is-offset-2">
+                            <article id="event-log" class="message is-success is-dark" style="display:none;">
+                                <!-- Event content will be dynamically populated by JavaScript -->
+                            </article>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EDIT TAB -->
+                <div id="edit-tab" class="tab-content" style="display: none;">
+                    <div class="columns">
+                        <div class="column is-8 is-offset-2">
+                            <!-- Create New Character Form -->
+                            <p class="is-size-4">Create New Character</p>
+                            <form id="create-character-form">
+                                <div class="field">
+                                    <label class="label is-size-5">Name:</label>
+                                    <div class="control">
+                                        <input class="input is-success" id="name" type="text" placeholder="Name" maxlength="12" required>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="field">
+                                    <label class="label is-size-5">Class:</label>
+                                    <div class="control">
+                                        <div class="select">
+                                            <select id="class" required>
+                                                <option value="Cat">Cat</option>
+                                                <option value="Fat Cat">Fat Cat</option>
+                                                <option value="Sneaky Cat">Sneaky Cat</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <!-- Class Information Table -->
+                                <table class="table is-striped is-bordered is-hoverable chart-table">
+                                    <thead>
+                                        <tr>
+                                            <th><img src="assets/class.svg" alt="Class Icon" style="max-height: 30px;"> <br>Class</th>
+                                            <th><img src="assets/heart.svg" alt="Heart Icon" style="max-height: 30px;"> <br>HP</th>
+                                            <th><img src="assets/potion.svg" alt="Potion Icon" style="max-height: 30px;"> <br>Potions</th>
+                                            <th>Special Traits</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Cat</td>
+                                            <td>20</td>
+                                            <td>2</td>
+                                            <td>Standard abilities with both Bite and Scratch attacks available.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Fat Cat</td>
+                                            <td>30</td>
+                                            <td>3</td>
+                                            <td>Scratch attack is disabled; relies solely on Bite. The extra health and potions reflect its rotund nature.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sneaky Cat</td>
+                                            <td>15</td>
+                                            <td>1</td>
+                                            <td>Scratch attack performs an extra hit due to superior speed.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <br>
+                                <button class="button is-medium" type="submit">Create Character</button>
+                            </form>
+                            <hr>
+
+                            <!-- Change Character Name Form -->
+                            <p class="is-size-4">Change Character Name</p>
+                            <form id="change-name-form">
+                                <div class="field">
+                                    <label class="label is-size-5">New Name:</label>
+                                    <div class="control">
+                                        <input class="input is-success" id="new-name" type="text" placeholder="New Name" maxlength="12" required>
+                                    </div>
+                                </div>
+                                <br>
+                                <button class="button is-medium" type="submit">Change Name</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>LimaRPG 0.1.2</strong> by Ivan. Using <a href="https://bulma.io/" target="_blank" rel="noopener noreferrer">Bulma CSS</a>, <a href="https://www.svgrepo.com/collection/valentines-day-10/" target="_blank" rel="noopener noreferrer">SVGRepo icons</a>, &amp; <a href="https://vercel.com/" target="_blank" rel="noopener noreferrer">Vercel hosting</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Link to external JavaScript file -->
+    <script>
+
+// Default character object with HP, potions, and initial stats
+let character = {
+    name: "Lima",          // Character's default name
+    level: 0,              // Starting level
+    class: "Cat",          // Default class
+    experience: 0,         // Starting experience
+    maxHp: 20,             // Max Health points (based on class)
+    hp: 20,                // Current Health points
+    potions: 2,            // Potions available per level (based on class)
+    minAtk: 1,             // Minimum attack damage
+    maxAtk: 3              // Maximum attack damage
+};
+
+// Array of creatures with attributes including name, health, attack stats, and encounter rates
+const creatures = [
+    {
+        name: "Spider",
+        nameAtk: "Bite",
+        hp: 10,
+        lvl: 0,
+        minAtk: 1,
+        maxAtk: 2,
+        missChance: 10,    // 10% chance to miss
+        baseExp: 10,
+        expRange: [2, 4],
+        encounterRate: 0.5, // 50% chance to encounter
+        rewardDrop: 0.1    // 10% chance to drop an extra potion
+    },
+    {
+        name: "Pigeon",
+        nameAtk: "Peck",   // Attack type
+        hp: 15,            // Creature's health points
+        lvl: 1,            // Creature's level
+        minAtk: 1,         // Minimum attack damage
+        maxAtk: 4,         // Maximum attack damage
+        missChance: 20,    // 20% chance to miss
+        baseExp: 15,       // Base experience rewarded
+        expRange: [2, 5],  // Random additional experience range
+        encounterRate: 0.4, // 40% chance to encounter
+        rewardDrop: 0.2    // 20% chance to drop an extra potion
+    },
+    {
+        name: "Possum",
+        nameAtk: "Bite",   // Attack type
+        hp: 20,            // Creature's health points
+        lvl: 2,            // Creature's level
+        minAtk: 2,         // Minimum attack damage
+        maxAtk: 4,         // Maximum attack damage
+        missChance: 10,    // 10% chance to miss
+        baseExp: 20,       // Base experience rewarded
+        expRange: [2, 5],  // Random additional experience range
+        encounterRate: 0.3, // 30% chance to encounter
+        rewardDrop: 0.3    // 30% chance to drop an extra potion
+    },
+    {
+        name: "Raccoon",
+        nameAtk: "Scratch",   // Attack type
+        hp: 25,            // Creature's health points
+        lvl: 3,            // Creature's level
+        minAtk: 3,         // Minimum attack damage
+        maxAtk: 6,         // Maximum attack damage
+        missChance: 10,    // 10% chance to miss
+        baseExp: 25,       // Base experience rewarded
+        expRange: [2, 5],  // Random additional experience range
+        encounterRate: 0.3, // 30% chance to encounter
+        rewardDrop: 0.4    // 40% chance to drop an extra potion
+    },
+    {
+        name: "Snake",
+        nameAtk: "Bite",   // Attack type
+        hp: 30,            // Creature's health points
+        lvl: 4,            // Creature's level
+        minAtk: 3,         // Minimum attack damage
+        maxAtk: 6,         // Maximum attack damage
+        missChance: 10,    // 10% chance to miss
+        baseExp: 30,       // Base experience rewarded
+        expRange: [2, 5],  // Random additional experience range
+        encounterRate: 0.3, // 30% chance to encounter
+        rewardDrop: 0.4    // 40% chance to drop an extra potion
+    },
+    {
+        name: "Cat",
+        nameAtk: "Bite",   // Attack type
+        hp: 30,            // Creature's health points
+        lvl: 6,            // Creature's level
+        minAtk: 1,         // Minimum attack damage
+        maxAtk: 7,         // Maximum attack damage
+        missChance: 10,    // 10% chance to miss
+        baseExp: 40,       // Base experience rewarded
+        expRange: [2, 5],  // Random additional experience range
+        encounterRate: 0.1, // 10% chance to encounter
+        rewardDrop: 0.5    // 50% chance to drop an extra potion
+    },
+    {
+        name: "Fat Cat",
+        nameAtk: "Bite",   // Attack type
+        hp: 40,            // Creature's health points
+        lvl: 6,            // Creature's level
+        minAtk: 1,         // Minimum attack damage
+        maxAtk: 6,         // Maximum attack damage
+        missChance: 10,    // 10% chance to miss
+        baseExp: 40,       // Base experience rewarded
+        expRange: [2, 5],  // Random additional experience range
+        encounterRate: 0.1, // 10% chance to encounter
+        rewardDrop: 0.5    // 50% chance to drop an extra potion
+    },
+    {
+        name: "Sneaky Cat",
+        nameAtk: "Scratches",   // Attack type
+        hp: 22,            // Creature's health points
+        lvl: 6,            // Creature's level
+        minAtk: 1,         // Minimum attack damage
+        maxAtk: 8,         // Maximum attack damage
+        missChance: 10,    // 10% chance to miss
+        baseExp: 40,       // Base experience rewarded
+        expRange: [2, 5],  // Random additional experience range
+        encounterRate: 0.1, // 10% chance to encounter
+        rewardDrop: 0.5    // 50% chance to drop an extra potion
+    },
+];
+
+// Array of events with encounter rates and possible outcomes
+const encounters = [
+    {
+        name: 'A Wounded Cat',
+        desc: 'A poor wounded cat needs help',
+        type: 'choice',
+        effect: () => character.potions -= 1,
+        yes: 'Help out ( -1<img style="max-height: 18px; max-width: 18px;" src="assets/potion.svg">)',
+        yesResponses: [
+            'The cat is thankful for the potion.',
+            'The cat slowly sips the potion and feels better.',
+            'The cat takes the potion and leaves.',
+            'The cat chugs the potion, burps, then passes out...'
+        ],
+        yesEnd: 'You continue through the woods.',
+        baseExp: 35,
+        no: 'Leave',
+        noResponse: 'The cat waits hopefully for help.',
+        noEnd: 'You leave the cat behind and continue through the woods.',
+        encounterRate: 0.3  // 30% chance to encounter
+    },
+    {
+        name: 'A Wounded Cat',
+        desc: 'A poor wounded cat needs help',
+        type: 'choice',
+        effect: () => character.potions -= 1,
+        yes: 'Help out ( -1<img style="max-height: 18px; max-width: 18px;" src="assets/potion.svg">)',
+        yesResponses: [
+            'The cat is thankful for the potion.',
+            'The cat slowly sips the potion and feels better.',
+            'The cat takes the potion and leaves.',
+            'The cat chugs the potion, burps, then passes out...'
+        ],
+        yesEnd: 'You continue through the woods.',
+        baseExp: 35,
+        no: 'Leave',
+        noResponse: 'The cat waits hopefully for help.',
+        noEnd: 'You leave the cat behind and continue through the woods.',
+        encounterRate: 0.3  // 30% chance to encounter
+    },
+    {
+        name: 'A Wounded Cat',
+        desc: 'A poor wounded cat needs help',
+        type: 'choice',
+        effect: () => character.potions -= 1,
+        yes: 'Help out ( -1<img style="max-height: 18px; max-width: 18px;" src="assets/potion.svg">)',
+        yesResponses: [
+            'The cat is thankful for the potion.',
+            'The cat slowly sips the potion and feels better.',
+            'The cat takes the potion and leaves.',
+            'The cat chugs the potion, burps, then passes out...'
+        ],
+        yesEnd: 'You continue through the woods.',
+        baseExp: 35,
+        no: 'Leave',
+        noResponse: 'The cat waits hopefully for help.',
+        noEnd: 'You leave the cat behind and continue through the woods.',
+        encounterRate: 0.3  // 30% chance to encounter
+    },
+];
+
+// Battle state variables
+let inBattle = false;
+let currentCreature = null;  // Currently encountered creature
+let currentEvent = null;     // Currently active event
+
+// Function to display character information and health in the HTML
+function displayCharacter() {
+    document.getElementById("character-info").innerHTML = `
+        <div class="field is-grouped is-grouped-multiline is-flex is-flex-wrap-wrap is-justify-content-center">
+            <div class="control">
+                <div class="tags has-addons are-medium">
+                    <span class="tag is-dark">Name</span>
+                    <span class="tag is-primary">${character.name}</span>
+                </div>
+            </div>
+            <div class="control">
+                <div class="tags has-addons are-medium">
+                    <span class="tag is-dark">Class</span>
+                    <span class="tag is-link">${character.class}</span>
+                </div>
+            </div>
+            <div class="control">
+                <div class="tags has-addons are-medium">
+                    <span class="tag is-dark">Health</span>
+                    <span class="tag is-danger is-light">${character.hp}/${character.maxHp} HP</span>
+                </div>
+            </div>
+            <div class="control">
+                <div class="tags has-addons are-medium">
+                    <span class="tag is-dark">Lvl</span>
+                    <span class="tag is-warning">${character.level}</span>
+                </div>
+            </div>
+            <div class="control">
+                <div class="tags has-addons are-medium">
+                    <span class="tag is-dark">EXP</span>
+                    <span class="tag is-success is-light">${character.experience} XP</span>
+                </div>
+            </div>
+            <div class="control">
+                <div class="tags has-addons are-medium">
+                    <span class="tag is-dark">Potions</span>
+                    <span class="tag is-info">${character.potions}</span>
+                </div>
+            </div>
+        </div><br>  
+    `;
+}
+
+// Save character data to localStorage
+function saveCharacter() {
+    localStorage.setItem('rpg-character', JSON.stringify(character));
+}
+
+// Load character data from localStorage
+function loadCharacter() {
+    const savedCharacter = localStorage.getItem('rpg-character');
+    if (savedCharacter) {
+        character = JSON.parse(savedCharacter);
+    }
+    displayCharacter();
+}
+
+// Set class-specific attributes like HP and potions
+function setClassAttributes(characterClass) {
+    if (characterClass === "Cat") {
+        character.maxHp = 20;
+        character.potions = 2;
+        character.minAtk = 1;
+        character.maxAtk = 3;
+    } else if (characterClass === "Fat Cat") {
+        character.maxHp = 30;
+        character.potions = 3;
+        character.minAtk = 2;
+        character.maxAtk = 4;
+    } else if (characterClass === "Sneaky Cat") {
+        character.maxHp = 15;
+        character.potions = 1;
+        character.minAtk = 1;
+        character.maxAtk = 5;
+    }
+    character.hp = character.maxHp;
+}
+
+// Level-up logic based on experience points
+function levelUp() {
+    const xpToLevel = [35, 80, 135, 200, 275, 360, 455, 560, 675, 800]; // XP thresholds for leveling up
+    let level = character.level;
+
+    while (level < xpToLevel.length && character.experience >= xpToLevel[level]) {
+        level++;
+    }
+
+    if (level > character.level) {
+        character.level = level;
+        character.minAtk += 1; // Increase attack power on level-up
+        character.maxAtk += 1;
+
+        // Adjust max HP with each level-up based on class
+        character.maxHp += 2;  // Increase by 2 HP per level
+        character.potions = 2; // Restock potions
+
+        // Restore health by 50% of the newly increased max HP
+        character.hp = Math.min(character.maxHp, character.hp + Math.floor(character.maxHp / 2));
+
+        // Display level-up notification
+        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-light is-warning">
+            <li>Leveled up! Now level ${character.level}. HP restored to ${character.hp}/${character.maxHp}, +1 ATK, +2 HP, and potions restocked.</li>
+        </div>` + document.getElementById("battle-log").innerHTML;
+
+        saveCharacter();
+        displayCharacter();
+    }
+}
+
+// Random number generator within a given range (inclusive)
+function getRandom(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Function to randomly select a creature based on encounter rates
+function selectCreature() {
+    const availableCreatures = creatures.filter(creature => {
+        return Math.random() <= creature.encounterRate && creature.lvl <= character.level + 1;
+    });
+
+    if (availableCreatures.length > 0) {
+        const creatureIndex = getRandom(0, availableCreatures.length - 1);
+        return availableCreatures[creatureIndex];
+    }
+
+    return null; // No creature encountered
+}
+
+// Exploration logic that handles events and creature encounters
+function exploreWoods() {
+    if (character.hp <= 0) {
+        alert("RIP, your cat has perished. Please create a new character.");
+        return;
+    }
+
+    if (Math.random() <= 0.1) { // 10% chance for event
+        handleEvent(); // Handle event
+    } else {
+        currentCreature = selectCreature();
+        if (currentCreature === null) {
+            document.getElementById("battle-log").innerHTML = "No creature encountered, you continue along.<br>" + document.getElementById("battle-log").innerHTML;
+            return;
+        }
+
+        updateBattleStatus();
+        displayCharacter();
+
+        // Set creature's current HP
+        currentCreature.currentHp = currentCreature.hp;
+
+        inBattle = true;
+        document.getElementById("start-battle-btn").style.display = "none";
+        document.getElementById("Bite-btn").style.display = "inline";
+
+        if (character.class !== "Fat Cat") {
+            document.getElementById("Scratch-btn").style.display = "inline";
+        } else {
+            document.getElementById("Scratch-btn").style.display = "none";
+        }
+
+        document.getElementById("potion-btn").style.display = "inline";
+        document.getElementById("battle-status").style.display = "inline";
+        document.getElementById("battle-log").innerHTML = `<p class="is-family-code has-text-centered">You've encountered a creature! Battle begins against:
+            <span class="tags is-centered has-text-centered p-1 are-medium has-addons" style="margin-right:30px;">
+                <span class="tag is-danger">${currentCreature.name}</span>
+                <span class="tag is-danger is-light">${currentCreature.currentHp} HP</span>
+                <span class="tag is-warning">Lvl ${currentCreature.lvl}</span>
+            </span></p>` + document.getElementById("battle-log").innerHTML;
+    }
+}
+
+// Function to update the battle status in the HTML
+function updateBattleStatus() {
+    document.getElementById("battle-status").innerHTML = `
+        <p class="is-centered has-text-centered is-family-code">Battle:
+            <span class="tags has-addons is-centered">
+                <span class="tag is-dark is-primary">${character.name}</span>
+                <span class="tag is-danger is-light">${character.hp}/${character.maxHp} HP</span>
+                <span class="tag is-warning">Lvl ${character.level}</span>
+                <span class="tag is-dark">Vs</span>
+                <span class="tag is-warning">Lvl ${currentCreature.lvl}</span>
+                <span class="tag is-danger is-light">${currentCreature.currentHp}/${currentCreature.hp} HP</span>
+                <span class="tag is-dark is-danger">${currentCreature.name}</span>
+            </span>
+            ${character.level > 0 ? `<p class="has-text-warning p-1">Level ${character.level} Bonus +${character.level} DMG</p>` : ''}
+        </p>
+    `;
+}
+
+// Attack using Bite ability
+function useBite() {
+    if (!inBattle) return;  // Ensure you're in battle
+
+    let characterAtk = getRandom(character.minAtk, character.maxAtk) + character.level; // Bite attack damage
+    currentCreature.currentHp -= characterAtk;
+
+    document.getElementById("battle-log").innerHTML = `<div class="notification battle is-dark"><li> 
+    <em class="heroMark">${character.name}'s</em> <em class="atkMark">Bite</em> dealt (<span class="heroAtkMark">${characterAtk}</span>) DMG to 
+        <em class="enemyMark">${currentCreature.name}</em>: <em class="hpMark">${currentCreature.currentHp} HP</em>
+    </li></div>` + document.getElementById("battle-log").innerHTML;
+
+    updateBattleStatus();
+    displayCharacter();
+
+    // Check if the creature is defeated
+    if (currentCreature.currentHp <= 0) {
+        let experienceGain = currentCreature.baseExp + getRandom(...currentCreature.expRange);
+        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-success is-light"><li> 
+            You defeated <em class="enemyMark">${currentCreature.name}</em> and gained ${experienceGain} XP!<br>
+        </li></div>` + document.getElementById("battle-log").innerHTML;
+
+        character.experience += experienceGain;  // Award XP for winning
+        levelUp();  // Check for level up
+        saveCharacter();
+        displayCharacter();
+        endBattle();  // End the battle
+        return;
+    }
+
+    creatureAttack();  // Let the creature attack
+}
+
+// Attack using Scratch ability (two hits)
+function useScratch() {
+    if (!inBattle || character.class === "Fat Cat") return;  // Skip Scratch if class is Fat Cat
+
+    let damage1 = getRandom(1, 4);  // First hit
+    let damage2 = getRandom(1, 4);  // Second hit
+    let damage3 = character.class === "Sneaky Cat" ? getRandom(1, 4) : 0;  // Sneaky Cat gets an extra hit
+
+    let totalDamage = damage1 + damage2 + damage3 + character.level;
+    currentCreature.currentHp -= totalDamage;
+
+    document.getElementById("battle-log").innerHTML = `<div class="notification battle is-dark"><li> 
+        <em class="heroMark">${character.name}'s</em> <em class="atkMark">Scratches</em> dealt (<span class="heroAtkMark">${totalDamage}</span>) DMG to 
+        <em class="enemyMark">${currentCreature.name}</em>: <em class="hpMark">${currentCreature.currentHp} HP</em><br>
+    </li></div>` + document.getElementById("battle-log").innerHTML;
+
+    updateBattleStatus();
+    displayCharacter();
+
+    // Check if the creature is defeated
+    if (currentCreature.currentHp <= 0) {
+        let experienceGain = currentCreature.baseExp + getRandom(...currentCreature.expRange);
+        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-success is-light"><li>
+            You defeated <em class="enemyMark">${currentCreature.name}</em> and gained ${experienceGain} XP!<br>
+        </li></div>` + document.getElementById("battle-log").innerHTML;
+
+        character.experience += experienceGain;  // Award XP for winning
+        levelUp();  // Check for level up
+        saveCharacter();
+        displayCharacter();
+        endBattle();  // End the battle
+        return;
+    }
+
+    creatureAttack();  // Let the creature attack
+}
+
+// Use a potion to regain health
+function usePotion() {
+    if (character.potions <= 0) {
+        document.getElementById("battle-log").innerHTML = `<div class="message is-info"><div class="message-body">No potions left to use.</div></div>` + document.getElementById("battle-log").innerHTML;
+        return;
+    }
+
+    if (character.hp >= character.maxHp) {
+        document.getElementById("battle-log").innerHTML = `<div class="message is-info"><div class="message-body">HP is already full, potion not needed.</div></div>` + document.getElementById("battle-log").innerHTML;
+        return;
+    }
+
+    character.hp += 10;  // Restore 10 HP
+    if (character.hp > character.maxHp) character.hp = character.maxHp;  // Cap HP at maxHp
+    character.potions -= 1;  // Deduct a potion
+
+    document.getElementById("battle-log").innerHTML = `<div class="notification battle is-dark"><li> 
+        <em class="heroMark">${character.name}</em> regained 10 HP from potion. ${character.potions} Potions left<br>
+    </li></div>` + document.getElementById("battle-log").innerHTML;
+
+    displayCharacter();  // Update character info
+}
+
+// Update visibility of the potion button based on potion availability
+function updatePotionButtonVisibility() {
+    if (character.potions > 0 && character.hp < character.maxHp) {
+        document.getElementById("potion-btn").style.display = "inline";
+    } else {
+        document.getElementById("potion-btn").style.display = "none";
+    }
+}
+
+// Handle creature attack phase
+function creatureAttack() {
+    if (Math.random() <= currentCreature.missChance / 100) {
+        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-dark"><li> 
+            <em class="enemyMark">${currentCreature.name}'s</em> attack missed!<br>
+        </li></div>` + document.getElementById("battle-log").innerHTML;
+        return;
+    }
+
+    let creatureAtk = getRandom(currentCreature.minAtk, currentCreature.maxAtk);  // Creature's attack damage
+    character.hp -= creatureAtk;
+
+    document.getElementById("battle-log").innerHTML = `<div class="notification battle is-dark"><li> 
+        <em class="enemyMark">${currentCreature.name}'s</em> <em class="atkMark">${currentCreature.nameAtk}</em> dealt (${creatureAtk}) DMG to <em class="heroMark">${character.name}</em>: <em class="hpMark">${character.hp} HP</em><br>
+    </li></div>` + document.getElementById("battle-log").innerHTML;
+
+    if (character.hp <= 0) {
+        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-danger"><li> You have been defeated. RIP <em class="heroMark">${character.name}</em>.</li></div>` + document.getElementById("battle-log").innerHTML;
+        endBattle();  // End the battle if the player dies
+    }
+}
+
+// End the battle and reset UI elements
+function endBattle() {
+    inBattle = false;
+    document.getElementById("start-battle-btn").style.display = "inline";
+    document.getElementById("Bite-btn").style.display = "none";
+    document.getElementById("Scratch-btn").style.display = "none";
+    document.getElementById("potion-btn").style.display = "none";
+    document.getElementById("battle-status").style.display = "none";
+    updatePotionButtonVisibility();  // Update potion button visibility
+}
+
+// Handle an event during exploration
+function handleEvent() {
+    const availableEvents = encounters.filter(event => {
+        return Math.random() <= event.encounterRate;
+    });
+
+    if (availableEvents.length === 0) {
+        document.getElementById("battle-log").innerHTML = "No event occurred, you continue your journey.<br>" + document.getElementById("battle-log").innerHTML;
+        return;
+    }
+
+    // Select a random event
+    currentEvent = availableEvents[getRandom(0, availableEvents.length - 1)];
+
+    // Display the event in the battle log
+    document.getElementById("battle-log").innerHTML = `
+    <article id="event-log" class="message column is-8 is-offset-2 is-success is-dark">
+        <div class="message-header"><p>${currentEvent.name}</p></div>
+        <div class="message-body">${currentEvent.desc}</div>    
+    </article>` + document.getElementById("battle-log").innerHTML;
+
+    document.getElementById("start-battle-btn").style.display = "none";  // Hide battle button during event
+    document.getElementById("eventYes-btn").style.display = "inline";  // Show Yes button
+    document.getElementById("eventNo-btn").style.display = "inline";  // Show No button
+
+    // Disable Yes button if player doesn't meet the event's requirements
+    if (currentEvent.type === 'choice' && character.potions <= 0) {
+        document.getElementById("eventYes-btn").disabled = true;
+    } else {
+        document.getElementById("eventYes-btn").disabled = false;
+    }
+
+    // Update event buttons with appropriate text
+    document.getElementById("eventYes-btn").innerHTML = currentEvent.yes;
+    document.getElementById("eventNo-btn").innerHTML = currentEvent.no || "Leave";
+}
+
+// Handle 'Yes' response to an event
+function useEventYes() {
+    if (!currentEvent) return;
+
+    let messageContent = '';  // Initialize message content
+
+    if (currentEvent.type === 'choice') {
+        currentEvent.effect();  // Apply the effect (e.g., deduct a potion)
+        const response = currentEvent.yesResponses[getRandom(0, currentEvent.yesResponses.length - 1)];
+        messageContent = `<div class="message-body">${response}</div>`;
+        messageContent += `<div class="message-body">${currentEvent.yesEnd}</div>`;
+        character.experience += currentEvent.baseExp;  // Gain experience
+        levelUp();
+    } else if (currentEvent.type === 'stash') {
+        currentEvent.effect();  // Gain a potion
+        const response = currentEvent.yesResponses[0];
+        messageContent = `<div class="message-body">${response}</div>`;
+        messageContent += `<div class="message-body">${currentEvent.yesEnd}</div>`;
+    } else if (currentEvent.type === 'investigate') {
+        const randomNumber = Math.random();
+        if (randomNumber <= currentEvent.ratioABC[0]) {
+            currentEvent.effectA();  // Gain a potion
+            messageContent = `<div class="message-body">${currentEvent.yesA}</div>`;
+            messageContent += `<div class="message-body">${currentEvent.yesAEnd}</div>`;
+        } else if (randomNumber <= currentEvent.ratioABC[0] + currentEvent.ratioABC[1]) {
+            currentEvent.effectB();  // Lose HP
+            messageContent = `<div class="message-body">${currentEvent.yesB}</div>`;
+            messageContent += `<div class="message-body">${currentEvent.yesBEnd}</div>`;
+            if (character.hp <= 0) {
+                messageContent += `<div class="message-body">Curiosity killed the cat.</div>`;
+            }
+        } else {
+            messageContent = `<div class="message-body">${currentEvent.yesC}</div>`;
+            messageContent += `<div class="message-body">${currentEvent.yesCEnd}</div>`;
+        }
+    }
+
+    // Display the outcome of the event
+    document.getElementById("battle-log").innerHTML = `
+    <article id="event-log" class="message is-success is-dark">
+        <div class="message-header"><p>${currentEvent.name}</p></div>
+        ${messageContent}
+    </article>` + document.getElementById("battle-log").innerHTML;
+
+    endEvent();  // End the event
+    saveCharacter();
+    displayCharacter();
+}
+
+// Handle 'No' response to an event
+function useEventNo() {
+    if (!currentEvent) return;
+
+    document.getElementById("battle-log").innerHTML = `
+    <article id="event-log" class="message column is-8 is-offset-2 is-success">
+        <div class="message-header"><p>${currentEvent.name}</p></div>
+        <div class="message-body">${currentEvent.noResponse || 'You decided to ignore the event.'}</div>
+    </article>` + document.getElementById("battle-log").innerHTML;
+
+    endEvent();  // End the event
+}
+
+// End the current event and reset UI elements
+function endEvent() {
+    currentEvent = null;
+    document.getElementById("eventYes-btn").style.display = "none";
+    document.getElementById("eventNo-btn").style.display = "none";
+    document.getElementById("start-battle-btn").style.display = "inline";
+    document.getElementById("potion-btn").style.display = "none";
+}
+
+// Handle new character creation
+document.getElementById('create-character-form').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevent form submission from reloading the page
+    const name = document.getElementById('name').value;
+    const characterClass = document.getElementById('class').value;
+
+    // Initialize new character
+    character = {
+        name: name,
+        level: 0,
+        class: characterClass,
+        experience: 0,
+        maxHp: 0,
+        hp: 0,
+        potions: 0,
+        minAtk: 0,
+        maxAtk: 0
+    };
+
+    setClassAttributes(characterClass);  // Set class-specific attributes
+    saveCharacter();
+    displayCharacter();
+    showTab('woods');  // Switch to woods tab
+});
+
+// Handle name change
+document.getElementById('change-name-form').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevent page reload
+    const newName = document.getElementById('new-name').value;
+    character.name = newName;  // Update character name
+    saveCharacter();
+    displayCharacter();
+    showTab('woods');
+});
+
+// Show the appropriate tab in the UI
+function showTab(tabId) {
+    document.getElementById('woods-tab').style.display = 'none';
+    document.getElementById('edit-tab').style.display = 'none';
+    document.getElementById(tabId + '-tab').style.display = 'block';
+}
+
+// Initial setup when the window is loaded
+window.onload = function() {
+    loadCharacter();  // Load saved character data
+    showTab('woods');  // Default to the 'woods' tab
+};
+
+// Handle navbar toggle for mobile
+document.addEventListener('DOMContentLoaded', () => {
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+    if ($navbarBurgers.length > 0) {
+        $navbarBurgers.forEach(el => {
+            el.addEventListener('click', () => {
+                const target = el.dataset.target;
+                const $target = document.getElementById(target);
+
+                el.classList.toggle('is-active');
+                $target.classList.toggle('is-active');
+            });
+        });
+    }
+});
+
+
+    </script>
+</body>
+</html>
