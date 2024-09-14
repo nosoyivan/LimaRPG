@@ -60,7 +60,7 @@
                                     <div class="control">
                                         <div class="tags has-addons are-medium">
                                             <span class="tag is-dark">Health</span>
-                                            <span class="tag is-danger is-light">20HP</span>
+                                            <span class="tag is-danger is-light">20/20HP</span>
                                         </div>
                                     </div>
 
@@ -89,20 +89,13 @@
                             </div>
                             <div class="buttons is-flex is-flex-wrap-wrap is-justify-content-center"
                                 id="battle-controls">
-                                <button class="button is-primary is-dark" id="start-battle-btn" style="width:45%;"
-                                    onclick="exploreWoods()">Explore the woods</button>
-                                <button class="button is-success is-dark" id="Bite-btn" style="display:none; width:45%;"
-                                    onclick="useBite()">Bite (1D6)</button>
-                                <button class="button is-success is-dark" id="Scratch-btn"
-                                    style="display:none; width:45%;" onclick="useScratch()">Scratch (2D4)</button>
-                                <button class="button is-danger is-dark" id="smokebomb-btn"
-                                    style="display:none; width:45%;" onclick="useSmokebomb()">Smokebomb</button>
-                                <button class="button is-success is-dark" id="eventYes-btn"
-                                    style="display:none; width:45%;" onclick="useEventYes()">Yes</button>
-                                <button class="button is-danger is-light" id="eventNo-btn"
-                                    style="display:none; width:45%;" onclick="useEventNo()">No</button>
-                                <button class="button is-danger is-dark" id="potion-btn" style="width:45%;"
-                                    onclick="usePotion()">Potion (+10HP)</button>
+                                <button class="button is-primary is-dark" id="start-battle-btn" style="width:45%;" onclick="exploreWoods()">Explore the woods</button>
+                                <button class="button is-success is-dark" id="Bite-btn" style="display:none; width:45%;" onclick="useBite()">Bite (1D6)</button>
+                                <button class="button is-success is-dark" id="Scratch-btn" style="display:none; width:45%;" onclick="useScratch()">Scratch (2D4)</button>
+                                <button class="button is-warning is-inverted" id="KickDirt-btn" style="display:none; width:45%;" onclick="useKickDirt()">Kick Dirt</button>
+                                <button class="button is-success is-dark" id="eventYes-btn" style="display:none; width:45%;" onclick="useEventYes()">Yes</button>
+                                <button class="button is-danger is-light" id="eventNo-btn" style="display:none; width:45%;" onclick="useEventNo()">No</button>
+                                <button class="button is-danger is-dark" id="potion-btn" style="width:45%;" onclick="usePotion()">Potion (+10HP)</button>
                             </div>
                             <div style="display:none;" class="is-centered has-text-centered" id="battle-status">
                                 New Battle
@@ -149,6 +142,8 @@
                                             <li>- <strong>Scratch</strong>: A quick double attack that deals two hits,
                                                 each dealing 1 to 4 damage (2D4).
                                             </li>
+                                            <li>- <strong>Kick Dirt</strong>: Kick dirt into you opponent and cause their accuracy to drastically fall. 
+                                            </li>
                                             <li>- <strong>Potion</strong>: Use a potion to restore 10 HP (+10HP). You
                                                 start each level with a limited
                                                 number of potions.</li>
@@ -161,7 +156,7 @@
                                         <p class="is-centered has-text-centered">
                                             <oblique>Battle Example:</oblique>
                                         </p>
-                                        <ol class="is-family-code">
+                                        <ol class="is-family-code" style="margin-left: 10px;">
                                             <li class="is-tight">
                                                 <em class="enemyMark">Enemy's</em> <em class="atkMark">Attack</em> dealt
                                                 3 DMG to <em class="heroMark">You</em> : <em class="hpMark">17HP</em><br>

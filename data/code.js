@@ -5,7 +5,8 @@ let character = {
     class: "Cat",       // Default class
     experience: 0,         // Starting experience
     maxHp: 20,                // Health points (based on class)
-    potions: 2             // Potions available per level (based on class)
+    potions: 2,  
+    kickdirt: 2,           // Potions available per level (based on class)
 };
 
 // Array of creatures with attributes including name, health, attack stats, and encounter rates
@@ -17,7 +18,7 @@ const creatures = [
         lvl: 0,            // Creature's level
         minAtk: 1,         // Minimum attack damage
         maxAtk: 2,         // Maximum attack damage
-        missChance: 40,    // 10% chance to miss
+        missChance: 1,    // 10% chance to miss
         baseExp: 10,       // Base experience rewarded
         expRange: [2, 4],  // Random additional experience range
         encounterRate: 5,  // 4 in 10 chance to encounter
@@ -166,8 +167,30 @@ const encounters = [
         no01: 'You choose to ignore the noise.',
         noEnd: 'You leave and continue your journey.',
         encounterRate: 3  // 0.5 in 10 chance to encounter
-    } 
+    }/*,
+    {
+        name: '"Pssst... Hey, wanna smoke...bomb..."',
+        desc: 'A sketchy cat approaches you offering to trade a Potion for two Smoke Bombs',
+        type: 'investigate',   
+        yes: 'Sure! (-1<img style="max-height: 16px; max-width: 16px;" src="assets/potion.svg">) for (+2<img style="max-height: 16px; max-width: 16px;" src="assets/potion.svg">)',
+        ratioABC: [8, 2], // Likelihood of finding potion (7 in 10) vs getting hurt (3 in 10)
+        itemA: character.kickdirt ,
+        effectA: [character.kickdirt + 2, character.potions - 1 ], // Find a potion
+        itemB: character.kickdirt ,
+        effectB: [character.potions - 1 ], // Find a potion
+        yesA: 'You traded and now have (+2<img style="max-height: 16px; max-width: 16px;" src="assets/potion.svg">)',
+        yesB: 'You traded with the cat and he proceeds to run deep into the woods... wait a minute this bag is full of rock! (-1<img style="max-height: 16px; max-width: 16px;" src="assets/potion.svg">)',
+        yesAEnd: 'I love bartering goods!',
+        yesBEnd: 'You\'ve been bamboozeled by that dang cat!',
+        no: 'No Thank you',
+        no01: 'You continue along your path.',
+        noEnd: 'You leave and continue your journey.',
+        encounterRate: 3  // 0.5 in 10 chance to encounter
+    }  */
 ];
+
+
+
 
 
 // Battle state variables
@@ -194,7 +217,7 @@ function displayCharacter() {
             <div class="control">
                 <div class="tags has-addons are-medium">
                     <span class="tag is-dark">Health</span>
-                    <span class="tag is-danger is-light">${character.hp} HP</span>
+                    <span class="tag is-danger is-light">${character.hp}/${character.maxHp + character.level}</span>
                 </div>
             </div>
             <div class="control">
@@ -213,6 +236,12 @@ function displayCharacter() {
                 <div class="tags has-addons are-medium">
                     <span class="tag is-dark">Potions</span>
                     <span class="tag is-info">${character.potions}</span>
+                </div>
+            </div>
+            <div class="control">
+                <div class="tags has-addons are-medium">
+                    <span class="tag is-dark">Potions</span>
+                    <span class="tag is-info">${character.kickdirt}</span>
                 </div>
             </div>
         </div><br>  
@@ -248,7 +277,13 @@ function setClassAttributes(characterClass) {
     }
 }
 
-// Level-up logic based on experience points
+function updateAll() {
+    updatePotionButtonVisibility()
+    displayCharacter();  // Update character info
+    updateBattleStatus();
+
+}
+
 // Level-up logic based on experience points
 function levelUp() {
     const xpToLevel = [35, 80, 135, 200, 275, 360, 455, 560, 675, 800]; // XP thresholds for leveling up
@@ -314,7 +349,6 @@ function exploreWoods() {
         alert("RIP, your cat has perished. Please create a new character.");
         return;
     }
-
     const eventChance = getRandom(1, 10) <= 1; // 10% chance for event
     if (eventChance) {
         handleEvent(); // Handle event
@@ -325,8 +359,7 @@ function exploreWoods() {
             return;
         }
 
-        updateBattleStatus();
-        displayCharacter();
+        updateAll();
 
         const creatureHPs = {
             "Spider": 10,
@@ -344,6 +377,7 @@ function exploreWoods() {
         inBattle = true;
         document.getElementById("start-battle-btn").style.display = "none";
         document.getElementById("Bite-btn").style.display = "inline";
+        document.getElementById("KickDirt-btn").style.display = "inline";
 
         if (character.class !== "Fat Cat") {
             document.getElementById("Scratch-btn").style.display = "inline";
@@ -365,6 +399,7 @@ function exploreWoods() {
 // Function to update the battle status in the HTML
 function updateBattleStatus() {
     
+    updatePotionButtonVisibility()
 
     document.getElementById("battle-status").innerHTML = `
         <p class="is-centered has-text-centered is-family-code">Battle:
@@ -412,7 +447,7 @@ function useBite() {
         endBattle();  // End the battle
         return;
     }
-
+    updateAll();
     creatureAttack();  // Let the creature attack
 }
 
@@ -447,6 +482,7 @@ function useScratch() {
         endBattle();  // End the battle
         return;
     }
+    updateAll();
 
     creatureAttack();  // Let the creature attack
 }
@@ -483,8 +519,45 @@ function updatePotionButtonVisibility() {
     } else {
         potionButton.disabled = true;
     }
+    displayCharacter();  // Update character info
+
 }
 
+function useKickDirt() {
+    if (character.kickdirt <= 0) {
+        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-info"><li>No Kick Dirt abilities left to use.</li></div>` + document.getElementById("battle-log").innerHTML;
+        return;
+    }
+
+    if (currentCreature.missChance >= 75) {  // If the missChance rate is 75% or higher, don't increase it further
+        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-info"><li>The creature can't miss any more than it already does.</li></div>` + document.getElementById("battle-log").innerHTML;
+        return;
+    }
+
+    // Increase the creature's missChance to 74
+    currentCreature.missChance = 75;
+
+
+    character.kickdirt -= 1;
+
+    document.getElementById("battle-log").innerHTML = `<div class="notification battle is-dark"><li>
+        <em class="heroMark">${character.name}</em> kicked dirt into ${currentCreature.name}'s eyes, increasing its miss chance!<br>
+    </li></div>` + document.getElementById("battle-log").innerHTML;
+
+    updateAll();
+    creatureAttack();  // Let the creature attack
+}
+
+// Update visibility of the potion button based on potion availability
+function updateKickDirtButtonVisibility() {
+    const kickdirtButton = document.getElementById("KickDirt-btn");
+    if (character.kickdirt > 0) {
+        kickdirtButton.disabled = false;
+    } else {
+        kickdirtButton.disabled = true;
+    }
+    displayCharacter();  // Update character info
+}
 
 
 // Handle creature attack phase
@@ -508,7 +581,8 @@ function creatureAttack() {
         document.getElementById("battle-log").innerHTML = `<div class="notification battle battle is-danger"><li> You have been defeated. RIP <em class="heroMark">${character.name}</em>.</li></div>` + document.getElementById("battle-log").innerHTML;
         endBattle();  // End the battle if the player dies
     }
-    updateBattleStatus();
+
+    updateAll();
 }
 
 // End the battle and reset UI elements
@@ -517,9 +591,10 @@ function endBattle() {
     document.getElementById("start-battle-btn").style.display = "inline";
     document.getElementById("Bite-btn").style.display = "none";
     document.getElementById("Scratch-btn").style.display = "none";
+    document.getElementById("KickDirt-btn").style.display = "none";
     document.getElementById("potion-btn").style.display = "inline";
     document.getElementById("battle-status").style.display = "none";
-    updatePotionButtonVisibility();  // Update potion button visibility
+    updateAll();
     
     document.getElementById("battle-log").innerHTML = `<div class="notification battle is-success"><li> 
         You've made it back to Camp. Use potions or continue exploring.<br>
@@ -655,7 +730,8 @@ document.getElementById('create-character-form').addEventListener('submit', func
         class: characterClass,
         experience: 0,
         hp: 0,  // Default, set based on class
-        potions: 2  // Default potions, updated based on class
+        potions: 2,  // Default potions, updated based on class
+        kickdirt: 2  // Default potions, updated based on class
     };
 
     setClassAttributes(characterClass);  // Set class-specific attributes

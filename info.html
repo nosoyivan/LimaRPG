@@ -4,8 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LimaRPG 0.1.2</title>
+    <title>LimaRPG 0.1.3</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h3, h4 {
+            color: #333;
+        }
+        h1 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        h3 {
+            margin-top: 30px;
+            color: #444;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        .note {
+            background-color: #fff3cd;
+            padding: 10px;
+            border-left: 6px solid #ffeeba;
+            margin: 20px 0;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 40px 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -43,16 +75,47 @@
                             <div class="message-header">
                               <p>Welcome to LimaRPG 0.1.2</p>
                             </div>
-                            <div class="message-body content">
+                            <div class="message-body is-family-code content">
 
-                                <h3>Character Creation</h3>
+
                                 <ul>
                                     <li><strong>Name</strong>: The player can name their character. By default, the name is "Lima".</li>
                                     <li><strong>Class</strong>: Players can choose between different cat classes:
                                         <ul>
-                                            <li><strong>Cat</strong>: A balanced class with 20 HP and 2 potions.</li>
-                                            <li><strong>Fat Cat</strong>: Higher HP (30) but can't use the "Scratch" attack. Comes with 3 potions.</li>
-                                            <li><strong>Sneaky Cat</strong>: Lower HP (15) but gets an additional hit in combat. Comes with 1 potion.</li>
+                                            <li><strong>Cat</strong>:
+                                                <ul>
+                                                    <li>A balanced class with 20 HP.</li>
+                                                    <li>Starts with <strong>2 potions</strong>.</li>
+                                                    <li>Starts with <strong>2 uses of "Kick Dirt"</strong>.</li>
+                                                </ul>
+                                            </li>
+                                            <li><strong>Fat Cat</strong>:
+                                                <ul>
+                                                    <li>Higher HP (30) but can't use the "Scratch" attack.</li>
+                                                    <li>Starts with <strong>3 potions</strong>.</li>
+                                                    <li>Starts with <strong>2 uses of "Kick Dirt"</strong>.</li>
+                                                </ul>
+                                            </li>
+                                            <li><strong>Sneaky Cat</strong>:
+                                                <ul>
+                                                    <li>Lower HP (15) but gets an additional hit when using "Scratch".</li>
+                                                    <li>Starts with <strong>1 potion</strong>.</li>
+                                                    <li>Starts with <strong>2 uses of "Kick Dirt"</strong>.</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                
+                                <h3>Leveling Up</h3>
+                                <ul>
+                                    <li><strong>Experience</strong>: Defeating creatures and completing events grants experience points (XP). Each level requires a certain amount of XP.</li>
+                                    <li><strong>Level Bonuses</strong>:
+                                        <ul>
+                                            <li><strong>+1 attack damage per level</strong>.</li>
+                                            <li>Potions are reset to class default on each level-up.</li>
+                                            <li><strong>"Kick Dirt" uses are reset to 2</strong> on each level-up.</li>
+                                            <li>HP increases by <strong>2 points per level</strong>.</li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -64,13 +127,22 @@
                                 <ol>
                                     <li><strong>Bite</strong>:
                                         <ul>
-                                            <li>Deals damage between 3 and 6, plus a bonus of +1 damage per character level.</li>
+                                            <li>Deals damage between <strong>3 and 6</strong>, plus a bonus of <strong>+1 damage per character level</strong>.</li>
                                         </ul>
                                     </li>
                                     <li><strong>Scratch</strong>:
                                         <ul>
-                                            <li>Deals two hits, each doing 1-4 damage, plus a bonus of +1 damage per character level.</li>
-                                            <li>Sneaky Cat class can perform a third hit.</li>
+                                            <li>Deals <strong>two hits</strong>, each doing <strong>1-4 damage</strong>, plus a bonus of <strong>+1 damage per character level</strong>.</li>
+                                            <li><strong>Sneaky Cat</strong> class performs a <strong>third hit</strong>.</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Kick Dirt</strong>:
+                                        <ul>
+                                            <li>A strategic move that <strong>increases the enemy's chance to miss</strong>.</li>
+                                            <li>When used, sets the enemy's <strong>miss chance to 75%</strong> (if it was lower).</li>
+                                            <li>Limited to <strong>2 uses per level</strong>.</li>
+                                            <li>Does <strong>not deal damage</strong> but can prevent incoming damage from the enemy.</li>
+                                            <li>After use, the enemy will have a significantly higher chance to miss their next attacks.</li>
                                         </ul>
                                     </li>
                                 </ol>
@@ -78,55 +150,60 @@
                                 <h4>Creatures:</h4>
                                 <p>Each creature has the following attributes:</p>
                                 <ul>
-                                    <li><strong>Health (HP)</strong>: How much damage it can take.</li>
+                                    <li><strong>Health</strong> (HP): How much damage it can take.</li>
                                     <li><strong>Attack</strong>: The type of attack the creature uses.</li>
                                     <li><strong>Miss Chance</strong>: The percentage chance a creature will miss an attack.</li>
                                     <li><strong>Reward</strong>: Creatures drop potions or give experience points upon defeat.</li>
                                 </ul>
-                                
                                 <p>Example creatures:</p>
                                 <ul>
-                                    <li><strong>Spider</strong>: 10 HP, attacks with Bite, 40% miss chance, drops potions 10% of the time.</li>
-                                    <li><strong>Raccoon</strong>: 25 HP, attacks with Scratch, 10% miss chance, more challenging.</li>
+                                    <li><strong>Spider</strong>:
+                                        <ul>
+                                            <li><strong>10 HP</strong>.</li>
+                                            <li>Attacks with <strong>Bite</strong>.</li>
+                                            <li><strong>10% miss chance</strong>.</li>
+                                            <li>Drops potions <strong>10%</strong> of the time.</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Raccoon</strong>:
+                                        <ul>
+                                            <li><strong>25 HP</strong>.</li>
+                                            <li>Attacks with <strong>Scratch</strong>.</li>
+                                            <li><strong>10% miss chance</strong>.</li>
+                                            <li>More challenging opponent.</li>
+                                        </ul>
+                                    </li>
                                 </ul>
                                 
-                                <h3>Potions</h3>
+                                <h3>Potions and Abilities</h3>
+                                
+                                <h4>Potions</h4>
                                 <ul>
-                                    <li><strong>Healing</strong>: Each potion restores 10 HP. You start with a certain number of potions depending on your class:
+                                    <li><strong>Healing</strong>: Each potion restores <strong>10 HP</strong>.</li>
+                                    <li><strong>Starting Potions</strong>:
                                         <ul>
-                                            <li><strong>Cat</strong>: 2 potions</li>
-                                            <li><strong>Fat Cat</strong>: 3 potions</li>
-                                            <li><strong>Sneaky Cat</strong>: 1 potion</li>
+                                            <li><strong>Cat</strong>: 2 potions.</li>
+                                            <li><strong>Fat Cat</strong>: 3 potions.</li>
+                                            <li><strong>Sneaky Cat</strong>: 1 potion.</li>
                                         </ul>
                                     </li>
-                                    <li><strong>Potion Limit</strong>: Potions are capped at a set amount depending on your class, and they reset to the default upon leveling up.</li>
+                                    <li><strong>Potion Limit</strong>: Potions reset to class default upon leveling up.</li>
                                 </ul>
-
-                                <h3>Leveling Up</h3>
+                                
+                                <h4>Kick Dirt</h4>
                                 <ul>
-                                    <li><strong>Experience</strong>: Defeating creatures and completing events grants experience points (XP). Each level requires a certain amount of XP.</li>
-                                    <li><strong>Level Bonuses</strong>:
-                                        <ul>
-                                            <li>+1 attack damage per level.</li>
-                                            <li>Potions are reset to class default on each level-up.</li>
-                                            <li>HP increases by 2 points per level.</li>
-                                        </ul>
-                                    </li>
+                                    <li><strong>Effect</strong>: Increases the enemy's miss chance to <strong>75%</strong>.</li>
+                                    <li><strong>Uses</strong>: Limited to <strong>2 uses per level</strong>.</li>
+                                    <li><strong>Reset</strong>: "Kick Dirt" uses reset to 2 upon leveling up.</li>
+                                    <li><strong>Strategic Use</strong>: Best used against tough opponents to reduce the damage you might receive.</li>
                                 </ul>
-                                                                
+                                
                                 <h3>Events</h3>
                                 <p>During exploration, you may encounter random events. These can include:</p>
                                 <ul>
                                     <li><strong>Sidequests</strong>: Offer rewards or challenges.</li>
                                     <li><strong>Rescue missions</strong>: For example, helping a wounded cat in exchange for experience points.</li>
                                 </ul>
-                                
-                                <h4>Event Types:</h4>
-                                <ol>
-                                    <li><strong>Choice Events</strong>: Require you to decide whether to help or leave, sometimes using potions.</li>
-                                    <li><strong>Stash Events</strong>: Allow you to collect items like potions.</li>
-                                    <li><strong>Investigation Events</strong>: Present you with the opportunity to investigate and receive a reward or suffer a consequence.</li>
-                                </ol>
                                 
                                 <h3>Exploration</h3>
                                 <p>As you explore the woods, you'll encounter creatures and events. Every move could lead to:</p>
@@ -136,6 +213,13 @@
                                     <li>Finding potions to aid your journey.</li>
                                 </ul>
                                 
+                                <hr>
+                                
+                                <div class="note">
+                                    <p><strong>Note:</strong> The <strong>"Kick Dirt"</strong> ability adds a new layer of strategy to combat. By increasing an enemy's miss chance, you can mitigate incoming damage, giving you an advantage in tough battles. Remember to manage your limited uses wisely!</p>
+                                </div>
+                                
+                                <hr>
 
                             </div>
                         </article>
