@@ -1,79 +1,78 @@
-# LimaRPG 0.1.3
+# LimaRPG 0.1.4
 
 ## Character Creation
 
-- **Name**: The player can name their character. By default, the name is "Lima".
-- **Class**: Players can choose between different cat classes:
+- **Name**: Players can name their character. By default, the name is "Lima".
+- **Class Options**:
   - **Cat**:
-    - A balanced class with 20 HP.
+    - Balanced class with **20 HP**.
     - Starts with **2 potions**.
-    - Starts with **2 uses of "Kick Dirt"**.
+    - **2 uses of "Kick Dirt"**.
   - **Fat Cat**:
-    - Higher HP (30) but can't use the "Scratch" attack.
+    - Higher HP (**30**) but cannot use the "Scratch" attack.
     - Starts with **3 potions**.
-    - Starts with **2 uses of "Kick Dirt"**.
+    - **2 uses of "Kick Dirt"**.
   - **Sneaky Cat**:
-    - Lower HP (15) but gets an additional hit when using "Scratch".
+    - Lower HP (**15**) but gains an additional hit when using "Scratch".
     - Starts with **1 potion**.
-    - Starts with **2 uses of "Kick Dirt"**.
+    - **2 uses of "Kick Dirt"**.
 
 ## Leveling Up
 
-- **Experience**: Defeating creatures and completing events grants experience points (XP). Each level requires a certain amount of XP.
+- **Experience Points (XP)**: Earned by defeating creatures and completing events. Each level requires a specific amount of XP.
 - **Level Bonuses**:
-  - **+1 attack damage per level**.
-  - Potions are reset to class default on each level-up.
-  - **"Kick Dirt" uses are reset to 2** on each level-up.
-  - HP increases by **2 points per level**.
+  - **+1 attack damage** per level.
+  - Potions reset to class default on level-up.
+  - **"Kick Dirt" uses reset to 2** on level-up.
+  - HP increases by **2 points** per level.
 
 ## Combat
 
-Combat occurs when you encounter a creature while exploring the woods.
+Combat occurs during exploration when you encounter a creature.
 
 ### Attacks:
 
 1. **Bite**:
-   - Deals damage between **3 and 6**, plus a bonus of **+1 damage per character level**.
+   - Damage: **3 to 6**, plus **+1 damage per character level**.
 
 2. **Scratch**:
-   - Deals **two hits**, each doing **1-4 damage**, plus a bonus of **+1 damage per character level**.
-   - **Sneaky Cat** class performs a **third hit**.
+   - Deals **two hits**, each doing **1-4 damage**, plus **+1 damage per character level**.
+   - **Sneaky Cat** class performs an **additional third hit**.
 
 3. **Kick Dirt**:
    - A strategic move that **increases the enemy's chance to miss**.
-   - When used, sets the enemy's **miss chance to 75%** (if it was lower).
+   - Sets the enemy's **miss chance to 75%** (if it was lower).
    - Limited to **2 uses per level**.
-   - Does **not deal damage** but can prevent incoming damage from the enemy.
-   - After use, the enemy will have a significantly higher chance to miss their next attacks.
+   - Does **not deal damage** but can significantly reduce incoming damage.
 
-### Creatures:
+### Creature Attributes:
 
 Each creature has the following attributes:
 
-- **Health** (HP): How much damage it can take.
+- **Health (HP)**: Total damage it can withstand.
 - **Attack**: The type of attack the creature uses.
-- **Miss Chance**: The percentage chance a creature will miss an attack.
-- **Reward**: Creatures drop potions or give experience points upon defeat.
+- **Miss Chance**: Percentage chance the creature will miss an attack.
+- **Reward**: Creatures drop potions or grant XP upon defeat.
 
-Example creatures:
+**Example Creatures**:
 
 - **Spider**:
-  - **10 HP**.
-  - Attacks with **Bite**.
-  - **10% miss chance**.
-  - Drops potions **10%** of the time.
+  - **HP**: 10
+  - **Attack**: Bite
+  - **Miss Chance**: 10%
+  - **Potion Drop**: 10%
 
 - **Raccoon**:
-  - **25 HP**.
-  - Attacks with **Scratch**.
-  - **10% miss chance**.
-  - More challenging opponent.
+  - **HP**: 25
+  - **Attack**: Scratch
+  - **Miss Chance**: 10%
+  - **More challenging opponent**.
 
 ## Potions and Abilities
 
 ### Potions
 
-- **Healing**: Each potion restores **10 HP**.
+- **Healing Effect**: Each potion restores **10 HP**.
 - **Starting Potions**:
   - **Cat**: 2 potions.
   - **Fat Cat**: 3 potions.
@@ -84,21 +83,21 @@ Example creatures:
 
 - **Effect**: Increases the enemy's miss chance to **75%**.
 - **Uses**: Limited to **2 uses per level**.
-- **Reset**: "Kick Dirt" uses reset to 2 upon leveling up.
-- **Strategic Use**: Best used against tough opponents to reduce the damage you might receive.
+- **Reset**: Uses reset to 2 upon leveling up.
+- **Strategic Use**: Effective against tougher opponents.
 
 ## Events
 
-During exploration, you may encounter random events. These can include:
+During exploration, random events may occur, including:
 
 - **Sidequests**: Offer rewards or challenges.
-- **Rescue missions**: For example, helping a wounded cat in exchange for experience points.
+- **Rescue Missions**: Help a wounded animal in exchange for XP.
 
 ## Exploration
 
-As you explore the woods, you'll encounter creatures and events. Every move could lead to:
+As you explore the woods, you may encounter:
 
-- A creature battle.
-- An event offering rewards or risks.
-- Finding potions to aid your journey.
+- Creature battles.
+- Events offering rewards or challenges.
+- Opportunities to find potions to aid your journey.
 

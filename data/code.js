@@ -55,7 +55,7 @@ class Character {
     }
 
     levelUp() {
-        const xpToLevel = [35, 80, 135, 200, 275, 360, 455, 560, 675, 800]; // XP thresholds for leveling up
+        const xpToLevel = [30, 80, 150, 240, 350, 480, 630, 800, 990, 1200, 1430]; // XP thresholds for leveling up
         let newLevel = this.level;
 
         while (newLevel < xpToLevel.length && this.experience >= xpToLevel[newLevel]) {
@@ -125,7 +125,7 @@ const creatures = [
         baseExp: 10,       // Base experience rewarded
         expRange: [2, 4],  // Random additional experience range
         encounterRate: 0.5,  // 50% chance to encounter
-        rewardDrop: 10     // 10% chance to drop an extra potion
+        rewardDrop: 2     // 10% chance to drop an extra potion
     },
     {
         name: "Pigeon",
@@ -138,7 +138,7 @@ const creatures = [
         baseExp: 15,
         expRange: [2, 5],
         encounterRate: 0.3,  // 30% chance to encounter
-        rewardDrop: 20
+        rewardDrop: 3
     },
     {
         name: "Possum",
@@ -150,8 +150,8 @@ const creatures = [
         missChance: 10,
         baseExp: 20,
         expRange: [2, 5],
-        encounterRate: 0.1,  // 10% chance to encounter
-        rewardDrop: 40
+        encounterRate: 0.2,  // 10% chance to encounter
+        rewardDrop: 3
     },
     {
         name: "Raccoon",
@@ -163,8 +163,8 @@ const creatures = [
         missChance: 10,
         baseExp: 25,
         expRange: [2, 5],
-        encounterRate: 0.1,
-        rewardDrop: 40
+        encounterRate: 0.2,
+        rewardDrop: 6
     },
     {
         name: "Snake",
@@ -176,8 +176,34 @@ const creatures = [
         missChance: 10,
         baseExp: 30,
         expRange: [2, 5],
-        encounterRate: 0.1,
-        rewardDrop: 40
+        encounterRate: 0.2,
+        rewardDrop: 9
+    },
+    {
+        name: "Armadillo",
+        nameAtk: "Roll",    // Attack type
+        hp: 45,             // Creature's health points
+        lvl: 4,             // Creature's level
+        minAtk: 3,          // Minimum attack damage
+        maxAtk: 5,          // Maximum attack damage
+        missChance: 15,     // 15% chance to miss
+        baseExp: 40,        // Base experience rewarded
+        expRange: [2, 6],   // Random additional experience range
+        encounterRate: 0.1, // 10% chance to encounter
+        rewardDrop: 10      // 30% chance to drop an extra potion
+    },
+    {
+        name: "Turkey",
+        nameAtk: "Peck",    // Attack type
+        hp: 30,             // Creature's health points
+        lvl: 5,             // Creature's level
+        minAtk: 1,          // Minimum attack damage
+        maxAtk: 7,          // Maximum attack damage
+        missChance: 20,     // 20% chance to miss
+        baseExp: 35,        // Base experience rewarded
+        expRange: [2, 4],   // Random additional experience range
+        encounterRate: 0.2, // 20% chance to encounter
+        rewardDrop: 13      // 20% chance to drop an extra potion
     },
     {
         name: "Cat",
@@ -187,10 +213,10 @@ const creatures = [
         minAtk: 1,
         maxAtk: 7,
         missChance: 10,
-        baseExp: 40,
+        baseExp: 45,
         expRange: [2, 5],
-        encounterRate: 0.1,
-        rewardDrop: 50
+        encounterRate: 0.2,
+        rewardDrop: 20
     },
     {
         name: "Fat Cat",
@@ -200,10 +226,10 @@ const creatures = [
         minAtk: 1,
         maxAtk: 6,
         missChance: 10,
-        baseExp: 40,
+        baseExp: 45,
         expRange: [2, 5],
-        encounterRate: 0.1,
-        rewardDrop: 50
+        encounterRate: 0.2,
+        rewardDrop: 20
     },
     {
         name: "Sneaky Cat",
@@ -213,11 +239,51 @@ const creatures = [
         minAtk: 1,
         maxAtk: 8,
         missChance: 10,
-        baseExp: 40,
+        baseExp: 45,
         expRange: [2, 5],
-        encounterRate: 0.1,
-        rewardDrop: 50
+        encounterRate: 0.2,
+        rewardDrop: 20
+    },
+    {
+        name: "Fox",
+        nameAtk: "Bite",   // Attack type
+        hp: 45,            // Creature's health points
+        lvl: 3,            // Creature's level
+        minAtk: 4,         // Minimum attack damage
+        maxAtk: 7,         // Maximum attack damage
+        missChance: 10,    // 10% chance to miss
+        baseExp: 45,       // Base experience rewarded
+        expRange: [3, 5],  // Random additional experience range
+        encounterRate: 0.15,  // 15% chance to encounter
+        rewardDrop: 25     // 25% chance to drop an extra potion
+    },    
+    {
+        name: "Bobcat",
+        nameAtk: "Slash",   // Attack type
+        hp: 50,             // Creature's health points
+        lvl: 7,             // Creature's level
+        minAtk: 4,          // Minimum attack damage
+        maxAtk: 8,          // Maximum attack damage
+        missChance: 10,     // 10% chance to miss
+        baseExp: 55,        // Base experience rewarded
+        expRange: [2, 6],  // Random additional experience range
+        encounterRate: 0.15, // 10% chance to encounter
+        rewardDrop: 35      // 50% chance to drop an extra potion
+    },
+    {
+        name: "Coyote",
+        nameAtk: "Bite",    // Attack type
+        hp: 75,             // Creature's health points
+        lvl: 9,             // Creature's level
+        minAtk: 5,          // Minimum attack damage
+        maxAtk: 9,          // Maximum attack damage
+        missChance: 15,     // 15% chance to miss
+        baseExp: 70,        // Base experience rewarded
+        expRange: [3, 7],  // Random additional experience range
+        encounterRate: 0.1,// 8% chance to encounter
+        rewardDrop: 45      // 40% chance to drop an extra potion
     }
+
 ];
 
 // Events array with updated encounterRate
@@ -497,16 +563,15 @@ function exploreWoods() {
     }
 }
 
-// Attack using Bite ability
 function useBite() {
-    if (!Game.inBattle) return;  // Ensure you're in battle
+    if (!Game.inBattle) return;
     const character = Game.character;
-    let characterAtk = getRandom(character.minAtk, character.maxAtk) + character.level; // Bite attack damage
-    let characterBase = characterAtk - character.level; // Base attack without level bonus
+    let characterAtk = getRandom(character.minAtk, character.maxAtk) + character.level;
+    let characterBase = characterAtk - character.level;
     Game.currentCreature.hp -= characterAtk;
 
     if (Game.currentCreature.hp < 0) Game.currentCreature.hp = 0;
-    
+
     document.getElementById("battle-log").innerHTML = `<div class="notification battle is-dark"><li> 
     <em class="heroMark">${character.name}'s</em> <em class="atkMark">Bite</em> dealt (<span class="heroAtkMark">${characterBase}</span>${character.level > 0 ? `<span class="bnsMark">+${character.level}</span>` : ''}) DMG to 
         <em class="enemyMark">${Game.currentCreature.name}</em>: <em class="hpMark">${Game.currentCreature.hp} HP</em>
@@ -515,31 +580,33 @@ function useBite() {
     updateBattleStatus();
     displayCharacter();
 
-    // Check if the creature is defeated
     if (Game.currentCreature.hp <= 0) {
         let experienceGain = Game.currentCreature.baseExp + getRandom(...Game.currentCreature.expRange);
         document.getElementById("battle-log").innerHTML = `<div class="notification battle is-success is-light"><li> 
             You defeated <em class="enemyMark">${Game.currentCreature.name}</em> and gained ${experienceGain} XP!<br>
         </li></div>` + document.getElementById("battle-log").innerHTML;
 
-        character.experience += experienceGain;  // Award XP for winning
-        character.levelUp();  // Check for level up
+        character.experience += experienceGain;
+        character.levelUp();
+
+        // Check for potion drop
+        handlePotionDrop(Game.currentCreature.rewardDrop);
+
         character.save();
         displayCharacter();
-        endBattle();  // End the battle
+        endBattle();
         return;
     }
     updateAll();
-    creatureAttack();  // Let the creature attack
+    creatureAttack();
 }
 
-// Attack using Scratch ability
 function useScratch() {
-    if (!Game.inBattle || Game.character.class === "Fat Cat") return;  // Skip Scratch if class is Fat Cat
+    if (!Game.inBattle || Game.character.class === "Fat Cat") return;
     const character = Game.character;
-    let damage1 = getRandom(1, 4);  // First hit
-    let damage2 = getRandom(1, 4);  // Second hit
-    let damage3 = character.class === "Sneaky Cat" ? getRandom(1, 4) : 0;  // Sneaky Cat gets an extra hit
+    let damage1 = getRandom(1, 4);
+    let damage2 = getRandom(1, 4);
+    let damage3 = character.class === "Sneaky Cat" ? getRandom(1, 4) : 0;
 
     let totalDamage = damage1 + damage2 + damage3 + character.level;
     Game.currentCreature.hp -= totalDamage;
@@ -553,23 +620,25 @@ function useScratch() {
     updateBattleStatus();
     displayCharacter();
 
-    // Check if the creature is defeated
     if (Game.currentCreature.hp <= 0) {
         let experienceGain = Game.currentCreature.baseExp + getRandom(...Game.currentCreature.expRange);
         document.getElementById("battle-log").innerHTML = `<div class="notification battle is-success is-light"><li>
             You defeated <em class="enemyMark">${Game.currentCreature.name}</em> and gained ${experienceGain} XP!<br>
         </li></div>` + document.getElementById("battle-log").innerHTML;
 
-        character.experience += experienceGain;  // Award XP for winning
-        character.levelUp();  // Check for level up
+        character.experience += experienceGain;
+        character.levelUp();
+
+        // Check for potion drop
+        handlePotionDrop(Game.currentCreature.rewardDrop);
+
         character.save();
         displayCharacter();
-        endBattle();  // End the battle
+        endBattle();
         return;
     }
     updateAll();
-
-    creatureAttack();  // Let the creature attack
+    creatureAttack();
 }
 
 // Use a potion to regain health
@@ -665,6 +734,18 @@ function creatureAttack() {
     Game.hasUsedPotionThisTurn = false;
     updateAll();
 }
+
+function handlePotionDrop(dropChance) {
+    const randomChance = Math.random() * 100; // Generate a random number between 0-100
+    if (randomChance < dropChance) { // If the random number is less than the drop chance
+        Game.character.potions += 1; // Increase potion count
+
+        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-info"><li>You found a potion!</li></div>` + document.getElementById("battle-log").innerHTML;
+
+
+    }
+}
+
 
 // Implement game over logic
 function gameOver() {
