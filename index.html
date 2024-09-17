@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LimaRPG 0.1.2</title>
-    <link rel="stylesheet" href="style.css">
+    <title>LimaRPG 0.1.3</title>
+    <!-- Bulma CSS Framework -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!-- Your custom CSS -->
+    <link rel="stylesheet" href="data/style.css">
+
+
 </head>
 
+
+
 <body>
-    <!-- START NAV -->
+
+
+
     <nav class="navbar">
         <div class="container">
             <div class="navbar-brand">
@@ -25,225 +32,83 @@
                     <span class="button navbar-item m-1 is-primary is-dark" onclick="showTab('woods')">Woods</span>
                     <span class="button navbar-item m-1 is-info is-dark" onclick="showTab('edit')">Edit Cat</span>
                     <span class="button navbar-item m-1 is-link is-dark"><a style="color: white; opacity: 0.5;"
-                            href="info.html">Game Info</span></a>
+                            href="info.html">Game Info</a></span>
                 </div>
             </div>
         </div>
     </nav>
-    <!-- END NAV -->
 
-    <!-- Image -->
+
+
     <section class="hero ">
         <div class="hero-body">
             <div class="container">
-                <div id="woods-tab" class="tab-content" style="display: block;">
-                    <div class="columns">
-                        <div class="column is-8 is-offset-2">
-                        <!-- Character Info Section -->
+
+                <div id="woods-tab" class="tab-content" style="display: none;">
+                    <div class="columns is-mobile">
+                        <div class="column is-8 is-offset-2 is-mobile">
+                            <!-- Character Info Section -->
                             <div id="character-info">
-                                <div
-                                    class="field is-grouped is-grouped-multiline is-flex is-flex-wrap-wrap is-justify-content-center">
-                                    <div class="control">
-                                        <div class="tags has-addons are-medium">
-                                            <span class="tag is-dark">Name</span>
-                                            <span class="tag is-primary">Lima</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="control">
-                                        <div class="tags has-addons are-medium">
-                                            <span class="tag is-dark">Class</span>
-                                            <span class="tag is-link">Class1</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="control">
-                                        <div class="tags has-addons are-medium">
-                                            <span class="tag is-dark">Health</span>
-                                            <span class="tag is-danger is-light">20/20HP</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="control">
-                                        <div class="tags has-addons are-medium">
-                                            <span class="tag is-dark">Lvl</span>
-                                            <span class="tag is-warning">1</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="control">
-                                        <div class="tags has-addons are-medium">
-                                            <span class="tag is-dark">EXP</span>
-                                            <span class="tag is-success is-light">0XP</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="control">
-                                        <div class="tags has-addons are-medium">
-                                            <span class="tag is-dark">Potions</span>
-                                            <span class="tag is-info">2</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
+                                <!-- Character info will be injected here -->
                             </div>
-                            <div class="buttons is-flex is-flex-wrap-wrap is-justify-content-center"
-                                id="battle-controls">
-                                <button class="button is-primary is-dark" id="start-battle-btn" style="width:45%;" onclick="exploreWoods()">Explore the woods</button>
-                                <button class="button is-success is-dark" id="Bite-btn" style="display:none; width:45%;" onclick="useBite()">Bite (1D6)</button>
-                                <button class="button is-success is-dark" id="Scratch-btn" style="display:none; width:45%;" onclick="useScratch()">Scratch (2D4)</button>
-                                <button class="button is-warning is-inverted" id="KickDirt-btn" style="display:none; width:45%;" onclick="useKickDirt()">Kick Dirt</button>
-                                <button class="button is-success is-dark" id="eventYes-btn" style="display:none; width:45%;" onclick="useEventYes()">Yes</button>
-                                <button class="button is-danger is-light" id="eventNo-btn" style="display:none; width:45%;" onclick="useEventNo()">No</button>
-                                <button class="button is-danger is-dark" id="potion-btn" style="width:45%;" onclick="usePotion()">Potion (+10HP)</button>
+                            <!-- Battle Controls -->
+                            <div class="buttons is-flex is-flex-wrap-wrap is-justify-content-center" id="battle-controls">
+                                <button class="button is-primary is-dark" id="start-battle-btn" style="width:45%;"
+                                    onclick="exploreWoods()">Explore the woods</button>
+                                <button class="button is-success is-dark" id="Bite-btn" style="display:none; width:45%;"
+                                    onclick="useBite()">Bite</button>
+                                <button class="button is-success is-dark" id="Scratch-btn" style="display:none; width:45%;"
+                                    onclick="useScratch()">Scratch</button>
+                                <button class="button is-warning is-inverted" id="KickDirt-btn" style="display:none; width:45%;"
+                                    onclick="useKickDirt()">Kick Dirt</button>
+                                <button class="button is-success is-dark" id="eventYes-btn" style="display:none; width:45%;"
+                                    onclick="useEventYes()">Yes</button>
+                                <button class="button is-danger is-light" id="eventNo-btn" style="display:none; width:45%;"
+                                    onclick="useEventNo()">No</button>
+                                <button class="button is-danger is-dark" id="potion-btn" style="width:45%;" onclick="usePotion()">Potion
+                                    (+10HP)</button>
                             </div>
+                            <!-- Battle Status -->
                             <div style="display:none;" class="is-centered has-text-centered" id="battle-status">
-                                New Battle
-                                <span class="tags has-addons is-centered">
-                                    <span style="width: 100px" class="tag is-dark is-primary"></span>
-                                    <span style="width: 40px" class="tag is-danger is-light"></span>
-                                    <span class="tag is-dark">Vs</span>
-                                    <span style="width: 40px" class="tag is-danger is-light"></span>
-                                    <span style="width: 100px" class="tag is-dark is-danger"></span>
-                                </span>
+                                <!-- Battle status will be injected here -->
                             </div>
                             <hr>
                         </div>
-                    </div>        
+                    </div>
+                
                     <div class="columns">
-                        <div class="column is-8 is-offset-2">
-
-                            
-                            <ol class="is-centered" reversed id="battle-log">
-                            
-                                <article class="message is-dark">
-                                    <div class="message-header">
-                                        <p>Welcome to LimaRPG</p>
-                                    </div>
-                                    <div class="message-body">
-                                        Click "Explore the woods" to begin or select "Edit Cat" from the top menu to
-                                        change Character.<br>
-                                        <em style="font-size: medium; color: rgb(253, 216, 8);">
-                                            Please refresh page if you are unable to click any issues are encountered.
-                                        </em>
-                                    </div>
-                                </article>
-                            
-                                <article class="message is-dark">
-                                    <div class="message-header">
-                                        <p>How to Play:</p>
-                                    </div>
-                                    <div class="message-body style">
-                                        <strong>Combat Overview:</strong>
-                                        <p>During combat, you have three main options to choose from:</p>
-                                        <ul>
-                                            <li>- <strong>Bite</strong>: A basic attack that deals damage ranging from 3
-                                                to 6 (1D6).</li>
-                                            <li>- <strong>Scratch</strong>: A quick double attack that deals two hits,
-                                                each dealing 1 to 4 damage (2D4).
-                                            </li>
-                                            <li>- <strong>Kick Dirt</strong>: Kick dirt into you opponent and cause their accuracy to drastically fall. 
-                                            </li>
-                                            <li>- <strong>Potion</strong>: Use a potion to restore 10 HP (+10HP). You
-                                                start each level with a limited
-                                                number of potions.</li>
-                                        </ul><br>
-                                        <p>
-                                            The combat log will show the latest moves at the top, helping you track the
-                                            flow of battle.
-                                        </p>
-                            
-                                        <p class="is-centered has-text-centered">
-                                            <oblique>Battle Example:</oblique>
-                                        </p>
-                                        <ol class="is-family-code" style="margin-left: 10px;">
-                                            <li class="is-tight">
-                                                <em class="enemyMark">Enemy's</em> <em class="atkMark">Attack</em> dealt
-                                                3 DMG to <em class="heroMark">You</em> : <em class="hpMark">17HP</em><br>
-                                            </li>
-                                            <li class="is-tight">
-                                                <em class="heroMark">You</em> regained 10HP from a potion. 1 Potion
-                                                left<br>
-                                            </li>
-                                            <li class="is-tight">
-                                                <em class="enemyMark">Enemy's</em> attack missed!<br>
-                                            </li>
-                                            <li class="is-tight">
-                                                <em class="heroMark">Your</em> <em class="atkMark">Scratch</em> dealt 4
-                                                + 3 DMG to <em class="enemyMark">Enemy</em> : <em class="hpMark">8HP</em><br>
-                                            </li>
-                                            <li class="is-tight">
-                                                <em class="enemyMark">Enemy's</em> <em class="atkMark">Attack</em> dealt
-                                                4 DMG to <em class="heroMark">You</em> : <em class="hpMark">16HP</em><br>
-                                            </li>
-                                            <li class="is-tight">
-                                                <em class="heroMark">Your</em> <em class="atkMark">Bite</em> dealt 5 DMG
-                                                to <em class="enemyMark">Enemy</em> : <em class="hpMark">15HP</em><br>
-                                            </li>
-                                            <li class="is-tight">
-                                                You've encountered a creature! The battle begins:<br>
-                                            </li>
-                                        </ol>
-                                        <span class="is-centered has-text-centered">
-                                            <em>This is the <b>Creature Badge</b>:</em><br>
-                                            <span class="tags is-centered has-text-centered are-medium has-addons">
-                                                <span class="tag is-danger">Enemy</span>
-                                                <span class="tag is-danger is-light">20HP</span>
-                                                <span class="tag is-warning">Level 1</span>
-                                            </span>
-                                            <p>It displays the current creature's base stats, including health and
-                                                level.</p>
-                                        </span>
-                                        <br>
-                                        <strong>Leveling:</strong>
-                                        <p>Leveling up resets your potions and grants +2HP +1 DMG per level.</p>
-                            
-                                        <strong>Events:</strong>
-                                        <p>While exploring, you may find sidequests and rescue missions. Some offer
-                                            rewards, others present challenges.</p>
-                                    </div>
-                                </article>
+                        <div class="column is-8 is-offset-2 is-mobile">
+                            <!-- Battle Log -->
+                            <ol reversed id="battle-log">
+                                <!-- Battle log messages will appear here -->
                             </ol>
                         </div>
-
-
-
                     </div>
-
-                    <div class="columns">
-                        <!-- Add 3rd option to Investigate, "Nothing, must have been the wind" YesC -->                                        
-                        <article style="display:none;" id="event-log" class="message is-8 is-offset-2 is-success is-dark">
-                                
-                        </article>
-                    </div>
-
-
                 </div>
-
+                
+                <!-- Edit Tab -->
                 <div id="edit-tab" class="tab-content" style="display: none;">
                     <div class="columns">
-                        <div class="column is-8 is-offset-2">
-
+                        <div class="column is-8 is-offset-2 is-mobile">
                             <p class="is-size-4">Create New Character</p>
                             <form id="create-character-form">
-                        
-                                <div class="field"></div>
-                                <label class="label is-size-5">Name:</label>
-                                <div class="control">
-                                    <input class="input is-success" id="name" required="" type="text" placeholder="Name" maxlength="12">
-                                </div><br>
-                        
                                 <div class="field">
+                                    <label class="label is-size-5">Name:</label>
+                                    <div class="control">
+                                        <input class="input is-success" id="name" required type="text" placeholder="Name"
+                                            maxlength="12">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label is-size-5">Class:</label>
+
                                     <table class="table is-striped is-bordered is-hoverable chart-table">
                                         <thead>
                                             <tr>
-                                                <th style="font-size: small; align-items: center;"><img
-                                                        style="max-height: 30px; max-width: 30px;" src="assets/class.svg"><br>Class</th>
-                                                <th style="font-size: small; align-items: center;"><img
-                                                        style="max-height: 30px; max-width: 30px;" src="assets/heart.svg"><br>HP</th>
-                                                <th style="font-size: small; align-items: center;"><img
-                                                        style="max-height: 30px; max-width: 30px;" src="assets/potion.svg"><br>Potion </th>
-                                                <th style="font-size: small; align-items: center;">Special Traits</th>
+                                                <th><img src="assets/class.svg" alt="Class Icon" style="max-height: 30px;"> <br>Class</th>
+                                                <th><img src="assets/heart.svg" alt="Heart Icon" style="max-height: 30px;"> <br>HP</th>
+                                                <th><img src="assets/potion.svg" alt="Potion Icon" style="max-height: 30px;"> <br>Potions</th>
+                                                <th>Special Traits</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -251,97 +116,226 @@
                                                 <td>Cat</td>
                                                 <td>20</td>
                                                 <td>2</td>
-                                                <td>
-                                                    Standard abilities with both Bite and Scratch attacks available.
-                                                </td>
+                                                <td>Standard abilities with both Bite and Scratch attacks available.</td>
                                             </tr>
                                             <tr>
                                                 <td>Fat Cat</td>
                                                 <td>30</td>
                                                 <td>3</td>
-                                                <td>
-                                                    Scratch attack is disabled; relies solely on Bite. The extra health
-                                                    and
-                                                    potion supply reflect its rotund
-                                                    nature, making it too thick for Scratch attacks.</td>
+                                                <td>Scratch attack is disabled; relies solely on Bite. The extra health and potions reflect its rotund nature.</td>
                                             </tr>
                                             <tr>
                                                 <td>Sneaky Cat</td>
-                                                <td>20</td>
+                                                <td>15</td>
                                                 <td>1</td>
-                                                <td>
-                                                    Scratch attack performs an extra hit, dealing additional damage
-                                                    (damage1
-                                                    + damage2 + damage3). Its
-                                                    agility allows for an extra Scratch attack due to superior speed.
-                                                </td>
+                                                <td>Scratch attack performs an extra hit due to superior speed.</td>
                                             </tr>
                                         </tbody>
                                     </table>
-                        
-                                    <label class="label is-size-5">Class:</label>
-                        
-                        
-                        
+    
+
                                     <div class="control">
                                         <div class="select">
-                                            <select class="is-size-5" name="" id="class" required="">
-                        
+                                            <select class="is-size-5" id="class" required>
                                                 <option value="Cat">Cat</option>
                                                 <option value="Fat Cat">Fat Cat</option>
                                                 <option value="Sneaky Cat">Sneaky Cat</option>
-                        
                                             </select>
                                         </div>
                                     </div>
-                                </div><br>
-                        
+                                </div>
+                                <br>
                                 <button class="is-medium button" type="submit">Create Character</button>
                             </form>
                             <hr>
-                        
                             <p class="is-size-4">Change Character Name</p>
                             <form id="change-name-form">
-                        
-                                <div class="field"></div>
-                                <label class="label is-size-5">New Name:</label>
-                                <div class="control">
-                                    <input class="input is-success" id="new-name" required="" type="text" placeholder="New Name" maxlength="12">
-                                </div><br>
-                        
+                                <div class="field">
+                                    <label class="label is-size-5">New Name:</label>
+                                    <div class="control">
+                                        <input class="input is-success" id="new-name" required type="text" placeholder="New Name"
+                                            maxlength="12">
+                                    </div>
+                                </div>
+                                <br>
                                 <button class="is-medium button" type="submit">Change Name</button>
-                        
                             </form>
+<hr />
+                            <article class="message is-dark">
+                                <div class="message-header">
+                                  <p>Welcome to LimaRPG 0.1.2</p>
+                                </div>
+                                <div class="message-body is-family-code content">
+    
+    
+                                    <ul>
+                                        <li><strong>Name</strong>: The player can name their character. By default, the name is "Lima".</li>
+                                        <li><strong>Class</strong>: Players can choose between different cat classes:
+                                            <ul>
+                                                <li><strong>Cat</strong>:
+                                                    <ul>
+                                                        <li>A balanced class with 20 HP.</li>
+                                                        <li>Starts with <strong>2 potions</strong>.</li>
+                                                        <li>Starts with <strong>2 uses of "Kick Dirt"</strong>.</li>
+                                                    </ul>
+                                                </li>
+                                                <li><strong>Fat Cat</strong>:
+                                                    <ul>
+                                                        <li>Higher HP (30) but can't use the "Scratch" attack.</li>
+                                                        <li>Starts with <strong>3 potions</strong>.</li>
+                                                        <li>Starts with <strong>2 uses of "Kick Dirt"</strong>.</li>
+                                                    </ul>
+                                                </li>
+                                                <li><strong>Sneaky Cat</strong>:
+                                                    <ul>
+                                                        <li>Lower HP (15) but gets an additional hit when using "Scratch".</li>
+                                                        <li>Starts with <strong>1 potion</strong>.</li>
+                                                        <li>Starts with <strong>2 uses of "Kick Dirt"</strong>.</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    
+                                    <h3>Leveling Up</h3>
+                                    <ul>
+                                        <li><strong>Experience</strong>: Defeating creatures and completing events grants experience points (XP). Each level requires a certain amount of XP.</li>
+                                        <li><strong>Level Bonuses</strong>:
+                                            <ul>
+                                                <li><strong>+1 attack damage per level</strong>.</li>
+                                                <li>Potions are reset to class default on each level-up.</li>
+                                                <li><strong>"Kick Dirt" uses are reset to 2</strong> on each level-up.</li>
+                                                <li>HP increases by <strong>2 points per level</strong>.</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    
+                                    <h3>Combat</h3>
+                                    <p>Combat occurs when you encounter a creature while exploring the woods.</p>
+                                    
+                                    <h4>Attacks:</h4>
+                                    <ol>
+                                        <li><strong>Bite</strong>:
+                                            <ul>
+                                                <li>Deals damage between <strong>3 and 6</strong>, plus a bonus of <strong>+1 damage per character level</strong>.</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Scratch</strong>:
+                                            <ul>
+                                                <li>Deals <strong>two hits</strong>, each doing <strong>1-4 damage</strong>, plus a bonus of <strong>+1 damage per character level</strong>.</li>
+                                                <li><strong>Sneaky Cat</strong> class performs a <strong>third hit</strong>.</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Kick Dirt</strong>:
+                                            <ul>
+                                                <li>A strategic move that <strong>increases the enemy's chance to miss</strong>.</li>
+                                                <li>When used, sets the enemy's <strong>miss chance to 75%</strong> (if it was lower).</li>
+                                                <li>Limited to <strong>2 uses per level</strong>.</li>
+                                                <li>Does <strong>not deal damage</strong> but can prevent incoming damage from the enemy.</li>
+                                                <li>After use, the enemy will have a significantly higher chance to miss their next attacks.</li>
+                                            </ul>
+                                        </li>
+                                    </ol>
+                                    
+                                    <h4>Creatures:</h4>
+                                    <p>Each creature has the following attributes:</p>
+                                    <ul>
+                                        <li><strong>Health</strong> (HP): How much damage it can take.</li>
+                                        <li><strong>Attack</strong>: The type of attack the creature uses.</li>
+                                        <li><strong>Miss Chance</strong>: The percentage chance a creature will miss an attack.</li>
+                                        <li><strong>Reward</strong>: Creatures drop potions or give experience points upon defeat.</li>
+                                    </ul>
+                                    <p>Example creatures:</p>
+                                    <ul>
+                                        <li><strong>Spider</strong>:
+                                            <ul>
+                                                <li><strong>10 HP</strong>.</li>
+                                                <li>Attacks with <strong>Bite</strong>.</li>
+                                                <li><strong>10% miss chance</strong>.</li>
+                                                <li>Drops potions <strong>10%</strong> of the time.</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Raccoon</strong>:
+                                            <ul>
+                                                <li><strong>25 HP</strong>.</li>
+                                                <li>Attacks with <strong>Scratch</strong>.</li>
+                                                <li><strong>10% miss chance</strong>.</li>
+                                                <li>More challenging opponent.</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    
+                                    <h3>Potions and Abilities</h3>
+                                    
+                                    <h4>Potions</h4>
+                                    <ul>
+                                        <li><strong>Healing</strong>: Each potion restores <strong>10 HP</strong>.</li>
+                                        <li><strong>Starting Potions</strong>:
+                                            <ul>
+                                                <li><strong>Cat</strong>: 2 potions.</li>
+                                                <li><strong>Fat Cat</strong>: 3 potions.</li>
+                                                <li><strong>Sneaky Cat</strong>: 1 potion.</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Potion Limit</strong>: Potions reset to class default upon leveling up.</li>
+                                    </ul>
+                                    
+                                    <h4>Kick Dirt</h4>
+                                    <ul>
+                                        <li><strong>Effect</strong>: Increases the enemy's miss chance to <strong>75%</strong>.</li>
+                                        <li><strong>Uses</strong>: Limited to <strong>2 uses per level</strong>.</li>
+                                        <li><strong>Reset</strong>: "Kick Dirt" uses reset to 2 upon leveling up.</li>
+                                        <li><strong>Strategic Use</strong>: Best used against tough opponents to reduce the damage you might receive.</li>
+                                    </ul>
+                                    
+                                    <h3>Events</h3>
+                                    <p>During exploration, you may encounter random events. These can include:</p>
+                                    <ul>
+                                        <li><strong>Sidequests</strong>: Offer rewards or challenges.</li>
+                                        <li><strong>Rescue missions</strong>: For example, helping a wounded cat in exchange for experience points.</li>
+                                    </ul>
+                                    
+                                    <h3>Exploration</h3>
+                                    <p>As you explore the woods, you'll encounter creatures and events. Every move could lead to:</p>
+                                    <ul>
+                                        <li>A creature battle.</li>
+                                        <li>An event offering rewards or risks.</li>
+                                        <li>Finding potions to aid your journey.</li>
+                                    </ul>
+                                    
+                                    <hr>
+                                    
+                                    <div class="note">
+                                        <p><strong>Note:</strong> The <strong>"Kick Dirt"</strong> ability adds a new layer of strategy to combat. By increasing an enemy's miss chance, you can mitigate incoming damage, giving you an advantage in tough battles. Remember to manage your limited uses wisely!</p>
+                                    </div>
+                                    
+                                    <hr>
+    
+                                </div>
+                            </article>
+    
+    
+
+
                         </div>
                     </div>
-
                 </div>
 
 
-                <div class="columns">
-                    <div class="column is-8 is-offset-2">
-                    </div>
-                </div>
 
             </div>
         </div>
     </section>
-
+    <!-- Footer -->
     <footer class="footer">
         <div class="content has-text-centered">
             <p>
-                <strong>LimaRPG 0.1.3</strong> by Ivan. Using <a href="https://bulma.io/" target="_blank"
-                    rel="noopener noreferrer">Bulma CSS</a>, <a
-                    href="https://www.svgrepo.com/collection/valentines-day-10/" target="_blank"
-                    rel="noopener noreferrer">SVGRepo icons</a>, & <a href="https://vercel.com/" target="_blank"
-                    rel="noopener noreferrer">Vercel hosting</a>
+                <strong>LimaRPG 0.1.3</strong> by Ivan. Using <a href="https://bulma.io/" target="_blank" rel="noopener noreferrer">Bulma CSS</a>, <a href="https://www.svgrepo.com/collection/valentines-day-10/" target="_blank" rel="noopener noreferrer">SVGRepo icons</a>, &amp; <a href="https://vercel.com/" target="_blank" rel="noopener noreferrer">Vercel hosting</a>
             </p>
         </div>
     </footer>
 
     <!-- Link to external JavaScript file -->
     <script src="./data/code.js"></script>
-
 </body>
-
 </html>
