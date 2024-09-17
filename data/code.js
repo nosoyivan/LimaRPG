@@ -273,10 +273,10 @@ const creatures = [
     {
         name: "Coyote",
         nameAtk: "Bite",    // Attack type
-        hp: 75,             // Creature's health points
-        lvl: 9,             // Creature's level
+        hp: 85,             // Creature's health points
+        lvl: 11,             // Creature's level
         minAtk: 5,          // Minimum attack damage
-        maxAtk: 9,          // Maximum attack damage
+        maxAtk: 10,          // Maximum attack damage
         missChance: 15,     // 15% chance to miss
         baseExp: 70,        // Base experience rewarded
         expRange: [3, 7],  // Random additional experience range
