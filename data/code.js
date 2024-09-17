@@ -34,7 +34,7 @@ class Character {
             this.maxHp = 15;
             this.potions = 1;
             this.kickdirt = 2;
-            this.minAtk = 4;
+            this.minAtk = 2;
             this.maxAtk = 7;
         }
     }
