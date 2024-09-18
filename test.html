@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>LimaRPG - Text-Based RPG</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="data/style.css">
+    <!-- Inline Styles -->
+    <style>
+        /* Styles for visualization */
+        #character-info,
+        #battle-status,
+        #battle-log {
+            margin-bottom: 1px;
+        }
+
+        .buttons .button {
+            width: 160px;
+            height: 50px;
+            border-radius: 5px;
+        }
+
+        .buttons .button.is-fullwidth {
+            display: flex;
+            width: 400px;
+        }
+
+
+
+        #bite-btn,
+        #scratch-btn,
+        #potion-btn {
+            display: none;
+            /* Hide attack buttons initially */
+        }
+
+        #character-creation {
+            display: none;
+            /* Hide character creation form initially */
+            margin-bottom: 20px;
+        }
+
+        #battle-log {
+            height: 300px;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Main Content -->
+    <section class="articles">
+        <div class="column is-6 is-offset-3">
+            <div class="article">
+                <div class="card-content">
+                    <!-- Navigation Bar -->
+                    <nav class="navbar">
+                        <div class="container">
+                            <div class="navbar-brand">
+                                <span class="navbar-item is-size-3">LimaRPG</span>
+                                <span class="navbar-burger burger" data-target="navbarMenu">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </span>
+                            </div>
+                            <div id="navbarMenu" class="navbar-menu">
+                                <div class="navbar-end">
+                                    <span class="navbar-item">
+                                        <button class="button" id="new-character-btn">Create Character</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <!-- Character Information -->
+                    <div id="character-info"></div>
+
+                    <!-- Action Buttons -->
+                    <div class="buttons are-medium is-flex is-flex-wrap-wrap is-justify-content-center"
+                        style="padding-top: 15px;">
+                        <button class="button is-primary is-dark" id="find-battle-btn">Find Battle</button>
+                        <button class="button is-info is-dark" id="shop-btn">Shop</button>
+                        <button class="button is-success is-dark" id="bite-btn">Bite</button>
+                        <button class="button is-success is-dark" id="scratch-btn">Scratch</button>
+                        <button class="button is-success is-dark" id="scratch-btn">Scratch</button>
+                        <button class="button is-danger is-dark" id="potion-btn">Potion</button>
+                    </div>
+
+                    <!-- Battle Status -->
+                    <div class="is-flex is-flex-wrap-wrap is-justify-content-center">
+                        <div id="battle-status"></div>
+                    </div>
+
+                    <!-- Character Creation Form -->
+                    <div class="field" id="character-creation">
+                        <h3>Create New Character</h3>
+                        <label for="character-name">Name:</label>
+                        <input class="input" type="text" id="character-name" value="Lima" required><br><br>
+
+                        <!-- Class Information Table -->
+                        <table class="table is-striped is-bordered is-hoverable chart-table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <img src="assets/class.svg" alt="Class Icon" style="max-height: 30px;"><br>Class
+                                    </th>
+                                    <th>
+                                        <img src="assets/heart.svg" alt="Heart Icon" style="max-height: 30px;"><br>HP
+                                    </th>
+                                    <th>
+                                        <img src="assets/potion.svg" alt="Potion Icon"
+                                            style="max-height: 30px;"><br>Potions
+                                    </th>
+                                    <th>Special Traits</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Cat</td>
+                                    <td>20</td>
+                                    <td>2</td>
+                                    <td>Standard abilities with both Bite and Scratch attacks available.</td>
+                                </tr>
+                                <tr>
+                                    <td>Fat Cat</td>
+                                    <td>30</td>
+                                    <td>3</td>
+                                    <td>Scratch attack is disabled; relies solely on Bite. Extra health and potions
+                                        reflect its rotund nature.</td>
+                                </tr>
+                                <tr>
+                                    <td>Sneaky Cat</td>
+                                    <td>15</td>
+                                    <td>1</td>
+                                    <td>Scratch attack performs an extra hit due to superior speed.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Class Selection -->
+                        <label for="character-class">Class:</label><br>
+                        <div class="select">
+                            <select id="character-class" required>
+                                <option value="Cat">Cat</option>
+                                <option value="Fat Cat">Fat Cat</option>
+                                <option value="Sneaky Cat">Sneaky Cat</option>
+                            </select>
+                        </div><br><br>
+
+                        <!-- Create Character Button -->
+                        <div class="buttons control">
+                            <button class="button" id="create-character-btn">Create Character</button>
+                        </div>
+                    </div>
+
+                    <!-- Battle Log -->
+                    <article class="message">
+                        <div style="padding: 5px;" class="message-body">
+                            <div id="battle-log"></div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- External JavaScript -->
+    <script src="code.js"></script>
+</body>
+
+</html>
