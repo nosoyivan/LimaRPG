@@ -66,6 +66,7 @@ class Character {
             this.level = newLevel;
             this.minAtk += 1; // Increase attack power on level-up
             this.maxAtk += 1;
+            this.kickdirt = 2;
 
             // Adjust max HP with each level-up based on class
             if (this.class === "Cat") {
@@ -83,7 +84,7 @@ class Character {
             this.hp = Math.min(this.maxHp, this.hp + Math.floor(this.maxHp / 2));
 
             // Display level-up notification
-            document.getElementById("battle-log").innerHTML = `<div class="notification battle is-light is-warning"><li>
+            document.getElementById("battle-log").innerHTML = `<div class="notification bor battle is-light is-warning"><li>
                 Leveled up! Now level ${this.level}. HP restored to ${this.hp}/${this.maxHp}, +1 ATK, +2HP, and potions restocked.<br>
             </li></div>` + document.getElementById("battle-log").innerHTML;
 
@@ -528,7 +529,7 @@ function exploreWoods() {
     } else {
         Game.currentCreature = selectCreature();
         if (Game.currentCreature === null) {
-            document.getElementById("battle-log").innerHTML = `<div class="notification battle is-light"><li>No creature encountered, you continue along.</li></div>` + document.getElementById("battle-log").innerHTML;
+            document.getElementById("battle-log").innerHTML = `<div class="notification bor battle is-dark"><li>No creature encountered, you continue along.</li></div>` + document.getElementById("battle-log").innerHTML;
             return;
         }
 
@@ -572,7 +573,7 @@ function useBite() {
 
     if (Game.currentCreature.hp < 0) Game.currentCreature.hp = 0;
 
-    document.getElementById("battle-log").innerHTML = `<div class="notification battle is-dark"><li> 
+    document.getElementById("battle-log").innerHTML = `<div class="notification bor battle is-dark"><li> 
     <em class="heroMark">${character.name}'s</em> <em class="atkMark">Bite</em> dealt (<span class="heroAtkMark">${characterBase}</span>${character.level > 0 ? `<span class="bnsMark">+${character.level}</span>` : ''}) DMG to 
         <em class="enemyMark">${Game.currentCreature.name}</em>: <em class="hpMark">${Game.currentCreature.hp} HP</em>
     </li></div>` + document.getElementById("battle-log").innerHTML;
@@ -582,7 +583,7 @@ function useBite() {
 
     if (Game.currentCreature.hp <= 0) {
         let experienceGain = Game.currentCreature.baseExp + getRandom(...Game.currentCreature.expRange);
-        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-success is-light"><li> 
+        document.getElementById("battle-log").innerHTML = `<div class="notification bor battle is-success is-light"><li> 
             You defeated <em class="enemyMark">${Game.currentCreature.name}</em> and gained ${experienceGain} XP!<br>
         </li></div>` + document.getElementById("battle-log").innerHTML;
 
@@ -612,7 +613,7 @@ function useScratch() {
     Game.currentCreature.hp -= totalDamage;
     if (Game.currentCreature.hp < 0) Game.currentCreature.hp = 0;
 
-    document.getElementById("battle-log").innerHTML = `<div class="notification battle is-dark"><li> 
+    document.getElementById("battle-log").innerHTML = `<div class="notification bor battle is-dark"><li> 
         <em class="heroMark">${character.name}'s</em> <em class="atkMark">Scratches</em> dealt (<span class="heroAtkMark">${damage1}+${damage2}${damage3 ? `+${damage3}` : ''}</span>${character.level > 0 ? `<span class="bnsMark">+${character.level}</span>` : ''}) DMG to 
         <em class="enemyMark">${Game.currentCreature.name}</em>: <em class="hpMark">${Game.currentCreature.hp} HP</em><br>
     </li></div>` + document.getElementById("battle-log").innerHTML;
@@ -622,7 +623,7 @@ function useScratch() {
 
     if (Game.currentCreature.hp <= 0) {
         let experienceGain = Game.currentCreature.baseExp + getRandom(...Game.currentCreature.expRange);
-        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-success is-light"><li>
+        document.getElementById("battle-log").innerHTML = `<div class="notification bor battle is-success is-light"><li>
             You defeated <em class="enemyMark">${Game.currentCreature.name}</em> and gained ${experienceGain} XP!<br>
         </li></div>` + document.getElementById("battle-log").innerHTML;
 
@@ -647,17 +648,17 @@ function usePotion() {
 
     // **Check if the player has already used a potion this turn**
     if (Game.hasUsedPotionThisTurn) {
-        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-info"><li>You can only use one potion per turn.</li></div>` + document.getElementById("battle-log").innerHTML;
+        document.getElementById("battle-log").innerHTML = `<div class="notification bor battle is-info"><li>You can only use one potion per turn.</li></div>` + document.getElementById("battle-log").innerHTML;
         return;
     }
 
     if (character.potions <= 0) {
-        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-info"><li>No potions left to use.</li></div>` + document.getElementById("battle-log").innerHTML;
+        document.getElementById("battle-log").innerHTML = `<div class="notification bor battle is-info"><li>No potions left to use.</li></div>` + document.getElementById("battle-log").innerHTML;
         return;
     }
 
     if (character.hp >= character.maxHp) {
-        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-info"><li>HP is already full, potion not needed.</li></div>` + document.getElementById("battle-log").innerHTML;
+        document.getElementById("battle-log").innerHTML = `<div class="notification bor battle is-info"><li>HP is already full, potion not needed.</li></div>` + document.getElementById("battle-log").innerHTML;
         return;
     }
 
@@ -667,7 +668,7 @@ function usePotion() {
 
     Game.hasUsedPotionThisTurn = true;  // **Set the flag to true after using a potion**
 
-    document.getElementById("battle-log").innerHTML = `<div class="notification battle is-dark"><li> 
+    document.getElementById("battle-log").innerHTML = `<div class="notification bor battle is-dark"><li> 
         <em class="heroMark">${character.name}</em> regained 10 HP from potion. ${character.potions} Potions left<br>
     </li></div>` + document.getElementById("battle-log").innerHTML;
 
@@ -681,12 +682,12 @@ function usePotion() {
 function useKickDirt() {
     const character = Game.character;
     if (character.kickdirt <= 0) {
-        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-info"><li>No Kick Dirt abilities left to use.</li></div>` + document.getElementById("battle-log").innerHTML;
+        document.getElementById("battle-log").innerHTML = `<div class="notification bor battle is-info"><li>No Kick Dirt abilities left to use.</li></div>` + document.getElementById("battle-log").innerHTML;
         return;
     }
 
     if (Game.currentCreature.missChance >= 75) {  // If the missChance rate is 75% or higher, don't increase it further
-        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-info"><li>The creature can't miss any more than it already does.</li></div>` + document.getElementById("battle-log").innerHTML;
+        document.getElementById("battle-log").innerHTML = `<div class="notification bor battle is-info"><li>The creature can't miss any more than it already does.</li></div>` + document.getElementById("battle-log").innerHTML;
         return;
     }
 
@@ -695,7 +696,7 @@ function useKickDirt() {
 
     character.kickdirt -= 1;
 
-    document.getElementById("battle-log").innerHTML = `<div class="notification battle is-dark"><li>
+    document.getElementById("battle-log").innerHTML = `<div class="notification bor battle is-dark"><li>
         <em class="heroMark">${character.name}</em> kicked dirt into ${Game.currentCreature.name}'s eyes, increasing its miss chance!<br>
     </li></div>` + document.getElementById("battle-log").innerHTML;
 
@@ -709,7 +710,7 @@ function creatureAttack() {
 
     let missRoll = Math.random() * 100; // 0 to 99.999...
     if (missRoll < Game.currentCreature.missChance) {
-        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-dark"><li> 
+        document.getElementById("battle-log").innerHTML = `<div class="notification bor battle is-dark"><li> 
             <em class="enemyMark">${Game.currentCreature.name}'s</em> attack missed!<br>
         </li></div>` + document.getElementById("battle-log").innerHTML;
     } else {
@@ -717,12 +718,12 @@ function creatureAttack() {
         character.hp -= creatureAtk;
         if (character.hp < 0) character.hp = 0;
         
-        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-dark"><li> 
+        document.getElementById("battle-log").innerHTML = `<div class="notification bor battle is-dark"><li> 
             <em class="enemyMark">${Game.currentCreature.name}'s</em> <em class="atkMark">${Game.currentCreature.nameAtk}</em> dealt (${creatureAtk}) DMG to <em class="heroMark">${character.name}</em>: <em class="hpMark">${character.hp} HP</em><br>
         </li></div>` + document.getElementById("battle-log").innerHTML;
 
         if (character.hp <= 0) {
-            document.getElementById("battle-log").innerHTML = `<div class="notification battle battle is-danger"><li> You have been defeated. RIP <em class="heroMark">${character.name}</em>.</li></div>` + document.getElementById("battle-log").innerHTML;
+            document.getElementById("battle-log").innerHTML = `<div class="notification bor battle battle is-danger"><li> You have been defeated. RIP <em class="heroMark">${character.name}</em>.</li></div>` + document.getElementById("battle-log").innerHTML;
             endBattle();  // End the battle if the player dies
             // Implement game over logic
             gameOver();
@@ -740,7 +741,7 @@ function handlePotionDrop(dropChance) {
     if (randomChance < dropChance) { // If the random number is less than the drop chance
         Game.character.potions += 1; // Increase potion count
 
-        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-info"><li>You found a potion!</li></div>` + document.getElementById("battle-log").innerHTML;
+        document.getElementById("battle-log").innerHTML = `<div class="notification bor battle is-info"><li>You found a potion!</li></div>` + document.getElementById("battle-log").innerHTML;
 
 
     }
@@ -776,7 +777,7 @@ function endBattle() {
     
 
     // Optionally, you can display a message after clearing the log
-    document.getElementById("battle-log").innerHTML = `<div class="notification battle is-success"><li> 
+    document.getElementById("battle-log").innerHTML = `<div class="notification bor battle is-success"><li> 
         You've made it back to Camp. Use potions or continue exploring.<br>
     </li></div>` + document.getElementById("battle-log").innerHTML;
 
@@ -796,7 +797,7 @@ function handleEvent() {
     });
 
     if (availableEvents.length === 0) {
-        document.getElementById("battle-log").innerHTML = `<div class="notification battle is-light"><li>No event occurred, you continue your journey.</li></div>` + document.getElementById("battle-log").innerHTML;
+        document.getElementById("battle-log").innerHTML = `<div class="notification bor battle is-dark"><li>No event occurred, you continue your journey.</li></div>` + document.getElementById("battle-log").innerHTML;
         return;
     }
 
@@ -841,15 +842,18 @@ function useEventYes() {
         const yesResponses = Game.currentEvent.yesResponses;
         const response = yesResponses[getRandom(0, yesResponses.length - 1)];
 
-        messageContent = `<div class="message-body">${response}</div>`;
-        messageContent += `<div class="message-body">${Game.currentEvent.yesEnd}</div>`; 
+        messageContent = `<div class="message-body">${response}<hr />`;
+        messageContent += `${Game.currentEvent.yesEnd}</div>`; 
+
+
+
 
         character.experience += Game.currentEvent.baseExp;  // Gain experience
         character.levelUp();
     } else if (Game.currentEvent.type === 'stash') {
         character.potions += 1;  // Gain a potion from the stash
-        messageContent = `<div class="message-body">${Game.currentEvent.yesResponse}</div>`;
-        messageContent += `<div class="message-body">${Game.currentEvent.yesEnd}</div>`;
+        messageContent = `<div class="message-body">${Game.currentEvent.yesResponse}<hr />`;
+        messageContent += `${Game.currentEvent.yesEnd}</div>`;
     } else if (Game.currentEvent.type === 'investigate') {
         const randomNumber = Math.random();
         const ratioA = Game.currentEvent.ratioABC[0];

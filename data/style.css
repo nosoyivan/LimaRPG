@@ -1,3 +1,12 @@
+body {
+    background-color: rgb(74, 95, 73);
+}
+.navbar.is-od {
+    background-color: rgb(54, 70, 53);
+}
+.footer.is-od {
+    background-color: rgb(54, 70, 53);
+}
 .tab-content {
     display: none;
 }
@@ -87,7 +96,6 @@ button[disabled] {
     --bulma-burger-h: var(--bulma-link-h);
     --bulma-burger-s: var(--bulma-link-s);
     --bulma-burger-l: var(--bulma-link-l);
-    --bulma-burger-border-radius: 0.5em;
     --bulma-burger-gap: 5px;
     --bulma-burger-item-height: 2px;
     --bulma-burger-item-width: 20px;
@@ -2955,6 +2963,12 @@ html {
     text-size-adjust: 100%;
 }
 
+
+article,
+.tag,
+.button {
+    border: 2px solid rgb(54, 54, 54);
+}
 article,
 aside,
 figure,
@@ -3024,9 +3038,6 @@ a strong {
 }
 
 button {
-    appearance: none;
-    background: none;
-    border: none;
     color: inherit;
     font-family: inherit;
     font-size: 1em;
@@ -3195,7 +3206,6 @@ table th {
     border-color: transparent;
     border-style: solid;
     border-width: var(--bulma-control-border-width);
-    border-radius: var(--bulma-control-radius);
     box-shadow: none;
     display: inline-flex;
     font-size: var(--bulma-control-size);
@@ -3373,7 +3383,6 @@ fieldset[disabled] .button {
 .button.is-loading::after {
     animation: spinAround 500ms infinite linear;
     border: 2px solid var(--bulma-loading-color);
-    border-radius: var(--bulma-radius-rounded);
     border-right-color: transparent;
     border-top-color: transparent;
     content: "";
@@ -3436,7 +3445,6 @@ fieldset[disabled] .button {
 
 .box {
     background-color: var(--bulma-box-background-color);
-    border-radius: var(--bulma-box-radius);
     box-shadow: var(--bulma-box-shadow);
     color: var(--bulma-box-color);
     display: block;
@@ -4902,7 +4910,6 @@ div.icon-text {
 
 .notification {
     background-color: hsl(var(--bulma-notification-h), var(--bulma-notification-s), var(--bulma-notification-background-l));
-    border-radius: var(--bulma-notification-radius);
     color: hsl(var(--bulma-notification-h), var(--bulma-notification-s), var(--bulma-notification-color-l));
     padding: var(--bulma-notification-padding);
     position: relative;
@@ -5126,7 +5133,6 @@ div.icon-text {
 }
 
 .progress {
-    --bulma-progress-border-radius: var(--bulma-radius-rounded);
     --bulma-progress-bar-background-color: var(--bulma-border-weak);
     --bulma-progress-value-background-color: var(--bulma-text);
     --bulma-progress-indeterminate-duration: 1.5s;
@@ -5135,7 +5141,6 @@ div.icon-text {
 .progress {
     appearance: none;
     border: none;
-    border-radius: var(--bulma-progress-border-radius);
     display: block;
     height: var(--bulma-size-normal);
     overflow: hidden;
@@ -5580,6 +5585,8 @@ div.icon-text {
     flex-wrap: wrap;
     gap: 0.5rem;
     justify-content: flex-start;
+    font-size: large;
+
 }
 
 .tags.are-medium .tag:not(.is-normal):not(.is-large) {
@@ -5625,7 +5632,6 @@ div.icon-text {
     --bulma-tag-delete-margin: 1px;
     align-items: center;
     background-color: hsl(var(--bulma-tag-h), var(--bulma-tag-s), calc(var(--bulma-tag-background-l) + var(--bulma-tag-background-l-delta)));
-    border-radius: var(--bulma-radius);
     color: hsl(var(--bulma-tag-h), var(--bulma-tag-s), var(--bulma-tag-color-l));
     display: inline-flex;
     font-size: var(--bulma-size-small);
@@ -7401,7 +7407,6 @@ print {
 
 .card {
     background-color: var(--bulma-card-background-color);
-    border-radius: var(--bulma-card-radius);
     box-shadow: var(--bulma-card-shadow);
     color: var(--bulma-card-color);
     max-width: 100%;
@@ -7563,7 +7568,6 @@ print {
 
 .dropdown-content {
     background-color: var(--bulma-dropdown-content-background-color);
-    border-radius: var(--bulma-dropdown-content-radius);
     box-shadow: var(--bulma-dropdown-content-shadow);
     padding-bottom: var(--bulma-dropdown-content-padding-bottom);
     padding-top: var(--bulma-dropdown-content-padding-top);
@@ -7723,10 +7727,8 @@ button.dropdown-item.is-selected {
 
 .message {
     --bulma-message-border-l-delta: -20%;
-    --bulma-message-radius: var(--bulma-radius);
     --bulma-message-header-weight: var(--bulma-weight-semibold);
     --bulma-message-header-padding: 1em 1.25em;
-    --bulma-message-header-radius: var(--bulma-radius);
     --bulma-message-body-border-width: 0 0 0 4px;
     --bulma-message-body-color: var(--bulma-text);
     --bulma-message-body-padding: 1.25em 1.5em;
@@ -7745,7 +7747,6 @@ button.dropdown-item.is-selected {
 }
 
 .message {
-    border-radius: var(--bulma-message-radius);
     color: hsl(var(--bulma-message-h), var(--bulma-message-s), var(--bulma-message-color-l));
     font-size: var(--bulma-size-normal);
 }
@@ -7897,11 +7898,10 @@ button.dropdown-item.is-selected {
 }
 
 .message-body {
-    background-color: hsl(var(--bulma-message-h), var(--bulma-message-s), var(--bulma-message-background-l));
+    background-color: white;
     border-inline-start-color: hsl(var(--bulma-message-h), var(--bulma-message-s), var(--bulma-message-border-l));
     border-inline-start-style: var(--bulma-message-border-style);
     border-inline-start-width: var(--bulma-message-border-width);
-    border-radius: var(--bulma-message-body-radius);
     padding: var(--bulma-message-body-padding);
 }
 
@@ -9144,7 +9144,6 @@ print {
     --bulma-panel-color-l: var(--bulma-text-l);
     --bulma-panel-heading-background-l: var(--bulma-text-l);
     --bulma-panel-heading-color-l: var(--bulma-text-invert-l);
-    border-radius: var(--bulma-panel-radius);
     box-shadow: var(--bulma-panel-shadow);
     font-size: var(--bulma-size-normal);
 }
