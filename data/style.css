@@ -2888,6 +2888,8 @@ input,
 select,
 textarea {
     margin: 0;
+     border-radius: 0px:
+    font-family: "VCR", Fallback, monospace;
 }
 
 html {
