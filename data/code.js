@@ -168,7 +168,7 @@ const creatures = [
         rewardDrop: 6
     },
     {
-        name: "Snake",
+        name: "Garden Snake",
         nameAtk: "Bite",
         hp: 30,
         lvl: 4,
@@ -202,7 +202,7 @@ const creatures = [
         maxAtk: 7,          // Maximum attack damage
         missChance: 20,     // 20% chance to miss
         baseExp: 35,        // Base experience rewarded
-        expRange: [2, 4],   // Random additional experience range
+        expRange: [4, 5],   // Random additional experience range
         encounterRate: 0.2, // 20% chance to encounter
         rewardDrop: 13      // 20% chance to drop an extra potion
     },
@@ -215,7 +215,7 @@ const creatures = [
         maxAtk: 7,
         missChance: 10,
         baseExp: 45,
-        expRange: [2, 5],
+        expRange: [4, 6],
         encounterRate: 0.2,
         rewardDrop: 20
     },
@@ -224,8 +224,8 @@ const creatures = [
         nameAtk: "Bite",
         hp: 40,
         lvl: 6,
-        minAtk: 1,
-        maxAtk: 6,
+        minAtk: 4,
+        maxAtk: 7,
         missChance: 10,
         baseExp: 45,
         expRange: [2, 5],
@@ -251,7 +251,7 @@ const creatures = [
         hp: 45,            // Creature's health points
         lvl: 3,            // Creature's level
         minAtk: 4,         // Minimum attack damage
-        maxAtk: 7,         // Maximum attack damage
+        maxAtk: 8,         // Maximum attack damage
         missChance: 10,    // 10% chance to miss
         baseExp: 45,       // Base experience rewarded
         expRange: [3, 5],  // Random additional experience range
@@ -263,7 +263,7 @@ const creatures = [
         nameAtk: "Slash",   // Attack type
         hp: 50,             // Creature's health points
         lvl: 7,             // Creature's level
-        minAtk: 4,          // Minimum attack damage
+        minAtk: 5,          // Minimum attack damage
         maxAtk: 8,          // Maximum attack damage
         missChance: 10,     // 10% chance to miss
         baseExp: 55,        // Base experience rewarded
