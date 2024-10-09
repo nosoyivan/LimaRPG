@@ -2988,7 +2988,8 @@ input,
 optgroup,
 select,
 textarea {
-    font-family: var(--bulma-body-family);
+    font-family: "VCR", Fallback, monospace;
+    border-radius: 0px;
 }
 
 code,
@@ -6013,8 +6014,9 @@ button.tag:active,
 .textarea {
     background-color: hsl(var(--bulma-input-h), var(--bulma-input-s), calc(var(--bulma-input-background-l) + var(--bulma-input-background-l-delta)));
     border-color: hsl(var(--bulma-input-h), var(--bulma-input-s), calc(var(--bulma-input-border-l) + var(--bulma-input-border-l-delta)));
-    border-radius: var(--bulma-input-radius);
+    border-radius: 0px;
     color: hsl(var(--bulma-input-h), var(--bulma-input-s), var(--bulma-input-color-l));
+    font-family: "VCR", Fallback, monospace;
 }
 
 .select select::-moz-placeholder,
