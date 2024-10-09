@@ -1,3 +1,4 @@
+
 body {
     background-color: rgb(74, 95, 73);
 }
@@ -7748,7 +7749,7 @@ button.dropdown-item.is-selected {
 
 .message {
     color: hsl(var(--bulma-message-h), var(--bulma-message-s), var(--bulma-message-color-l));
-    font-size: var(--bulma-size-normal);
+    font-size: 18px;
 }
 
 .message strong {

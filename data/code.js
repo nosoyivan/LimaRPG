@@ -346,43 +346,43 @@ function displayCharacter() {
     document.getElementById("character-info").innerHTML = `
         <div class="field is-grouped is-grouped-multiline is-flex is-flex-wrap-wrap is-justify-content-center">
             <div class="control">
-                <div class="tags has-addons are-medium">
+                <div class="tags has-addons are-large">
                     <span class="tag is-dark">Name</span>
                     <span class="tag is-primary">${character.name}</span>
                 </div>
             </div>
             <div class="control">
-                <div class="tags has-addons are-medium">
+                <div class="tags has-addons are-large">
                     <span class="tag is-dark">Class</span>
                     <span class="tag is-link">${character.class}</span>
                 </div>
             </div>
             <div class="control">
-                <div class="tags has-addons are-medium">
+                <div class="tags has-addons are-large">
                     <span class="tag is-dark">Health</span>
                         <span class="tag is-danger is-light">${character.hp}/${character.maxHp}</span>
                 </div>
             </div>
             <div class="control">
-                <div class="tags has-addons are-medium">
+                <div class="tags has-addons are-large">
                     <span class="tag is-dark">Lvl</span>
                     <span class="tag is-warning">${character.level}</span>
                 </div>
             </div>
             <div class="control">
-                <div class="tags has-addons are-medium">
+                <div class="tags has-addons are-large">
                     <span class="tag is-dark">EXP</span>
                     <span class="tag is-success is-light">${character.experience} XP</span>
                 </div>
             </div>
             <div class="control">
-                <div class="tags has-addons are-medium">
+                <div class="tags has-addons are-large">
                     <span class="tag is-dark">Potions</span>
                     <span class="tag is-info">${character.potions}</span>
                 </div>
             </div>
             <div class="control">
-                <div class="tags has-addons are-medium">
+                <div class="tags has-addons are-large">
                     <span class="tag is-dark">Kick Dirt</span>
                     <span class="tag is-info">${character.kickdirt}</span>
                 </div>

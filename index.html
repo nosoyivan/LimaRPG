@@ -11,12 +11,17 @@
     <link rel="stylesheet" href="data/style.css">
 
 <style>
+@font-face {
+    font-family: 'VCR';
+    src: url('assets/VCR.ttf')  format('truetype'), /* Safari, Android, iOS */
+  }
+
 
 .bor {
     border: 2px solid rgb(54, 54, 54);
 }
 body {
-    font-family: "VT323", monospace;
+    font-family: "VCR", Fallback, monospace;
     font-weight: 400;
 }
 
@@ -62,7 +67,7 @@ body {
                     <div class="columns is-mobile">
                         <div class="column is-12-mobile is-8-tablet is-offset-2-tablet">
                             <!-- Character Info Section -->
-                            <div class="p-2">
+                            <div class="py-1">
                                 <div id="character-info">
                                     <!-- Character info will be injected here -->
                                 </div>
@@ -71,19 +76,19 @@ body {
                             <div class="buttons is-flex is-flex-wrap-wrap is-justify-content-center"
                                 id="battle-controls">
                                 <button bor class="button bor fullwidth mb-2 is-primary is-dark" id="start-battle-btn"
-                                    style="width:45%; font-weight: 600; font-size: 22px;" onclick="exploreWoods()">Explore the woods</button>
+                                    style="width:45%; font-weight: 600;" onclick="exploreWoods()">Explore the woods</button>
                                 <button bor class="button bor fullwidth mb-2 is-success is-dark" id="Bite-btn"
-                                    style="display:none; width:45%; font-weight: 600; font-size: 22px;" onclick="useBite()">Bite</button>
+                                    style="display:none; width:45%; font-weight: 600;" onclick="useBite()">Bite</button>
                                 <button bor class="button bor fullwidth mb-2 is-success is-dark" id="Scratch-btn"
-                                    style="display:none; width:45%; font-weight: 600; font-size: 22px;" onclick="useScratch()">Scratch</button>
+                                    style="display:none; width:45%; font-weight: 600;" onclick="useScratch()">Scratch</button>
                                 <button bor class="button bor fullwidth mb-2 is-warning is-inverted" id="KickDirt-btn"
-                                    style="display:none; width:45%; font-weight: 600; font-size: 22px;" onclick="useKickDirt()">Kick Dirt</button>
+                                    style="display:none; width:45%; font-weight: 600;" onclick="useKickDirt()">Kick Dirt</button>
                                 <button bor class="button bor fullwidth mb-2 is-success is-dark" id="eventYes-btn"
-                                    style="display:none; width:45%; font-weight: 600; font-size: 22px;" onclick="useEventYes()">Yes</button>
+                                    style="display:none; width:45%; font-weight: 600;" onclick="useEventYes()">Yes</button>
                                 <button bor class="button bor fullwidth mb-2 is-danger is-light" id="eventNo-btn"
-                                    style="display:none; width:45%; font-weight: 600; font-size: 22px;" onclick="useEventNo()">No</button>
+                                    style="display:none; width:45%; font-weight: 600;" onclick="useEventNo()">No</button>
                                 <button bor class="button bor fullwidth mb-2 is-danger is-dark" id="potion-btn"
-                                    style="width:45%; font-weight: 600; font-size: 22px;" onclick="usePotion()">Potion
+                                    style="width:45%; font-weight: 600;" onclick="usePotion()">Potion
                                     (+10HP)</button>
                             </div>
                             <!-- Battle Status -->
